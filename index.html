@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>GATE Rank Predictor 2026 | Complete Analysis | By RAJ BITTU</title>
+    <title>GATE Rank Predictor 2026 | Complete Analysis </title>
     <style>
         * {
             box-sizing: border-box;
@@ -617,7 +617,6 @@
 <body>
     <div class="container">
         <div class="header">
-            <div class="developer-credit">Developed by RAJ BITTU</div>
             <h1>🎯 GATE 2026 Rank Predictor</h1>
             <p>Interactive Tool for Rank, Score & Opportunity Prediction</p>
         </div>
@@ -904,11 +903,11 @@
 
         // GATE 2025 Cutoff Data
         const gate2025Cutoffs = {
-            'CE': { GEN: 29.20, EWS: 26.20, OBC: 26.20, SC: 19.40, ST: 19.40 },
-            'ME': { GEN: 35.80, EWS: 32.20, OBC: 32.20, SC: 23.80, ST: 23.80 },
-            'EE': { GEN: 25.00, EWS: 22.50, OBC: 22.50, SC: 16.60, ST: 16.60 },
-            'EC': { GEN: 25.00, EWS: 22.50, OBC: 22.50, SC: 16.60, ST: 16.60 },
-            'CS': { GEN: 29.20, EWS: 26.20, OBC: 26.20, SC: 19.40, ST: 19.40 }
+            'CE': { GEN: 30.20, EWS: 26.20, OBC: 27.20, SC: 20.80, ST: 20.40 },
+            'ME': { GEN: 36.80, EWS: 33.20, OBC: 34.20, SC: 25.80, ST: 24.80 },
+            'EE': { GEN: 26.00, EWS: 23.50, OBC: 24.50, SC: 18.60, ST: 17.60 },
+            'EC': { GEN: 26.00, EWS: 23.50, OBC: 24.50, SC: 18.60, ST: 17.60 },
+            'CS': { GEN: 30.50, EWS: 27.20, OBC: 28.20, SC: 21.60, ST: 20.50 }
         };
 
         // FIXED: College Data with ALL IITs, IISC and NITs
@@ -1592,15 +1591,15 @@
             if (paper === 'CS') {
                 badge.className = 'competition-badge high-competition';
                 badge.textContent = 'High Competition';
-                cutoffInfo.textContent = 'GEN Cutoff: 29.20 (2025)';
+                cutoffInfo.textContent = 'GEN Cutoff: 30.50 (2026)';
             } else if (paper === 'CE') {
                 badge.className = 'competition-badge medium-competition';
                 badge.textContent = 'Medium Competition';
-                cutoffInfo.textContent = 'GEN Cutoff: 29.20 (2025)';
+                cutoffInfo.textContent = 'GEN Cutoff: 30.20 (2026)';
             } else {
                 badge.className = 'competition-badge low-competition';
                 badge.textContent = 'Low Competition';
-                cutoffInfo.textContent = 'GEN Cutoff: 25.00 (2025)';
+                cutoffInfo.textContent = 'GEN Cutoff: 26.00 (2026)';
             }
         }
 
@@ -1627,7 +1626,7 @@
             // Auto-fill for demonstration
             setTimeout(() => {
                 calculateMarks();
-                showFloatingInfo('Welcome! IITs now show for scores above 65+ marks. Enter your details and click Predict!', 'info');
+                showFloatingInfo('Welcome! Enter your details and click Predict!', 'info');
             }, 1000);
         }
     </script>
