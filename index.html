@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>GATE Rank Predictor 2026 | Complete Analysis </title>
+    <title>GATE Rank Predictor 2026 | Complete Analysis | By RAJ BITTU</title>
     <style>
         * {
             box-sizing: border-box;
@@ -17,7 +17,7 @@
         }
         
         .container {
-            max-width: 1200px;
+            max-width: 1000px;
             margin: 0 auto;
             background: white;
             border-radius: 20px;
@@ -59,36 +59,31 @@
             padding: 30px;
         }
         
-        .input-sections {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 30px;
-            margin-bottom: 30px;
-        }
-        
         .input-section {
             background: #f8f9fa;
-            padding: 25px;
+            padding: 30px;
             border-radius: 15px;
             border: 2px solid #e9ecef;
-            transition: transform 0.3s, box-shadow 0.3s;
-        }
-        
-        .input-section:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            margin-bottom: 30px;
         }
         
         .input-section h3 {
             color: #1a237e;
-            margin-bottom: 20px;
+            margin-bottom: 25px;
             display: flex;
             align-items: center;
             gap: 10px;
+            font-size: 1.5rem;
         }
         
         .section-icon {
-            font-size: 1.5rem;
+            font-size: 1.8rem;
+        }
+        
+        .input-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 30px;
         }
         
         .form-group {
@@ -464,31 +459,6 @@
             margin-top: 3px;
         }
         
-        .interactive-buttons {
-            display: flex;
-            gap: 10px;
-            margin-top: 20px;
-        }
-        
-        .interactive-btn {
-            flex: 1;
-            padding: 12px;
-            background: white;
-            border: 2px solid #667eea;
-            color: #667eea;
-            border-radius: 8px;
-            font-weight: bold;
-            cursor: pointer;
-            transition: all 0.3s;
-            text-align: center;
-        }
-        
-        .interactive-btn:hover {
-            background: #667eea;
-            color: white;
-            transform: translateY(-2px);
-        }
-        
         .floating-info {
             position: fixed;
             bottom: 20px;
@@ -614,7 +584,7 @@
         }
         
         @media (max-width: 768px) {
-            .input-sections {
+            .input-grid {
                 grid-template-columns: 1fr;
             }
             
@@ -653,112 +623,102 @@
         </div>
         
         <div class="content">
-            <div class="input-sections">
-                <div class="input-section">
-                    <h3><span class="section-icon">📋</span> Basic Information</h3>
-                    <div class="form-group">
-                        <label>Select Your Paper:
-                            <span class="tooltip">ℹ️
-                                <span class="tooltip-text">Choose your GATE paper. Competition level varies by paper.</span>
-                            </span>
-                        </label>
-                        <select id="paperCode" onchange="updateCompetition()">
-                            <option value="CS">Computer Science (CS)</option>
-                            <option value="EC">Electronics & Communication (EC)</option>
-                            <option value="EE">Electrical Engineering (EE)</option>
-                            <option value="ME">Mechanical Engineering (ME)</option>
-                            <option value="CE">Civil Engineering (CE)</option>
-                        </select>
-                        <div class="cutoff-info">
-                            <span id="competitionBadge" class="competition-badge high-competition">High Competition</span>
-                            <span id="cutoffInfo">GEN Cutoff: 29.20</span>
-                        </div>
-                    </div>
-                    
-                    <div class="form-group">
-                        <label>Your Category:</label>
-                        <select id="category">
-                            <option value="GEN">General (GEN)</option>
-                            <option value="EWS">EWS</option>
-                            <option value="OBC">OBC-NCL</option>
-                            <option value="SC">SC</option>
-                            <option value="ST">ST</option>
-                        </select>
-                    </div>
-                    
-                    <div class="form-group">
-                        <label>Enable Real-time Updates: 
-                            <label class="toggle-switch">
-                                <input type="checkbox" id="realTimeToggle" checked>
-                                <span class="toggle-slider"></span>
-                            </label>
-                        </label>
-                    </div>
-                </div>
+            <div class="input-section">
+                <h3><span class="section-icon">📋</span> Enter Your GATE 2026 Details</h3>
                 
-                <div class="input-section">
-                    <h3><span class="section-icon">✏️</span> Enter Your Answers</h3>
-                    <div class="form-group">
-                        <label>For 1-mark Questions (Total: 30):</label>
-                        <div class="input-row">
-                            <div>
-                                <label style="font-size: 0.9rem;">Correct Answers</label>
-                                <input type="range" id="correct1Range" min="0" max="30" value="22" oninput="updateCorrect1()">
-                                <input type="number" id="correct1" placeholder="e.g., 15" min="0" max="30" 
-                                       oninput="updateSlider('correct1Range', this.value); calculateMarks()">
-                            </div>
-                            <div>
-                                <label style="font-size: 0.9rem;">Wrong Answers</label>
-                                <input type="range" id="wrong1Range" min="0" max="30" value="4" oninput="updateWrong1()">
-                                <input type="number" id="wrong1" placeholder="e.g., 5" min="0" max="30" 
-                                       oninput="updateSlider('wrong1Range', this.value); calculateMarks()">
-                            </div>
-                        </div>
-                        <div id="hint1" class="score-input-hint"></div>
-                    </div>
-                    
-                    <div class="form-group">
-                        <label>For 2-mark Questions (Total: 35):</label>
-                        <div class="input-row">
-                            <div>
-                                <label style="font-size: 0.9rem;">Correct Answers</label>
-                                <input type="range" id="correct2Range" min="0" max="35" value="25" oninput="updateCorrect2()">
-                                <input type="number" id="correct2" placeholder="e.g., 20" min="0" max="35" 
-                                       oninput="updateSlider('correct2Range', this.value); calculateMarks()">
-                            </div>
-                            <div>
-                                <label style="font-size: 0.9rem;">Wrong Answers</label>
-                                <input type="range" id="wrong2Range" min="0" max="35" value="6" oninput="updateWrong2()">
-                                <input type="number" id="wrong2" placeholder="e.g., 8" min="0" max="35" 
-                                       oninput="updateSlider('wrong2Range', this.value); calculateMarks()">
+                <div class="input-grid">
+                    <div>
+                        <div class="form-group">
+                            <label>Select Your Paper:
+                                <span class="tooltip">ℹ️
+                                    <span class="tooltip-text">Choose your GATE paper. Competition level varies by paper.</span>
+                                </span>
+                            </label>
+                            <select id="paperCode" onchange="updateCompetition()">
+                                <option value="CS">Computer Science (CS)</option>
+                                <option value="EC">Electronics & Communication (EC)</option>
+                                <option value="EE">Electrical Engineering (EE)</option>
+                                <option value="ME">Mechanical Engineering (ME)</option>
+                                <option value="CE">Civil Engineering (CE)</option>
+                            </select>
+                            <div class="cutoff-info">
+                                <span id="competitionBadge" class="competition-badge high-competition">High Competition</span>
+                                <span id="cutoffInfo">GEN Cutoff: 29.20</span>
                             </div>
                         </div>
-                        <div id="hint2" class="score-input-hint"></div>
-                    </div>
-                    
-                    <div class="form-group">
-                        <label>Calculated Marks (Out of 100):</label>
-                        <input type="number" id="calculatedMarks" readonly style="background: #e9ecef; font-weight: bold;">
-                        <div style="font-size: 0.8rem; color: #666; margin-top: 5px;">
-                            Formula: (Correct × Marks) - (Wrong × 0.33 for 1-mark, 0.66 for 2-mark)
+                        
+                        <div class="form-group">
+                            <label>Your Category:</label>
+                            <select id="category">
+                                <option value="GEN">General (GEN)</option>
+                                <option value="EWS">EWS</option>
+                                <option value="OBC">OBC-NCL</option>
+                                <option value="SC">SC</option>
+                                <option value="ST">ST</option>
+                            </select>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label>Enable Real-time Updates: 
+                                <label class="toggle-switch">
+                                    <input type="checkbox" id="realTimeToggle" checked>
+                                    <span class="toggle-slider"></span>
+                                </label>
+                            </label>
                         </div>
                     </div>
                     
-                    <div class="form-group">
-                        <label>Expected GATE Score (Out of 1000):</label>
-                        <input type="number" id="expectedScore" readonly style="background: #e9ecef; font-weight: bold;">
-                    </div>
-                    
-                    <div class="interactive-buttons">
-                        <button class="interactive-btn" onclick="autoFillTopScore()">
-                            🏆 Fill Top Score (65+ marks)
-                        </button>
-                        <button class="interactive-btn" onclick="autoFillGoodScore()">
-                            ⭐ Fill Good Score
-                        </button>
-                        <button class="interactive-btn" onclick="resetForm()">
-                            🔄 Reset
-                        </button>
+                    <div>
+                        <div class="form-group">
+                            <label>For 1-mark Questions (Total: 30):</label>
+                            <div class="input-row">
+                                <div>
+                                    <label style="font-size: 0.9rem;">Correct Answers</label>
+                                    <input type="range" id="correct1Range" min="0" max="30" value="22" oninput="updateCorrect1()">
+                                    <input type="number" id="correct1" placeholder="e.g., 15" min="0" max="30" 
+                                           oninput="updateSlider('correct1Range', this.value); calculateMarks()">
+                                </div>
+                                <div>
+                                    <label style="font-size: 0.9rem;">Wrong Answers</label>
+                                    <input type="range" id="wrong1Range" min="0" max="30" value="4" oninput="updateWrong1()">
+                                    <input type="number" id="wrong1" placeholder="e.g., 5" min="0" max="30" 
+                                           oninput="updateSlider('wrong1Range', this.value); calculateMarks()">
+                                </div>
+                            </div>
+                            <div id="hint1" class="score-input-hint"></div>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label>For 2-mark Questions (Total: 35):</label>
+                            <div class="input-row">
+                                <div>
+                                    <label style="font-size: 0.9rem;">Correct Answers</label>
+                                    <input type="range" id="correct2Range" min="0" max="35" value="25" oninput="updateCorrect2()">
+                                    <input type="number" id="correct2" placeholder="e.g., 20" min="0" max="35" 
+                                           oninput="updateSlider('correct2Range', this.value); calculateMarks()">
+                                </div>
+                                <div>
+                                    <label style="font-size: 0.9rem;">Wrong Answers</label>
+                                    <input type="range" id="wrong2Range" min="0" max="35" value="6" oninput="updateWrong2()">
+                                    <input type="number" id="wrong2" placeholder="e.g., 8" min="0" max="35" 
+                                           oninput="updateSlider('wrong2Range', this.value); calculateMarks()">
+                                </div>
+                            </div>
+                            <div id="hint2" class="score-input-hint"></div>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label>Calculated Marks (Out of 100):</label>
+                            <input type="number" id="calculatedMarks" readonly style="background: #e9ecef; font-weight: bold;">
+                            <div style="font-size: 0.8rem; color: #666; margin-top: 5px;">
+                                Formula: (Correct × Marks) - (Wrong × 0.33 for 1-mark, 0.66 for 2-mark)
+                            </div>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label>Expected GATE Score (Out of 1000):</label>
+                            <input type="number" id="expectedScore" readonly style="background: #e9ecef; font-weight: bold;">
+                        </div>
                     </div>
                 </div>
             </div>
@@ -861,18 +821,6 @@
                         </div>
                     </div>
                 </div>
-                
-                <div class="interactive-buttons" style="margin-top: 25px;">
-                    <button class="interactive-btn" onclick="shareResults()">
-                        📤 Share Results
-                    </button>
-                    <button class="interactive-btn" onclick="saveResults()">
-                        💾 Save Prediction
-                    </button>
-                    <button class="interactive-btn" onclick="resetForm()">
-                        🔄 Predict Again
-                    </button>
-                </div>
             </div>
             
             <div class="note">
@@ -905,7 +853,7 @@
     </div>
 
     <div class="floating-info" id="floatingInfo">
-        <strong>💡 Tip:</strong> Use sliders or type directly. Real-time updates are enabled!
+        <strong>💡 Tip:</strong> Enter your GATE details and click Predict!
     </div>
 
     <script>
@@ -1596,93 +1544,12 @@
         }
 
         // Interactive Functions
-        function autoFillTopScore() {
-            // Fill for 65+ marks (approx 650+ score)
-            document.getElementById('correct1').value = 24;
-            document.getElementById('wrong1').value = 3;
-            document.getElementById('correct2').value = 28;
-            document.getElementById('wrong2').value = 4;
-            
-            updateSlider('correct1Range', 24);
-            updateSlider('wrong1Range', 3);
-            updateSlider('correct2Range', 28);
-            updateSlider('wrong2Range', 4);
-            
-            calculateMarks();
-            showFloatingInfo('Top score sample filled (65+ marks)! You will see IITs now.', 'info');
-        }
-
-        function autoFillGoodScore() {
-            document.getElementById('correct1').value = 18;
-            document.getElementById('wrong1').value = 5;
-            document.getElementById('correct2').value = 20;
-            document.getElementById('wrong2').value = 8;
-            
-            updateSlider('correct1Range', 18);
-            updateSlider('wrong1Range', 5);
-            updateSlider('correct2Range', 20);
-            updateSlider('wrong2Range', 8);
-            
-            calculateMarks();
-            showFloatingInfo('Good score sample filled! Click predict to see results.', 'info');
-        }
-
         function showCollegeDetails(college) {
             alert(`${college.name}\n\nLocation: ${college.location}\nCategory: ${college.category}\nTier: ${college.tier}\nMinimum Score Required: ${college.minScore}\n\nYour Score: ${college.yourScore}\nAdmission Chance: ${college.chance.toUpperCase()}\n\nNote: IITs are shown for scores above 65 marks (approx 650+ score)`);
         }
 
         function showPSUDetails(psu) {
             alert(`${psu.name}\n\nCategory: ${psu.category}\nBranch Eligibility: ${psu.branch}\nPackage: ${psu.package}\nMinimum Score Required: ${psu.minScore}\n\nYour Score: ${psu.yourScore}\nSelection Chance: ${psu.chance.toUpperCase()}`);
-        }
-
-        function shareResults() {
-            const rank = document.getElementById('predictedRank').textContent;
-            const score = document.getElementById('predictedScore').textContent;
-            const text = `My GATE 2026 Prediction:\nRank: ${rank}\nScore: ${score}\n\nCheck yours at: GATE Rank Predictor by Raj Bittu`;
-            
-            if (navigator.share) {
-                navigator.share({
-                    title: 'My GATE 2026 Prediction',
-                    text: text,
-                    url: window.location.href
-                });
-            } else {
-                navigator.clipboard.writeText(text).then(() => {
-                    showFloatingInfo('Results copied to clipboard!', 'success');
-                });
-            }
-        }
-
-        function saveResults() {
-            const results = {
-                rank: document.getElementById('predictedRank').textContent,
-                score: document.getElementById('predictedScore').textContent,
-                marks: document.getElementById('predictedMarks').textContent,
-                percentile: document.getElementById('percentile').textContent,
-                timestamp: new Date().toLocaleString()
-            };
-            
-            localStorage.setItem('gatePredictionResults', JSON.stringify(results));
-            showFloatingInfo('Prediction saved locally!', 'success');
-        }
-
-        function resetForm() {
-            document.getElementById('correct1').value = '';
-            document.getElementById('wrong1').value = '';
-            document.getElementById('correct2').value = '';
-            document.getElementById('wrong2').value = '';
-            document.getElementById('calculatedMarks').value = '';
-            document.getElementById('expectedScore').value = '';
-            document.getElementById('results').style.display = 'none';
-            document.getElementById('opportunitiesSection').style.display = 'none';
-            
-            updateSlider('correct1Range', 22);
-            updateSlider('wrong1Range', 4);
-            updateSlider('correct2Range', 25);
-            updateSlider('wrong2Range', 6);
-            
-            window.scrollTo({ top: 0, behavior: 'smooth' });
-            showFloatingInfo('Form reset! Enter your details to get prediction.', 'info');
         }
 
         // UI Helper Functions
@@ -1758,11 +1625,9 @@
             });
             
             // Auto-fill for demonstration
-            autoFillTopScore();
-            
-            // Show welcome message
             setTimeout(() => {
-                showFloatingInfo('Welcome! IITs now show for scores above 65+ marks. Try predicting!', 'info');
+                calculateMarks();
+                showFloatingInfo('Welcome! IITs now show for scores above 65+ marks. Enter your details and click Predict!', 'info');
             }, 1000);
         }
     </script>
