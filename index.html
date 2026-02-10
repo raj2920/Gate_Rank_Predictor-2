@@ -249,6 +249,44 @@
             border: 1px solid #e9ecef;
         }
 
+        .college-badge, .psu-badge {
+            font-size: 0.7rem;
+            padding: 2px 8px;
+            border-radius: 10px;
+            font-weight: bold;
+            margin-left: 5px;
+        }
+
+        .iit-badge {
+            background: #FF5722;
+            color: white;
+        }
+
+        .iisc-badge {
+            background: #9C27B0;
+            color: white;
+        }
+
+        .nit-badge {
+            background: #2196F3;
+            color: white;
+        }
+
+        .research-badge {
+            background: #4CAF50;
+            color: white;
+        }
+
+        .maharatna-badge {
+            background: #FF9800;
+            color: white;
+        }
+
+        .navratna-badge {
+            background: #795548;
+            color: white;
+        }
+
         .loading {
             text-align: center;
             padding: 20px;
@@ -279,6 +317,42 @@
             border-top: 1px solid #eee;
         }
 
+        .chance-indicator {
+            font-size: 0.7rem;
+            padding: 2px 8px;
+            border-radius: 10px;
+            margin-top: 4px;
+            display: inline-block;
+        }
+
+        .high-chance {
+            background: #e8f5e9;
+            color: #4CAF50;
+            border: 1px solid #c8e6c9;
+        }
+
+        .medium-chance {
+            background: #fff3e0;
+            color: #FF9800;
+            border: 1px solid #ffe0b2;
+        }
+
+        .low-chance {
+            background: #ffebee;
+            color: #F44336;
+            border: 1px solid #ffcdd2;
+        }
+
+        .reservation-note {
+            font-size: 0.8rem;
+            color: #666;
+            margin-top: 5px;
+            padding: 5px;
+            background: #f0f0f0;
+            border-radius: 5px;
+            text-align: center;
+        }
+
         @media (max-width: 768px) {
             .input-row {
                 flex-direction: column;
@@ -307,7 +381,7 @@
     <div class="container">
         <div class="header">
             <h1>GATE 2026 Rank Predictor</h1>
-            <p>Get your predicted rank, score, and college opportunities</p>
+            <p>Get your predicted rank, score, and college opportunities with reservation categories</p>
         </div>
         
         <div class="content">
@@ -337,6 +411,7 @@
                         <option value="OBC">OBC-NCL</option>
                         <option value="SC">SC</option>
                         <option value="ST">ST</option>
+                        <option value="PwD">PwD</option>
                     </select>
                 </div>
                 
@@ -412,7 +487,7 @@
                 </div>
                 
                 <div>
-                    <h3 style="text-align: center; margin: 15px 0;">Category-wise Ranks</h3>
+                    <h3 style="text-align: center; margin: 15px 0;">Category-wise AIR (with Reservation)</h3>
                     <div class="category-ranks">
                         <div class="category-card">
                             <div style="font-size: 0.9rem;">General (GEN)</div>
@@ -431,19 +506,23 @@
                             <div style="font-size: 1.2rem; font-weight: bold;" id="rankST">--</div>
                         </div>
                     </div>
+                    <div class="reservation-note">
+                        Note: Ranks shown are All India Ranks (AIR) with category reservation considered
+                    </div>
                 </div>
             </div>
             
             <div class="opportunities" id="opportunities">
+                <h3 style="text-align: center; margin-bottom: 15px;">Opportunities Based on Your Score</h3>
                 <div class="opportunity-grid">
                     <div>
-                        <h3 style="text-align: center; margin-bottom: 15px;">College Opportunities</h3>
+                        <h4 style="text-align: center; margin-bottom: 15px; color: #1a237e;">🎓 IITs & Top Colleges</h4>
                         <ul class="college-list" id="collegeList">
-                            <!-- Colleges will be added here -->
+                            <!-- IITs will be added here -->
                         </ul>
                     </div>
                     <div>
-                        <h3 style="text-align: center; margin-bottom: 15px;">PSU Opportunities</h3>
+                        <h4 style="text-align: center; margin-bottom: 15px; color: #1a237e;">💼 PSU Job Opportunities</h4>
                         <ul class="psu-list" id="psuList">
                             <!-- PSUs will be added here -->
                         </ul>
@@ -452,14 +531,14 @@
             </div>
             
             <div class="footer">
-                <p>© 2026 GATE Rank Predictor | For educational purposes only</p>
-                <p style="font-size: 0.8rem; margin-top: 5px;">This is a prediction tool based on historical data</p>
+                <p>© 2026 GATE Rank Predictor | Includes proper reservation calculations</p>
+                <p style="font-size: 0.8rem; margin-top: 5px;">Reservation percentages: GEN(40.5%) | OBC(27%) | SC(15%) | ST(7.5%) | EWS(10%) | PwD(5%)</p>
             </div>
         </div>
     </div>
 
     <script>
-        // GATE Data
+        // GATE Data with reservation categories
         const gate2025Data = [
             { rank: 1, score: 1000, marks: 100 },
             { rank: 10, score: 970, marks: 90.2 },
@@ -478,33 +557,224 @@
         ];
 
         const gateCutoffs = {
-            'CS': { GEN: 30.5, EWS: 27.2, OBC: 28.2, SC: 21.6, ST: 20.5 },
-            'CE': { GEN: 30.2, EWS: 26.2, OBC: 27.2, SC: 20.8, ST: 20.4 },
-            'EC': { GEN: 26.0, EWS: 23.5, OBC: 24.5, SC: 18.6, ST: 17.6 },
-            'EE': { GEN: 26.0, EWS: 23.5, OBC: 24.5, SC: 18.6, ST: 17.6 },
-            'ME': { GEN: 36.8, EWS: 33.2, OBC: 34.2, SC: 25.8, ST: 24.8 }
+            'CS': { 
+                GEN: 30.5, EWS: 27.2, OBC: 27.2, SC: 20.8, ST: 20.5, PwD: 20.5 
+            },
+            'CE': { 
+                GEN: 30.2, EWS: 26.2, OBC: 26.2, SC: 20.4, ST: 20.4, PwD: 20.4 
+            },
+            'EC': { 
+                GEN: 26.0, EWS: 23.5, OBC: 23.5, SC: 18.0, ST: 17.6, PwD: 17.6 
+            },
+            'EE': { 
+                GEN: 26.0, EWS: 23.5, OBC: 23.5, SC: 18.0, ST: 17.6, PwD: 17.6 
+            },
+            'ME': { 
+                GEN: 36.8, EWS: 33.2, OBC: 33.2, SC: 25.8, ST: 24.8, PwD: 24.8 
+            }
         };
 
-        const colleges = [
-            { name: "IIT Bombay", minScore: 800, category: "Top IIT" },
-            { name: "IIT Delhi", minScore: 780, category: "Top IIT" },
-            { name: "IIT Madras", minScore: 770, category: "Top IIT" },
-            { name: "IIT Kanpur", minScore: 760, category: "Top IIT" },
-            { name: "IIT Kharagpur", minScore: 750, category: "Top IIT" },
-            { name: "IISC Bangalore", minScore: 790, category: "Research" },
-            { name: "NIT Trichy", minScore: 700, category: "Top NIT" },
-            { name: "NIT Warangal", minScore: 690, category: "Top NIT" },
-            { name: "NIT Surathkal", minScore: 680, category: "Top NIT" },
-            { name: "NIT Rourkela", minScore: 670, category: "Top NIT" }
+        // IITs with reservation seat percentages
+        const iits = [
+            { 
+                name: "IIT Bombay", 
+                minScore: 800, 
+                category: "IIT", 
+                badge: "iit-badge",
+                // Reservation percentages
+                reservation: {
+                    GEN: 40.5,
+                    OBC: 27,
+                    SC: 15,
+                    ST: 7.5,
+                    EWS: 10,
+                    PwD: 5
+                }
+            },
+            { 
+                name: "IIT Delhi", 
+                minScore: 780, 
+                category: "IIT", 
+                badge: "iit-badge",
+                reservation: {
+                    GEN: 40.5,
+                    OBC: 27,
+                    SC: 15,
+                    ST: 7.5,
+                    EWS: 10,
+                    PwD: 5
+                }
+            },
+            { 
+                name: "IIT Madras", 
+                minScore: 770, 
+                category: "IIT", 
+                badge: "iit-badge",
+                reservation: {
+                    GEN: 40.5,
+                    OBC: 27,
+                    SC: 15,
+                    ST: 7.5,
+                    EWS: 10,
+                    PwD: 5
+                }
+            },
+            { 
+                name: "IIT Kanpur", 
+                minScore: 760, 
+                category: "IIT", 
+                badge: "iit-badge",
+                reservation: {
+                    GEN: 40.5,
+                    OBC: 27,
+                    SC: 15,
+                    ST: 7.5,
+                    EWS: 10,
+                    PwD: 5
+                }
+            },
+            { 
+                name: "IIT Kharagpur", 
+                minScore: 750, 
+                category: "IIT", 
+                badge: "iit-badge",
+                reservation: {
+                    GEN: 40.5,
+                    OBC: 27,
+                    SC: 15,
+                    ST: 7.5,
+                    EWS: 10,
+                    PwD: 5
+                }
+            },
+            { 
+                name: "IISC Bangalore", 
+                minScore: 790, 
+                category: "IISC", 
+                badge: "iisc-badge",
+                reservation: {
+                    GEN: 40.5,
+                    OBC: 27,
+                    SC: 15,
+                    ST: 7.5,
+                    EWS: 10,
+                    PwD: 5
+                }
+            },
+            { 
+                name: "IIT Roorkee", 
+                minScore: 740, 
+                category: "IIT", 
+                badge: "iit-badge",
+                reservation: {
+                    GEN: 40.5,
+                    OBC: 27,
+                    SC: 15,
+                    ST: 7.5,
+                    EWS: 10,
+                    PwD: 5
+                }
+            },
+            { 
+                name: "IIT Hyderabad", 
+                minScore: 730, 
+                category: "IIT", 
+                badge: "iit-badge",
+                reservation: {
+                    GEN: 40.5,
+                    OBC: 27,
+                    SC: 15,
+                    ST: 7.5,
+                    EWS: 10,
+                    PwD: 5
+                }
+            }
+        ];
+
+        const nits = [
+            { 
+                name: "NIT Trichy", 
+                minScore: 700, 
+                category: "NIT", 
+                badge: "nit-badge" 
+            },
+            { 
+                name: "NIT Warangal", 
+                minScore: 690, 
+                category: "NIT", 
+                badge: "nit-badge" 
+            },
+            { 
+                name: "NIT Surathkal", 
+                minScore: 680, 
+                category: "NIT", 
+                badge: "nit-badge" 
+            },
+            { 
+                name: "NIT Rourkela", 
+                minScore: 670, 
+                category: "NIT", 
+                badge: "nit-badge" 
+            }
         ];
 
         const psus = [
-            { name: "DRDO", minScore: 750, category: "Research" },
-            { name: "ISRO", minScore: 780, category: "Research" },
-            { name: "ONGC", minScore: 720, category: "Maharatna" },
-            { name: "BHEL", minScore: 700, category: "Maharatna" },
-            { name: "NTPC", minScore: 690, category: "Maharatna" },
-            { name: "Power Grid", minScore: 680, category: "Maharatna" }
+            { 
+                name: "DRDO", 
+                minScore: 780, 
+                category: "Research", 
+                badge: "research-badge",
+                reservation: true 
+            },
+            { 
+                name: "ISRO", 
+                minScore: 800, 
+                category: "Research", 
+                badge: "research-badge",
+                reservation: true 
+            },
+            { 
+                name: "ONGC", 
+                minScore: 720, 
+                category: "Maharatna", 
+                badge: "maharatna-badge",
+                reservation: true 
+            },
+            { 
+                name: "BHEL", 
+                minScore: 700, 
+                category: "Maharatna", 
+                badge: "maharatna-badge",
+                reservation: true 
+            },
+            { 
+                name: "NTPC", 
+                minScore: 690, 
+                category: "Maharatna", 
+                badge: "maharatna-badge",
+                reservation: true 
+            },
+            { 
+                name: "Power Grid", 
+                minScore: 680, 
+                category: "Maharatna", 
+                badge: "maharatna-badge",
+                reservation: true 
+            },
+            { 
+                name: "GAIL", 
+                minScore: 670, 
+                category: "Maharatna", 
+                badge: "maharatna-badge",
+                reservation: true 
+            },
+            { 
+                name: "BEL", 
+                minScore: 660, 
+                category: "Navratna", 
+                badge: "navratna-badge",
+                reservation: true 
+            }
         ];
 
         // Quick buttons functions
@@ -567,12 +837,15 @@
                 // Check qualification
                 const qualification = checkQualification(marks, paper, category);
                 
-                // Get opportunities
-                const collegeOpps = getCollegeOpportunities(score);
-                const psuOpps = getPSUOpportunities(score);
+                // Calculate category-wise ranks with reservation
+                const categoryRanks = calculateCategoryRanks(predictedRank);
+                
+                // Get opportunities with reservation consideration
+                const collegeOpps = getCollegeOpportunities(score, category);
+                const psuOpps = getPSUOpportunities(score, category);
                 
                 // Display results
-                displayResults(predictedRank, marks, score, qualification, collegeOpps, psuOpps);
+                displayResults(predictedRank, marks, score, qualification, categoryRanks, collegeOpps, psuOpps);
                 
                 // Hide loading, show results
                 document.getElementById('loading').style.display = 'none';
@@ -627,17 +900,32 @@
             };
             rank = Math.round(rank * (paperMultipliers[paper] || 1));
             
-            // Adjust for category
-            const categoryMultipliers = {
-                'GEN': 1.0,
-                'EWS': 0.95,
-                'OBC': 0.85,
-                'SC': 0.45,
-                'ST': 0.35
-            };
-            rank = Math.round(rank * (categoryMultipliers[category] || 1));
-            
             return Math.max(1, rank);
+        }
+
+        function calculateCategoryRanks(generalRank) {
+            // Reservation percentages for different categories
+            const reservationPercentages = {
+                'GEN': 100,      // 40.5% of seats + some from unused reserved seats
+                'EWS': 80,       // Better rank due to 10% reservation
+                'OBC': 70,       // Better rank due to 27% reservation
+                'SC': 40,        // Much better rank due to 15% reservation
+                'ST': 25,        // Best improvement due to 7.5% reservation
+                'PwD': 20        // Horizontal reservation across all categories
+            };
+            
+            const ranks = {};
+            for (const [category, percentage] of Object.entries(reservationPercentages)) {
+                ranks[category] = Math.max(1, Math.round(generalRank * percentage / 100));
+            }
+            
+            // Ensure logical ordering
+            ranks['ST'] = Math.min(ranks['ST'], Math.round(ranks['SC'] * 0.6));
+            ranks['SC'] = Math.min(ranks['SC'], Math.round(ranks['OBC'] * 0.6));
+            ranks['OBC'] = Math.min(ranks['OBC'], Math.round(ranks['EWS'] * 0.9));
+            ranks['EWS'] = Math.min(ranks['EWS'], Math.round(ranks['GEN'] * 0.8));
+            
+            return ranks;
         }
 
         function checkQualification(marks, paper, category) {
@@ -655,15 +943,74 @@
             };
         }
 
-        function getCollegeOpportunities(score) {
-            return colleges.filter(college => score >= college.minScore);
+        function getCollegeOpportunities(score, category) {
+            const opportunities = [];
+            
+            // Check IITs with reservation consideration
+            iits.forEach(iit => {
+                const adjustedScore = score * (100 / iit.reservation[category]);
+                if (adjustedScore >= iit.minScore) {
+                    opportunities.push({
+                        ...iit,
+                        yourScore: score,
+                        adjustedScore: adjustedScore,
+                        chance: calculateChance(adjustedScore, iit.minScore)
+                    });
+                }
+            });
+            
+            // Check NITs
+            nits.forEach(nit => {
+                if (score >= nit.minScore) {
+                    opportunities.push({
+                        ...nit,
+                        yourScore: score,
+                        chance: calculateChance(score, nit.minScore)
+                    });
+                }
+            });
+            
+            return opportunities;
         }
 
-        function getPSUOpportunities(score) {
-            return psus.filter(psu => score >= psu.minScore);
+        function getPSUOpportunities(score, category) {
+            const opportunities = [];
+            
+            psus.forEach(psu => {
+                // For PSUs with reservation, adjust score
+                const adjustedScore = psu.reservation ? score * (100 / getPSUReservationFactor(category)) : score;
+                if (adjustedScore >= psu.minScore) {
+                    opportunities.push({
+                        ...psu,
+                        yourScore: score,
+                        adjustedScore: psu.reservation ? adjustedScore : null,
+                        chance: calculateChance(adjustedScore, psu.minScore)
+                    });
+                }
+            });
+            
+            return opportunities;
         }
 
-        function displayResults(predictedRank, marks, score, qualification, collegeOpps, psuOpps) {
+        function getPSUReservationFactor(category) {
+            const factors = {
+                'GEN': 100,
+                'EWS': 90,
+                'OBC': 80,
+                'SC': 70,
+                'ST': 60,
+                'PwD': 50
+            };
+            return factors[category] || 100;
+        }
+
+        function calculateChance(score, minScore) {
+            if (score >= minScore + 50) return 'high';
+            if (score >= minScore + 20) return 'medium';
+            return 'low';
+        }
+
+        function displayResults(predictedRank, marks, score, qualification, categoryRanks, collegeOpps, psuOpps) {
             // Basic results
             document.getElementById('predictedRank').textContent = `AIR ${predictedRank}`;
             document.getElementById('rankRange').textContent = `Range: ${Math.round(predictedRank * 0.8)} - ${Math.round(predictedRank * 1.2)}`;
@@ -675,18 +1022,10 @@
             document.getElementById('percentile').textContent = `${percentile}%`;
             
             // Category ranks
-            const categoryMultipliers = {
-                'GEN': 1.0,
-                'EWS': 0.95,
-                'OBC': 0.85,
-                'SC': 0.45,
-                'ST': 0.35
-            };
-            
-            document.getElementById('rankGEN').textContent = `AIR ${Math.round(predictedRank / categoryMultipliers.GEN)}`;
-            document.getElementById('rankOBC').textContent = `AIR ${Math.round(predictedRank / categoryMultipliers.OBC)}`;
-            document.getElementById('rankSC').textContent = `AIR ${Math.round(predictedRank / categoryMultipliers.SC)}`;
-            document.getElementById('rankST').textContent = `AIR ${Math.round(predictedRank / categoryMultipliers.ST)}`;
+            document.getElementById('rankGEN').textContent = `AIR ${categoryRanks.GEN}`;
+            document.getElementById('rankOBC').textContent = `AIR ${categoryRanks.OBC}`;
+            document.getElementById('rankSC').textContent = `AIR ${categoryRanks.SC}`;
+            document.getElementById('rankST').textContent = `AIR ${categoryRanks.ST}`;
             
             // Qualification
             const qualResult = document.getElementById('qualificationResult');
@@ -710,19 +1049,25 @@
                 collegeOpps.forEach(college => {
                     const li = document.createElement('li');
                     li.className = 'college-item';
+                    
+                    const chanceClass = `chance-indicator ${college.chance}-chance`;
+                    
                     li.innerHTML = `
                         <div>
-                            <div style="font-weight: 600;">${college.name}</div>
-                            <div style="font-size: 0.8rem; color: #666;">${college.category}</div>
+                            <div style="font-weight: 600;">
+                                ${college.name}
+                                <span class="college-badge ${college.badge}">${college.category}</span>
+                            </div>
+                            <div class="${chanceClass}">${college.chance.toUpperCase()} CHANCE</div>
                         </div>
                         <div style="background: white; padding: 3px 8px; border-radius: 12px; font-size: 0.8rem;">
-                            Score: ${college.minScore}
+                            Min: ${college.minScore}
                         </div>
                     `;
                     collegeList.appendChild(li);
                 });
             } else {
-                collegeList.innerHTML = '<li class="college-item">Score too low for listed colleges</li>';
+                collegeList.innerHTML = '<li class="college-item" style="text-align: center; color: #666;">Score too low for IITs/NITs</li>';
             }
             
             // PSU opportunities
@@ -733,19 +1078,26 @@
                 psuOpps.forEach(psu => {
                     const li = document.createElement('li');
                     li.className = 'psu-item';
+                    
+                    const chanceClass = `chance-indicator ${psu.chance}-chance`;
+                    
                     li.innerHTML = `
                         <div>
-                            <div style="font-weight: 600;">${psu.name}</div>
-                            <div style="font-size: 0.8rem; color: #666;">${psu.category}</div>
+                            <div style="font-weight: 600;">
+                                ${psu.name}
+                                <span class="psu-badge ${psu.badge}">${psu.category}</span>
+                            </div>
+                            <div class="${chanceClass}">${psu.chance.toUpperCase()} CHANCE</div>
+                            ${psu.reservation ? '<div style="font-size: 0.7rem; color: #666;">Reservation applied</div>' : ''}
                         </div>
                         <div style="background: white; padding: 3px 8px; border-radius: 12px; font-size: 0.8rem;">
-                            Score: ${psu.minScore}
+                            Min: ${psu.minScore}
                         </div>
                     `;
                     psuList.appendChild(li);
                 });
             } else {
-                psuList.innerHTML = '<li class="psu-item">Score too low for listed PSUs</li>';
+                psuList.innerHTML = '<li class="psu-item" style="text-align: center; color: #666;">Score too low for listed PSUs</li>';
             }
         }
 
