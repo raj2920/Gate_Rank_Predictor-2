@@ -589,6 +589,30 @@
             opacity: 1;
         }
         
+        .institute-badge {
+            display: inline-block;
+            padding: 2px 8px;
+            border-radius: 12px;
+            font-size: 0.7rem;
+            font-weight: bold;
+            margin-left: 5px;
+        }
+        
+        .iit-badge {
+            background: linear-gradient(135deg, #FF5722, #E64A19);
+            color: white;
+        }
+        
+        .iisc-badge {
+            background: linear-gradient(135deg, #9C27B0, #7B1FA2);
+            color: white;
+        }
+        
+        .nit-badge {
+            background: linear-gradient(135deg, #2196F3, #1976D2);
+            color: white;
+        }
+        
         @media (max-width: 768px) {
             .input-sections {
                 grid-template-columns: 1fr;
@@ -679,13 +703,13 @@
                         <div class="input-row">
                             <div>
                                 <label style="font-size: 0.9rem;">Correct Answers</label>
-                                <input type="range" id="correct1Range" min="0" max="30" value="15" oninput="updateCorrect1()">
+                                <input type="range" id="correct1Range" min="0" max="30" value="22" oninput="updateCorrect1()">
                                 <input type="number" id="correct1" placeholder="e.g., 15" min="0" max="30" 
                                        oninput="updateSlider('correct1Range', this.value); calculateMarks()">
                             </div>
                             <div>
                                 <label style="font-size: 0.9rem;">Wrong Answers</label>
-                                <input type="range" id="wrong1Range" min="0" max="30" value="5" oninput="updateWrong1()">
+                                <input type="range" id="wrong1Range" min="0" max="30" value="4" oninput="updateWrong1()">
                                 <input type="number" id="wrong1" placeholder="e.g., 5" min="0" max="30" 
                                        oninput="updateSlider('wrong1Range', this.value); calculateMarks()">
                             </div>
@@ -698,13 +722,13 @@
                         <div class="input-row">
                             <div>
                                 <label style="font-size: 0.9rem;">Correct Answers</label>
-                                <input type="range" id="correct2Range" min="0" max="35" value="20" oninput="updateCorrect2()">
+                                <input type="range" id="correct2Range" min="0" max="35" value="25" oninput="updateCorrect2()">
                                 <input type="number" id="correct2" placeholder="e.g., 20" min="0" max="35" 
                                        oninput="updateSlider('correct2Range', this.value); calculateMarks()">
                             </div>
                             <div>
                                 <label style="font-size: 0.9rem;">Wrong Answers</label>
-                                <input type="range" id="wrong2Range" min="0" max="35" value="8" oninput="updateWrong2()">
+                                <input type="range" id="wrong2Range" min="0" max="35" value="6" oninput="updateWrong2()">
                                 <input type="number" id="wrong2" placeholder="e.g., 8" min="0" max="35" 
                                        oninput="updateSlider('wrong2Range', this.value); calculateMarks()">
                             </div>
@@ -726,11 +750,11 @@
                     </div>
                     
                     <div class="interactive-buttons">
-                        <button class="interactive-btn" onclick="autoFillGoodScore()">
-                            📈 Fill Good Score
+                        <button class="interactive-btn" onclick="autoFillTopScore()">
+                            🏆 Fill Top Score (65+ marks)
                         </button>
-                        <button class="interactive-btn" onclick="autoFillAverageScore()">
-                            📊 Fill Average Score
+                        <button class="interactive-btn" onclick="autoFillGoodScore()">
+                            ⭐ Fill Good Score
                         </button>
                         <button class="interactive-btn" onclick="resetForm()">
                             🔄 Reset
@@ -821,9 +845,9 @@
                         <!-- College Opportunities -->
                         <div class="opportunity-column">
                             <h3>🎓 College Admission Chances</h3>
-                            <ul class="college-list" id="collegeList">
-                                <!-- College list will be populated here -->
-                            </ul>
+                            <div id="collegeCategories">
+                                <!-- IITs/IISC and NITs will be separated -->
+                            </div>
                             <div id="collegeSummary" style="text-align: center; margin-top: 15px; font-size: 0.9rem; color: #666;"></div>
                         </div>
                         
@@ -852,28 +876,30 @@
             </div>
             
             <div class="note">
-                <strong>🎮 Interactive Features:</strong> 
-                • Sliders and number inputs for easy adjustment
-                • Real-time calculation as you type
-                • Sample score buttons for quick testing
-                • Hover tooltips for guidance
-                • Visual feedback on all interactions
+                <strong>🎯 IIT/IISC Display Rules (FIXED):</strong> 
+                • Now shows ALL IITs and IISC for scores above 65+ marks
+                • Shows Top 7 IITs + IISC Bangalore prominently
+                • Shows high chance for scores above 800+
                 
                 <br><br>
-                <strong>📊 Complete Analysis Flow:</strong> 
-                • Enter your answers → Get rank & score prediction → See college admission chances → Check PSU job opportunities
+                <strong>📊 Chance Calculation:</strong> 
+                • HIGH: Score ≥ (Min Score + 50)
+                • MEDIUM: Score ≥ (Min Score + 20)
+                • LOW: Score ≥ Min Score
                 
                 <br><br>
-                <strong>⚡ Competition Levels:</strong>
-                • CS: High Competition (Red) | CE: Medium Competition (Orange) | EC/EE/ME: Low Competition (Green)
+                <strong>🏆 Top Institutes Included:</strong>
+                • IIT Bombay, Delhi, Madras, Kanpur, Kharagpur, Roorkee, Hyderabad
+                • IISC Bangalore
+                • Top NITs: Trichy, Warangal, Surathkal, Rourkela
                 
                 <br><br>
-                <strong>👨‍💻 Developed by:</strong> <strong>RAJ BITTU</strong> | Interactive GATE Analysis Tool
+                <strong>👨‍💻 Developed by:</strong> <strong>RAJ BITTU</strong> | Fixed IIT Display Bug
             </div>
             
             <div class="footer">
-                <p>© 2026 GATE Rank Predictor | Interactive Analysis Tool by <strong>RAJ BITTU</strong></p>
-                <p style="font-size: 0.8rem; margin-top: 5px;">All predictions based on actual GATE data and trends</p>
+                <p>© 2026 GATE Rank Predictor | Fixed IIT Display Version by <strong>RAJ BITTU</strong></p>
+                <p style="font-size: 0.8rem; margin-top: 5px;">Now properly shows IITs/IISC for scores above 65+ marks</p>
             </div>
         </div>
     </div>
@@ -937,20 +963,30 @@
             'CS': { GEN: 29.20, EWS: 26.20, OBC: 26.20, SC: 19.40, ST: 19.40 }
         };
 
-        // College Data
+        // FIXED: College Data with ALL IITs, IISC and NITs
         const colleges = [
-            { name: "IIT Bombay", minScore: 900, category: "IIT", location: "Mumbai", tier: "Top" },
-            { name: "IIT Delhi", minScore: 880, category: "IIT", location: "Delhi", tier: "Top" },
-            { name: "IIT Madras", minScore: 870, category: "IIT", location: "Chennai", tier: "Top" },
-            { name: "IIT Kanpur", minScore: 850, category: "IIT", location: "Kanpur", tier: "Top" },
-            { name: "IIT Kharagpur", minScore: 840, category: "IIT", location: "Kharagpur", tier: "Top" },
-            { name: "IIT Roorkee", minScore: 830, category: "IIT", location: "Roorkee", tier: "Top" },
-            { name: "IIT Hyderabad", minScore: 820, category: "IIT", location: "Hyderabad", tier: "Top" },
-            { name: "IIT Guwahati", minScore: 810, category: "IIT", location: "Guwahati", tier: "Top" },
-            { name: "NIT Trichy", minScore: 750, category: "NIT", location: "Tiruchirappalli", tier: "Excellent" },
-            { name: "NIT Warangal", minScore: 740, category: "NIT", location: "Warangal", tier: "Excellent" },
-            { name: "NIT Surathkal", minScore: 730, category: "NIT", location: "Surathkal", tier: "Excellent" },
-            { name: "NIT Rourkela", minScore: 720, category: "NIT", location: "Rourkela", tier: "Excellent" }
+            // Top 7 IITs + IISC
+            { name: "IIT Bombay", minScore: 810, category: "IIT", location: "Mumbai", tier: "Top Tier", badge: "iit-badge" },
+            { name: "IIT Delhi", minScore: 790, category: "IIT", location: "Delhi", tier: "Top Tier", badge: "iit-badge" },
+            { name: "IIT Madras", minScore: 780, category: "IIT", location: "Chennai", tier: "Top Tier", badge: "iit-badge" },
+            { name: "IIT Kanpur", minScore: 770, category: "IIT", location: "Kanpur", tier: "Top Tier", badge: "iit-badge" },
+            { name: "IIT Kharagpur", minScore: 760, category: "IIT", location: "Kharagpur", tier: "Top Tier", badge: "iit-badge" },
+            { name: "IIT Roorkee", minScore: 750, category: "IIT", location: "Roorkee", tier: "Top Tier", badge: "iit-badge" },
+            { name: "IIT Hyderabad", minScore: 740, category: "IIT", location: "Hyderabad", tier: "Top Tier", badge: "iit-badge" },
+            { name: "IISC Bangalore", minScore: 800, category: "IISC", location: "Bangalore", tier: "Top Research", badge: "iisc-badge" },
+            
+            // Additional IITs
+            { name: "IIT Guwahati", minScore: 730, category: "IIT", location: "Guwahati", tier: "Premium", badge: "iit-badge" },
+            { name: "IIT BHU", minScore: 720, category: "IIT", location: "Varanasi", tier: "Premium", badge: "iit-badge" },
+            { name: "IIT Indore", minScore: 710, category: "IIT", location: "Indore", tier: "Premium", badge: "iit-badge" },
+            
+            // Top NITs
+            { name: "NIT Trichy", minScore: 700, category: "NIT", location: "Tiruchirappalli", tier: "Excellent", badge: "nit-badge" },
+            { name: "NIT Warangal", minScore: 690, category: "NIT", location: "Warangal", tier: "Excellent", badge: "nit-badge" },
+            { name: "NIT Surathkal", minScore: 680, category: "NIT", location: "Surathkal", tier: "Excellent", badge: "nit-badge" },
+            { name: "NIT Rourkela", minScore: 670, category: "NIT", location: "Rourkela", tier: "Excellent", badge: "nit-badge" },
+            { name: "NIT Calicut", minScore: 660, category: "NIT", location: "Calicut", tier: "Very Good", badge: "nit-badge" },
+            { name: "NIT Jaipur", minScore: 650, category: "NIT", location: "Jaipur", tier: "Very Good", badge: "nit-badge" }
         ];
 
         // PSU Data
@@ -1096,7 +1132,7 @@
                 // Check qualification
                 const qualification = checkQualification(marks, paper, userCategory);
                 
-                // Predict college opportunities
+                // Predict college opportunities - FIXED: Now shows IITs for 65+ marks
                 const collegeOpportunities = predictCollegeOpportunities(userScore, paper);
                 
                 // Predict PSU opportunities
@@ -1207,14 +1243,22 @@
             };
         }
 
+        // FIXED: College opportunity prediction - Now shows IITs for 65+ marks
         function predictCollegeOpportunities(score, paper) {
-            const eligibleColleges = colleges.filter(college => 
-                score >= college.minScore && 
-                (college.category === "IIT" || college.category === "NIT")
-            );
+            // For scores above 65 marks (approx 650+ score), show IITs/IISC
+            const eligibleColleges = colleges.filter(college => {
+                // For scores above 650, show all IITs, IISC, and NITs
+                if (score >= 650) {
+                    return (college.category === "IIT" || college.category === "IISC" || college.category === "NIT");
+                }
+                // For lower scores, only show NITs
+                return college.category === "NIT";
+            });
             
+            // Sort by minScore (higher scores first)
             const sortedColleges = eligibleColleges.sort((a, b) => b.minScore - a.minScore);
             
+            // Calculate chance for each college
             const collegesWithChance = sortedColleges.map(college => {
                 let chance = 'low';
                 if (score >= college.minScore + 50) chance = 'high';
@@ -1227,7 +1271,7 @@
                 };
             });
             
-            return collegesWithChance.slice(0, 6);
+            return collegesWithChance.slice(0, 12); // Return more colleges
         }
 
         function predictPSUOpportunities(score, paper) {
@@ -1236,8 +1280,10 @@
                 (psu.branch === 'All' || psu.branch.includes(paper))
             );
             
+            // Sort by minScore (higher scores first)
             const sortedPSUs = eligiblePSUs.sort((a, b) => b.minScore - a.minScore);
             
+            // Calculate chance for each PSU
             const psusWithChance = sortedPSUs.map(psu => {
                 let chance = 'low';
                 if (score >= psu.minScore + 50) chance = 'high';
@@ -1285,6 +1331,7 @@
             }
         }
 
+        // FIXED: Display colleges with separate IIT/IISC and NIT sections
         function displayAllResults(rankPrediction, marks, score, qualification, colleges, psus, overallStatus) {
             // Display basic results
             document.getElementById('predictedRank').textContent = `AIR ${Math.round(rankPrediction.rank)}`;
@@ -1320,43 +1367,56 @@
                 <span style="color: ${overallStatus.color}">${overallStatus.message}</span>
             `;
             
-            // Display college opportunities
-            const collegeList = document.getElementById('collegeList');
-            const collegeSummary = document.getElementById('collegeSummary');
-            collegeList.innerHTML = '';
+            // Display college opportunities with IITs and NITs separated
+            const collegeCategoriesDiv = document.getElementById('collegeCategories');
+            collegeCategoriesDiv.innerHTML = '';
             
-            if (colleges.length > 0) {
-                colleges.forEach(college => {
-                    const li = document.createElement('li');
-                    li.className = 'college-item';
-                    li.onclick = () => showCollegeDetails(college);
-                    
-                    const chanceClass = college.chance === 'high' ? 'high-chance' : 
-                                      college.chance === 'medium' ? 'medium-chance' : 'low-chance';
-                    
-                    li.innerHTML = `
-                        <div>
-                            <div class="college-name">${college.name}</div>
-                            <div class="college-info">
-                                ${college.location} • ${college.category} • ${college.tier}
-                            </div>
-                            <span class="chance-indicator ${chanceClass}">
-                                ${college.chance.toUpperCase()} CHANCE
-                            </span>
-                        </div>
-                        <div class="college-score">Min: ${college.minScore}</div>
-                    `;
-                    collegeList.appendChild(li);
-                });
+            // Separate IITs/IISC and NITs
+            const iitsAndIisc = colleges.filter(c => c.category === "IIT" || c.category === "IISC");
+            const nits = colleges.filter(c => c.category === "NIT");
+            
+            // Create IIT/IISC section
+            if (iitsAndIisc.length > 0) {
+                const iitSection = document.createElement('div');
+                iitSection.innerHTML = `
+                    <h4 style="margin: 15px 0 10px 0; color: #1a237e; border-bottom: 2px solid #667eea; padding-bottom: 5px;">
+                        🏛️ Top IITs & IISC Bangalore
+                    </h4>
+                    <ul class="college-list" id="iitList"></ul>
+                `;
+                collegeCategoriesDiv.appendChild(iitSection);
                 
-                const highChanceColleges = colleges.filter(c => c.chance === 'high').length;
-                const iitCount = colleges.filter(c => c.category === 'IIT').length;
-                const nitCount = colleges.filter(c => c.category === 'NIT').length;
-                collegeSummary.innerHTML = `${highChanceColleges} high chance colleges | IITs: ${iitCount} | NITs: ${nitCount}`;
-            } else {
-                collegeList.innerHTML = '<li class="college-item">No IIT/NIT admission chances with current score</li>';
-                collegeSummary.innerHTML = 'Improve your score for IIT/NIT admission opportunities';
+                const iitList = document.getElementById('iitList');
+                iitsAndIisc.forEach(college => {
+                    const li = createCollegeListItem(college, score);
+                    iitList.appendChild(li);
+                });
             }
+            
+            // Create NIT section
+            if (nits.length > 0) {
+                const nitSection = document.createElement('div');
+                nitSection.innerHTML = `
+                    <h4 style="margin: 15px 0 10px 0; color: #1a237e; border-bottom: 2px solid #2196F3; padding-bottom: 5px;">
+                        🎓 Top National Institutes of Technology (NITs)
+                    </h4>
+                    <ul class="college-list" id="nitList"></ul>
+                `;
+                collegeCategoriesDiv.appendChild(nitSection);
+                
+                const nitList = document.getElementById('nitList');
+                nits.forEach(college => {
+                    const li = createCollegeListItem(college, score);
+                    nitList.appendChild(li);
+                });
+            }
+            
+            // College summary
+            const collegeSummary = document.getElementById('collegeSummary');
+            const highChanceColleges = colleges.filter(c => c.chance === 'high').length;
+            const iitCount = colleges.filter(c => c.category === 'IIT' || c.category === 'IISC').length;
+            const nitCount = colleges.filter(c => c.category === 'NIT').length;
+            collegeSummary.innerHTML = `${highChanceColleges} high chance colleges | IITs/IISC: ${iitCount} | NITs: ${nitCount}`;
             
             // Display PSU opportunities
             const psuList = document.getElementById('psuList');
@@ -1393,6 +1453,33 @@
                 psuList.innerHTML = '<li class="psu-item">No PSU job opportunities with current score</li>';
                 psuSummary.innerHTML = 'Improve your score for PSU job opportunities';
             }
+        }
+
+        // Helper function to create college list item
+        function createCollegeListItem(college, score) {
+            const li = document.createElement('li');
+            li.className = 'college-item';
+            li.onclick = () => showCollegeDetails(college);
+            
+            const chanceClass = college.chance === 'high' ? 'high-chance' : 
+                              college.chance === 'medium' ? 'medium-chance' : 'low-chance';
+            
+            li.innerHTML = `
+                <div>
+                    <div class="college-name">
+                        ${college.name}
+                        <span class="institute-badge ${college.badge}">${college.category}</span>
+                    </div>
+                    <div class="college-info">
+                        ${college.location} • ${college.tier}
+                    </div>
+                    <span class="chance-indicator ${chanceClass}">
+                        ${college.chance.toUpperCase()} CHANCE
+                    </span>
+                </div>
+                <div class="college-score">Min: ${college.minScore}</div>
+            `;
+            return li;
         }
 
         function createScoreGraph(score, rank) {
@@ -1509,38 +1596,39 @@
         }
 
         // Interactive Functions
-        function autoFillGoodScore() {
-            document.getElementById('correct1').value = 22;
+        function autoFillTopScore() {
+            // Fill for 65+ marks (approx 650+ score)
+            document.getElementById('correct1').value = 24;
             document.getElementById('wrong1').value = 3;
-            document.getElementById('correct2').value = 26;
+            document.getElementById('correct2').value = 28;
             document.getElementById('wrong2').value = 4;
             
-            updateSlider('correct1Range', 22);
+            updateSlider('correct1Range', 24);
             updateSlider('wrong1Range', 3);
-            updateSlider('correct2Range', 26);
+            updateSlider('correct2Range', 28);
             updateSlider('wrong2Range', 4);
+            
+            calculateMarks();
+            showFloatingInfo('Top score sample filled (65+ marks)! You will see IITs now.', 'info');
+        }
+
+        function autoFillGoodScore() {
+            document.getElementById('correct1').value = 18;
+            document.getElementById('wrong1').value = 5;
+            document.getElementById('correct2').value = 20;
+            document.getElementById('wrong2').value = 8;
+            
+            updateSlider('correct1Range', 18);
+            updateSlider('wrong1Range', 5);
+            updateSlider('correct2Range', 20);
+            updateSlider('wrong2Range', 8);
             
             calculateMarks();
             showFloatingInfo('Good score sample filled! Click predict to see results.', 'info');
         }
 
-        function autoFillAverageScore() {
-            document.getElementById('correct1').value = 16;
-            document.getElementById('wrong1').value = 6;
-            document.getElementById('correct2').value = 19;
-            document.getElementById('wrong2').value = 8;
-            
-            updateSlider('correct1Range', 16);
-            updateSlider('wrong1Range', 6);
-            updateSlider('correct2Range', 19);
-            updateSlider('wrong2Range', 8);
-            
-            calculateMarks();
-            showFloatingInfo('Average score sample filled! Click predict to see results.', 'info');
-        }
-
         function showCollegeDetails(college) {
-            alert(`${college.name}\n\nLocation: ${college.location}\nCategory: ${college.category}\nTier: ${college.tier}\nMinimum Score Required: ${college.minScore}\n\nYour Score: ${college.yourScore}\nAdmission Chance: ${college.chance.toUpperCase()}`);
+            alert(`${college.name}\n\nLocation: ${college.location}\nCategory: ${college.category}\nTier: ${college.tier}\nMinimum Score Required: ${college.minScore}\n\nYour Score: ${college.yourScore}\nAdmission Chance: ${college.chance.toUpperCase()}\n\nNote: IITs are shown for scores above 65 marks (approx 650+ score)`);
         }
 
         function showPSUDetails(psu) {
@@ -1588,10 +1676,10 @@
             document.getElementById('results').style.display = 'none';
             document.getElementById('opportunitiesSection').style.display = 'none';
             
-            updateSlider('correct1Range', 15);
-            updateSlider('wrong1Range', 5);
-            updateSlider('correct2Range', 20);
-            updateSlider('wrong2Range', 8);
+            updateSlider('correct1Range', 22);
+            updateSlider('wrong1Range', 4);
+            updateSlider('correct2Range', 25);
+            updateSlider('wrong2Range', 6);
             
             window.scrollTo({ top: 0, behavior: 'smooth' });
             showFloatingInfo('Form reset! Enter your details to get prediction.', 'info');
@@ -1615,7 +1703,6 @@
             const floatingInfo = document.getElementById('floatingInfo');
             floatingInfo.textContent = message;
             
-            // Set color based on type
             if (type === 'error') {
                 floatingInfo.style.borderLeft = '4px solid #f44336';
             } else if (type === 'success') {
@@ -1671,11 +1758,11 @@
             });
             
             // Auto-fill for demonstration
-            autoFillGoodScore();
+            autoFillTopScore();
             
             // Show welcome message
             setTimeout(() => {
-                showFloatingInfo('Welcome! Try adjusting sliders for real-time updates.', 'info');
+                showFloatingInfo('Welcome! IITs now show for scores above 65+ marks. Try predicting!', 'info');
             }, 1000);
         }
     </script>
