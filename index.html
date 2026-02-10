@@ -17,7 +17,7 @@
         }
         
         .container {
-            max-width: 1400px;
+            max-width: 1200px;
             margin: 0 auto;
             background: white;
             border-radius: 20px;
@@ -59,38 +59,6 @@
             padding: 30px;
         }
         
-        .tabs {
-            display: flex;
-            background: #f5f5f5;
-            border-radius: 10px;
-            margin-bottom: 30px;
-            overflow: hidden;
-        }
-        
-        .tab {
-            flex: 1;
-            padding: 15px;
-            text-align: center;
-            cursor: pointer;
-            font-weight: 600;
-            transition: all 0.3s;
-            border-bottom: 3px solid transparent;
-        }
-        
-        .tab.active {
-            background: white;
-            border-bottom: 3px solid #667eea;
-            color: #667eea;
-        }
-        
-        .tab-content {
-            display: none;
-        }
-        
-        .tab-content.active {
-            display: block;
-        }
-        
         .input-sections {
             display: grid;
             grid-template-columns: 1fr 1fr;
@@ -103,6 +71,12 @@
             padding: 25px;
             border-radius: 15px;
             border: 2px solid #e9ecef;
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+        
+        .input-section:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
         }
         
         .input-section h3 {
@@ -135,12 +109,13 @@
             border: 2px solid #ddd;
             border-radius: 8px;
             font-size: 1rem;
-            transition: border 0.3s;
+            transition: all 0.3s;
         }
         
         select:focus, input:focus {
             border-color: #667eea;
             outline: none;
+            box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
         }
         
         .input-row {
@@ -163,7 +138,7 @@
             border-radius: 10px;
             cursor: pointer;
             width: 100%;
-            transition: transform 0.3s;
+            transition: transform 0.3s, box-shadow 0.3s;
             margin-top: 20px;
             display: flex;
             align-items: center;
@@ -172,7 +147,12 @@
         }
         
         .predict-btn:hover {
-            transform: translateY(-2px);
+            transform: translateY(-3px);
+            box-shadow: 0 10px 30px rgba(102, 126, 234, 0.4);
+        }
+        
+        .predict-btn:active {
+            transform: translateY(-1px);
         }
         
         .results {
@@ -182,6 +162,12 @@
             border-radius: 15px;
             margin-top: 30px;
             display: none;
+            animation: fadeIn 0.5s ease-out;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
         }
         
         .results h2 {
@@ -203,6 +189,11 @@
             border-radius: 10px;
             text-align: center;
             backdrop-filter: blur(5px);
+            transition: transform 0.3s;
+        }
+        
+        .result-card:hover {
+            transform: scale(1.05);
         }
         
         .result-card h3 {
@@ -223,7 +214,7 @@
         }
         
         .graph-container {
-            background: rgba(0, 0, 0, 0.3); /* Changed from blue to dark background */
+            background: rgba(0, 0, 0, 0.3);
             padding: 25px;
             border-radius: 10px;
             margin-top: 30px;
@@ -263,6 +254,11 @@
             padding: 15px;
             border-radius: 10px;
             text-align: center;
+            transition: transform 0.3s;
+        }
+        
+        .category-card:hover {
+            transform: translateY(-5px);
         }
         
         .category-name {
@@ -276,7 +272,6 @@
             margin-top: 5px;
         }
         
-        /* Combined College & PSU Section - CHANGED TO WHITE BACKGROUND */
         .opportunities-section {
             background: white;
             padding: 25px;
@@ -313,6 +308,13 @@
             justify-content: space-between;
             align-items: center;
             border: 1px solid #e9ecef;
+            transition: all 0.3s;
+            cursor: pointer;
+        }
+        
+        .college-item:hover, .psu-item:hover {
+            background: #e9ecef;
+            transform: translateX(5px);
         }
         
         .college-name, .psu-name {
@@ -364,199 +366,6 @@
             font-size: 1.2rem;
             font-weight: bold;
             color: #333;
-        }
-        
-        /* IIT/NIT Cutoff Section - CHANGED TO BLACK BACKGROUND */
-        .cutoff-section {
-            margin-top: 40px;
-            background: black;
-            border-radius: 15px;
-            overflow: hidden;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.5);
-            border: 1px solid #333;
-        }
-        
-        .cutoff-header {
-            background: linear-gradient(to right, #1a237e, #311b92);
-            color: white;
-            padding: 20px;
-            text-align: center;
-        }
-        
-        .cutoff-tabs {
-            display: flex;
-            background: #222;
-            border-bottom: 1px solid #444;
-            flex-wrap: wrap;
-        }
-        
-        .cutoff-tab {
-            flex: 1;
-            padding: 15px;
-            text-align: center;
-            cursor: pointer;
-            font-weight: 600;
-            transition: all 0.3s;
-            border-bottom: 3px solid transparent;
-            min-width: 200px;
-            color: #ddd;
-        }
-        
-        .cutoff-tab.active {
-            background: #333;
-            border-bottom: 3px solid #667eea;
-            color: #667eea;
-        }
-        
-        .cutoff-content {
-            padding: 20px;
-            display: none;
-            overflow-x: auto;
-            background: black;
-            color: white;
-        }
-        
-        .cutoff-content.active {
-            display: block;
-        }
-        
-        .cutoff-table {
-            width: 100%;
-            border-collapse: collapse;
-            margin-top: 20px;
-            min-width: 800px;
-            background: #111;
-        }
-        
-        .cutoff-table th {
-            background: linear-gradient(to right, #667eea, #764ba2);
-            color: white;
-            padding: 15px;
-            text-align: center;
-            font-weight: 600;
-            position: sticky;
-            top: 0;
-            z-index: 10;
-            border: 1px solid #333;
-        }
-        
-        .cutoff-table td {
-            padding: 12px;
-            text-align: center;
-            border: 1px solid #333;
-            vertical-align: middle;
-            color: #ddd;
-        }
-        
-        .cutoff-table tr:nth-child(even) {
-            background-color: #222;
-        }
-        
-        .cutoff-table tr:hover {
-            background-color: #333;
-        }
-        
-        .score-badge {
-            display: inline-block;
-            padding: 6px 12px;
-            border-radius: 15px;
-            font-size: 0.85rem;
-            font-weight: 600;
-            min-width: 70px;
-            text-align: center;
-            color: white;
-            box-shadow: 0 2px 4px rgba(0,0,0,0.3);
-        }
-        
-        .score-high {
-            background: linear-gradient(135deg, #4CAF50, #45a049);
-        }
-        
-        .score-medium {
-            background: linear-gradient(135deg, #FF9800, #f57c00);
-        }
-        
-        .score-low {
-            background: linear-gradient(135deg, #f44336, #d32f2f);
-        }
-        
-        .score-very-high {
-            background: linear-gradient(135deg, #9C27B0, #7B1FA2);
-        }
-        
-        .score-very-low {
-            background: linear-gradient(135deg, #607D8B, #455A64);
-        }
-        
-        .institute-badge {
-            display: inline-block;
-            padding: 4px 12px;
-            border-radius: 15px;
-            font-size: 0.8rem;
-            font-weight: bold;
-            margin-left: 8px;
-            color: white;
-        }
-        
-        .iit-badge {
-            background: linear-gradient(135deg, #FF5722, #E64A19);
-        }
-        
-        .nit-badge {
-            background: linear-gradient(135deg, #2196F3, #1976D2);
-        }
-        
-        .iisc-badge {
-            background: linear-gradient(135deg, #9C27B0, #7B1FA2);
-        }
-        
-        .cutoff-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 20px;
-            margin-top: 20px;
-        }
-        
-        .cutoff-card {
-            background: #222;
-            border-radius: 10px;
-            padding: 20px;
-            box-shadow: 0 3px 10px rgba(0,0,0,0.3);
-            border: 1px solid #333;
-            color: white;
-        }
-        
-        .cutoff-card h3 {
-            color: #667eea;
-            margin-bottom: 15px;
-            padding-bottom: 10px;
-            border-bottom: 2px solid #444;
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-        }
-        
-        .cutoff-values {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 10px;
-        }
-        
-        .cutoff-value {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 8px 0;
-            border-bottom: 1px solid #333;
-        }
-        
-        .cutoff-category {
-            font-weight: 600;
-            color: #ddd;
-        }
-        
-        .cutoff-score {
-            font-weight: bold;
         }
         
         .loading {
@@ -632,11 +441,6 @@
             border-radius: 5px;
         }
         
-        .highlight-row {
-            background-color: #333344 !important;
-            font-weight: bold;
-        }
-        
         .auto-calc-btn {
             background: #667eea;
             color: white;
@@ -647,17 +451,142 @@
             font-size: 0.9rem;
             margin-top: 10px;
             display: inline-block;
+            transition: background 0.3s;
         }
         
         .auto-calc-btn:hover {
             background: #5a67d8;
         }
         
-        /* College list item additional info */
         .college-info, .psu-info {
             font-size: 0.8rem;
             color: #666;
             margin-top: 3px;
+        }
+        
+        .interactive-buttons {
+            display: flex;
+            gap: 10px;
+            margin-top: 20px;
+        }
+        
+        .interactive-btn {
+            flex: 1;
+            padding: 12px;
+            background: white;
+            border: 2px solid #667eea;
+            color: #667eea;
+            border-radius: 8px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s;
+            text-align: center;
+        }
+        
+        .interactive-btn:hover {
+            background: #667eea;
+            color: white;
+            transform: translateY(-2px);
+        }
+        
+        .floating-info {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background: white;
+            padding: 15px;
+            border-radius: 10px;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.2);
+            z-index: 1000;
+            display: none;
+            max-width: 300px;
+        }
+        
+        .score-input-hint {
+            position: absolute;
+            background: #333;
+            color: white;
+            padding: 8px 12px;
+            border-radius: 6px;
+            font-size: 0.8rem;
+            display: none;
+            z-index: 1000;
+            max-width: 200px;
+        }
+        
+        .toggle-switch {
+            position: relative;
+            display: inline-block;
+            width: 50px;
+            height: 24px;
+            margin-left: 10px;
+        }
+        
+        .toggle-switch input {
+            opacity: 0;
+            width: 0;
+            height: 0;
+        }
+        
+        .toggle-slider {
+            position: absolute;
+            cursor: pointer;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-color: #ccc;
+            transition: .4s;
+            border-radius: 24px;
+        }
+        
+        .toggle-slider:before {
+            position: absolute;
+            content: "";
+            height: 16px;
+            width: 16px;
+            left: 4px;
+            bottom: 4px;
+            background-color: white;
+            transition: .4s;
+            border-radius: 50%;
+        }
+        
+        input:checked + .toggle-slider {
+            background-color: #667eea;
+        }
+        
+        input:checked + .toggle-slider:before {
+            transform: translateX(26px);
+        }
+        
+        .tooltip {
+            position: relative;
+            display: inline-block;
+            margin-left: 5px;
+        }
+        
+        .tooltip .tooltip-text {
+            visibility: hidden;
+            width: 200px;
+            background-color: #333;
+            color: #fff;
+            text-align: center;
+            border-radius: 6px;
+            padding: 5px;
+            position: absolute;
+            z-index: 1;
+            bottom: 125%;
+            left: 50%;
+            margin-left: -100px;
+            opacity: 0;
+            transition: opacity 0.3s;
+            font-size: 0.8rem;
+        }
+        
+        .tooltip:hover .tooltip-text {
+            visibility: visible;
+            opacity: 1;
         }
         
         @media (max-width: 768px) {
@@ -677,25 +606,15 @@
                 grid-template-columns: 1fr;
             }
             
-            .cutoff-tabs {
-                flex-direction: column;
-            }
-            
-            .cutoff-tab {
-                min-width: 100%;
-            }
-            
             .results-grid {
                 grid-template-columns: repeat(2, 1fr);
             }
             
-            .cutoff-table {
-                font-size: 0.9rem;
-            }
-            
-            .cutoff-table th,
-            .cutoff-table td {
-                padding: 8px;
+            .developer-credit {
+                position: relative;
+                top: 0;
+                right: 0;
+                margin-top: 15px;
             }
         }
     </style>
@@ -706,95 +625,123 @@
         <div class="header">
             <div class="developer-credit">Developed by RAJ BITTU</div>
             <h1>🎯 GATE 2026 Rank Predictor</h1>
-            <p>Get Complete Prediction: Rank, Score, College & PSU Opportunities</p>
+            <p>Interactive Tool for Rank, Score & Opportunity Prediction</p>
         </div>
         
         <div class="content">
-            <div class="tabs">
-                <div class="tab active" onclick="switchTab('rank')">Rank & Score Prediction</div>
-            </div>
-            
-            <!-- Single Prediction Tab -->
-            <div id="rank-tab" class="tab-content active">
-                <div class="input-sections">
-                    <div class="input-section">
-                        <h3><span class="section-icon">📋</span> Basic Information</h3>
-                        <div class="form-group">
-                            <label>Select Your Paper:</label>
-                            <select id="paperCode" onchange="updateCompetition()">
-                                <option value="CS">Computer Science (CS)</option>
-                                <option value="EC">Electronics & Communication (EC)</option>
-                                <option value="EE">Electrical Engineering (EE)</option>
-                                <option value="ME">Mechanical Engineering (ME)</option>
-                                <option value="CE">Civil Engineering (CE)</option>
-                            </select>
-                            <div class="cutoff-info">
-                                <span id="competitionBadge" class="competition-badge high-competition">High Competition</span>
-                                <span id="cutoffInfo">GEN Cutoff: 29.20</span>
-                            </div>
-                        </div>
-                        
-                        <div class="form-group">
-                            <label>Your Category:</label>
-                            <select id="category">
-                                <option value="GEN">General (GEN)</option>
-                                <option value="EWS">EWS</option>
-                                <option value="OBC">OBC-NCL</option>
-                                <option value="SC">SC</option>
-                                <option value="ST">ST</option>
-                            </select>
+            <div class="input-sections">
+                <div class="input-section">
+                    <h3><span class="section-icon">📋</span> Basic Information</h3>
+                    <div class="form-group">
+                        <label>Select Your Paper:
+                            <span class="tooltip">ℹ️
+                                <span class="tooltip-text">Choose your GATE paper. Competition level varies by paper.</span>
+                            </span>
+                        </label>
+                        <select id="paperCode" onchange="updateCompetition()">
+                            <option value="CS">Computer Science (CS)</option>
+                            <option value="EC">Electronics & Communication (EC)</option>
+                            <option value="EE">Electrical Engineering (EE)</option>
+                            <option value="ME">Mechanical Engineering (ME)</option>
+                            <option value="CE">Civil Engineering (CE)</option>
+                        </select>
+                        <div class="cutoff-info">
+                            <span id="competitionBadge" class="competition-badge high-competition">High Competition</span>
+                            <span id="cutoffInfo">GEN Cutoff: 29.20</span>
                         </div>
                     </div>
                     
-                    <div class="input-section">
-                        <h3><span class="section-icon">✏️</span> Enter Your Answers</h3>
-                        <div class="form-group">
-                            <label>For 1-mark Questions (Total: 30):</label>
-                            <div class="input-row">
-                                <div>
-                                    <label style="font-size: 0.9rem;">Correct Answers</label>
-                                    <input type="number" id="correct1" placeholder="e.g., 15" min="0" max="30" oninput="calculateMarks()">
-                                </div>
-                                <div>
-                                    <label style="font-size: 0.9rem;">Wrong Answers</label>
-                                    <input type="number" id="wrong1" placeholder="e.g., 5" min="0" max="30" oninput="calculateMarks()">
-                                </div>
-                            </div>
-                        </div>
-                        
-                        <div class="form-group">
-                            <label>For 2-mark Questions (Total: 35):</label>
-                            <div class="input-row">
-                                <div>
-                                    <label style="font-size: 0.9rem;">Correct Answers</label>
-                                    <input type="number" id="correct2" placeholder="e.g., 20" min="0" max="35" oninput="calculateMarks()">
-                                </div>
-                                <div>
-                                    <label style="font-size: 0.9rem;">Wrong Answers</label>
-                                    <input type="number" id="wrong2" placeholder="e.g., 8" min="0" max="35" oninput="calculateMarks()">
-                                </div>
-                            </div>
-                        </div>
-                        
-                        <div class="form-group">
-                            <label>Calculated Marks (Out of 100):</label>
-                            <input type="number" id="calculatedMarks" readonly style="background: #e9ecef; font-weight: bold;">
-                            <div style="font-size: 0.8rem; color: #666; margin-top: 5px;">
-                                Formula: (Correct × Marks) - (Wrong × 0.33 for 1-mark, 0.66 for 2-mark)
-                            </div>
-                        </div>
-                        
-                        <div class="form-group">
-                            <label>Expected GATE Score (Out of 1000):</label>
-                            <input type="number" id="expectedScore" readonly style="background: #e9ecef; font-weight: bold;">
-                        </div>
+                    <div class="form-group">
+                        <label>Your Category:</label>
+                        <select id="category">
+                            <option value="GEN">General (GEN)</option>
+                            <option value="EWS">EWS</option>
+                            <option value="OBC">OBC-NCL</option>
+                            <option value="SC">SC</option>
+                            <option value="ST">ST</option>
+                        </select>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label>Enable Real-time Updates: 
+                            <label class="toggle-switch">
+                                <input type="checkbox" id="realTimeToggle" checked>
+                                <span class="toggle-slider"></span>
+                            </label>
+                        </label>
                     </div>
                 </div>
                 
-                <button class="predict-btn" onclick="predictEverything()">
-                    🚀 Predict Rank, Score, College & PSU Opportunities
-                </button>
+                <div class="input-section">
+                    <h3><span class="section-icon">✏️</span> Enter Your Answers</h3>
+                    <div class="form-group">
+                        <label>For 1-mark Questions (Total: 30):</label>
+                        <div class="input-row">
+                            <div>
+                                <label style="font-size: 0.9rem;">Correct Answers</label>
+                                <input type="range" id="correct1Range" min="0" max="30" value="15" oninput="updateCorrect1()">
+                                <input type="number" id="correct1" placeholder="e.g., 15" min="0" max="30" 
+                                       oninput="updateSlider('correct1Range', this.value); calculateMarks()">
+                            </div>
+                            <div>
+                                <label style="font-size: 0.9rem;">Wrong Answers</label>
+                                <input type="range" id="wrong1Range" min="0" max="30" value="5" oninput="updateWrong1()">
+                                <input type="number" id="wrong1" placeholder="e.g., 5" min="0" max="30" 
+                                       oninput="updateSlider('wrong1Range', this.value); calculateMarks()">
+                            </div>
+                        </div>
+                        <div id="hint1" class="score-input-hint"></div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label>For 2-mark Questions (Total: 35):</label>
+                        <div class="input-row">
+                            <div>
+                                <label style="font-size: 0.9rem;">Correct Answers</label>
+                                <input type="range" id="correct2Range" min="0" max="35" value="20" oninput="updateCorrect2()">
+                                <input type="number" id="correct2" placeholder="e.g., 20" min="0" max="35" 
+                                       oninput="updateSlider('correct2Range', this.value); calculateMarks()">
+                            </div>
+                            <div>
+                                <label style="font-size: 0.9rem;">Wrong Answers</label>
+                                <input type="range" id="wrong2Range" min="0" max="35" value="8" oninput="updateWrong2()">
+                                <input type="number" id="wrong2" placeholder="e.g., 8" min="0" max="35" 
+                                       oninput="updateSlider('wrong2Range', this.value); calculateMarks()">
+                            </div>
+                        </div>
+                        <div id="hint2" class="score-input-hint"></div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label>Calculated Marks (Out of 100):</label>
+                        <input type="number" id="calculatedMarks" readonly style="background: #e9ecef; font-weight: bold;">
+                        <div style="font-size: 0.8rem; color: #666; margin-top: 5px;">
+                            Formula: (Correct × Marks) - (Wrong × 0.33 for 1-mark, 0.66 for 2-mark)
+                        </div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label>Expected GATE Score (Out of 1000):</label>
+                        <input type="number" id="expectedScore" readonly style="background: #e9ecef; font-weight: bold;">
+                    </div>
+                    
+                    <div class="interactive-buttons">
+                        <button class="interactive-btn" onclick="autoFillGoodScore()">
+                            📈 Fill Good Score
+                        </button>
+                        <button class="interactive-btn" onclick="autoFillAverageScore()">
+                            📊 Fill Average Score
+                        </button>
+                        <button class="interactive-btn" onclick="resetForm()">
+                            🔄 Reset
+                        </button>
+                    </div>
+                </div>
             </div>
+            
+            <button class="predict-btn" onclick="predictEverything()" id="predictButton">
+                🚀 Predict Rank, Score, College & PSU Opportunities
+            </button>
             
             <div class="loading" id="loading">
                 <div class="loader"></div>
@@ -891,155 +838,48 @@
                     </div>
                 </div>
                 
-                <!-- IIT/NIT Cutoff Data Section -->
-                <div class="cutoff-section" id="cutoffSection" style="display: none;">
-                    <div class="cutoff-header">
-                        <h2>🏛️ IIT & NIT Cutoff Data (GATE 2025)</h2>
-                        <p>Based on official cutoff scores from multiple rounds</p>
-                    </div>
-                    
-                    <div class="cutoff-tabs">
-                        <div class="cutoff-tab active" onclick="switchCutoffTab('iit-cse')">IITs - CSE Cutoffs</div>
-                        <div class="cutoff-tab" onclick="switchCutoffTab('nit-cse')">NITs - CSE Cutoffs</div>
-                        <div class="cutoff-tab" onclick="switchCutoffTab('gate-cutoffs')">GATE Paper Cutoffs</div>
-                        <div class="cutoff-tab" onclick="switchCutoffTab('top-iits')">Top IITs Summary</div>
-                    </div>
-                    
-                    <!-- IIT CSE Cutoff -->
-                    <div id="iit-cse-tab" class="cutoff-content active">
-                        <div style="overflow-x: auto;">
-                            <table class="cutoff-table">
-                                <thead>
-                                    <tr>
-                                        <th>Institute</th>
-                                        <th>Category</th>
-                                        <th>Round 1 Scores</th>
-                                        <th>Round 5 Scores</th>
-                                        <th>Round 9 Scores</th>
-                                        <th>Minimum Score</th>
-                                    </tr>
-                                </thead>
-                                <tbody id="iitCseTable">
-                                    <!-- IIT CSE data will be populated here -->
-                                </tbody>
-                            </table>
-                        </div>
-                    </div>
-                    
-                    <!-- NIT CSE Cutoff -->
-                    <div id="nit-cse-tab" class="cutoff-content">
-                        <div style="overflow-x: auto;">
-                            <table class="cutoff-table">
-                                <thead>
-                                    <tr>
-                                        <th>Institute</th>
-                                        <th>Category</th>
-                                        <th>Opening Rank</th>
-                                        <th>Closing Rank</th>
-                                        <th>Minimum Score</th>
-                                        <th>Admission Chance</th>
-                                    </tr>
-                                </thead>
-                                <tbody id="nitCseTable">
-                                    <!-- NIT CSE data will be populated here -->
-                                </tbody>
-                            </table>
-                        </div>
-                    </div>
-                    
-                    <!-- GATE Cutoffs -->
-                    <div id="gate-cutoffs-tab" class="cutoff-content">
-                        <div class="cutoff-grid">
-                            <div class="cutoff-card">
-                                <h3>Computer Science (CS)<span class="institute-badge" style="background: #f44336; padding: 2px 8px; border-radius: 10px; font-size: 0.7rem;">High Competition</span></h3>
-                                <div class="cutoff-values">
-                                    <div class="cutoff-value"><span class="cutoff-category">GEN:</span><span class="cutoff-score score-badge score-high">29.20</span></div>
-                                    <div class="cutoff-value"><span class="cutoff-category">EWS:</span><span class="cutoff-score score-badge score-medium">26.20</span></div>
-                                    <div class="cutoff-value"><span class="cutoff-category">OBC:</span><span class="cutoff-score score-badge score-medium">26.20</span></div>
-                                    <div class="cutoff-value"><span class="cutoff-category">SC:</span><span class="cutoff-score score-badge score-low">19.40</span></div>
-                                    <div class="cutoff-value"><span class="cutoff-category">ST:</span><span class="cutoff-score score-badge score-low">19.40</span></div>
-                                </div>
-                            </div>
-                            
-                            <div class="cutoff-card">
-                                <h3>Electronics (EC)<span class="institute-badge" style="background: #4CAF50; padding: 2px 8px; border-radius: 10px; font-size: 0.7rem;">Low Competition</span></h3>
-                                <div class="cutoff-values">
-                                    <div class="cutoff-value"><span class="cutoff-category">GEN:</span><span class="cutoff-score score-badge score-medium">25.00</span></div>
-                                    <div class="cutoff-value"><span class="cutoff-category">EWS:</span><span class="cutoff-score score-badge score-medium">22.50</span></div>
-                                    <div class="cutoff-value"><span class="cutoff-category">OBC:</span><span class="cutoff-score score-badge score-medium">22.50</span></div>
-                                    <div class="cutoff-value"><span class="cutoff-category">SC:</span><span class="cutoff-score score-badge score-low">16.60</span></div>
-                                    <div class="cutoff-value"><span class="cutoff-category">ST:</span><span class="cutoff-score score-badge score-low">16.60</span></div>
-                                </div>
-                            </div>
-                            
-                            <div class="cutoff-card">
-                                <h3>Mechanical (ME)<span class="institute-badge" style="background: #4CAF50; padding: 2px 8px; border-radius: 10px; font-size: 0.7rem;">Low Competition</span></h3>
-                                <div class="cutoff-values">
-                                    <div class="cutoff-value"><span class="cutoff-category">GEN:</span><span class="cutoff-score score-badge score-high">35.80</span></div>
-                                    <div class="cutoff-value"><span class="cutoff-category">EWS:</span><span class="cutoff-score score-badge score-medium">32.20</span></div>
-                                    <div class="cutoff-value"><span class="cutoff-category">OBC:</span><span class="cutoff-score score-badge score-medium">32.20</span></div>
-                                    <div class="cutoff-value"><span class="cutoff-category">SC:</span><span class="cutoff-score score-badge score-low">23.80</span></div>
-                                    <div class="cutoff-value"><span class="cutoff-category">ST:</span><span class="cutoff-score score-badge score-low">23.80</span></div>
-                                </div>
-                            </div>
-                            
-                            <div class="cutoff-card">
-                                <h3>Civil (CE)<span class="institute-badge" style="background: #FF9800; padding: 2px 8px; border-radius: 10px; font-size: 0.7rem;">Medium Competition</span></h3>
-                                <div class="cutoff-values">
-                                    <div class="cutoff-value"><span class="cutoff-category">GEN:</span><span class="cutoff-score score-badge score-high">29.20</span></div>
-                                    <div class="cutoff-value"><span class="cutoff-category">EWS:</span><span class="cutoff-score score-badge score-medium">26.20</span></div>
-                                    <div class="cutoff-value"><span class="cutoff-category">OBC:</span><span class="cutoff-score score-badge score-medium">26.20</span></div>
-                                    <div class="cutoff-value"><span class="cutoff-category">SC:</span><span class="cutoff-score score-badge score-low">19.40</span></div>
-                                    <div class="cutoff-value"><span class="cutoff-category">ST:</span><span class="cutoff-score score-badge score-low">19.40</span></div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    
-                    <!-- Top IITs Summary -->
-                    <div id="top-iits-tab" class="cutoff-content">
-                        <div style="overflow-x: auto;">
-                            <table class="cutoff-table">
-                                <thead>
-                                    <tr>
-                                        <th>Institute</th>
-                                        <th>GEN Cutoff</th>
-                                        <th>OBC Cutoff</th>
-                                        <th>SC Cutoff</th>
-                                        <th>ST Cutoff</th>
-                                        <th>Competition Level</th>
-                                    </tr>
-                                </thead>
-                                <tbody id="topIitsTable">
-                                    <!-- Top IITs summary will be populated here -->
-                                </tbody>
-                            </table>
-                        </div>
-                    </div>
+                <div class="interactive-buttons" style="margin-top: 25px;">
+                    <button class="interactive-btn" onclick="shareResults()">
+                        📤 Share Results
+                    </button>
+                    <button class="interactive-btn" onclick="saveResults()">
+                        💾 Save Prediction
+                    </button>
+                    <button class="interactive-btn" onclick="resetForm()">
+                        🔄 Predict Again
+                    </button>
                 </div>
-                
-                <button class="predict-btn" onclick="resetForm()" style="margin-top: 25px; background: white; color: #667eea;">
-                    🔄 Predict Again
-                </button>
             </div>
             
             <div class="note">
+                <strong>🎮 Interactive Features:</strong> 
+                • Sliders and number inputs for easy adjustment
+                • Real-time calculation as you type
+                • Sample score buttons for quick testing
+                • Hover tooltips for guidance
+                • Visual feedback on all interactions
+                
+                <br><br>
                 <strong>📊 Complete Analysis Flow:</strong> 
-                • Enter your answers → Get rank & score prediction → See college admission chances → Check PSU job opportunities → View IIT/NIT cutoff data
+                • Enter your answers → Get rank & score prediction → See college admission chances → Check PSU job opportunities
+                
                 <br><br>
                 <strong>⚡ Competition Levels:</strong>
                 • CS: High Competition (Red) | CE: Medium Competition (Orange) | EC/EE/ME: Low Competition (Green)
+                
                 <br><br>
-                <strong>🏛️ Cutoff Data:</strong> Based on actual GATE 2025 admission rounds and official cutoff scores
-                <br><br>
-                <strong>👨‍💻 Developed by:</strong> <strong>RAJ BITTU</strong> | Complete GATE Analysis Tool
+                <strong>👨‍💻 Developed by:</strong> <strong>RAJ BITTU</strong> | Interactive GATE Analysis Tool
             </div>
             
             <div class="footer">
-                <p>© 2026 GATE Rank Predictor | Complete Analysis Tool by <strong>RAJ BITTU</strong></p>
+                <p>© 2026 GATE Rank Predictor | Interactive Analysis Tool by <strong>RAJ BITTU</strong></p>
                 <p style="font-size: 0.8rem; margin-top: 5px;">All predictions based on actual GATE data and trends</p>
             </div>
         </div>
+    </div>
+
+    <div class="floating-info" id="floatingInfo">
+        <strong>💡 Tip:</strong> Use sliders or type directly. Real-time updates are enabled!
     </div>
 
     <script>
@@ -1097,98 +937,7 @@
             'CS': { GEN: 29.20, EWS: 26.20, OBC: 26.20, SC: 19.40, ST: 19.40 }
         };
 
-        // IIT CSE Cutoff Data
-        const iitCseCutoffs = [
-            { institute: "IIT Bombay", category: "GEN", round1: "931,907", round5: "885,881,810", round9: "-", minScore: 810 },
-            { institute: "IIT Bombay", category: "EWS", round1: "907", round5: "761", round9: "-", minScore: 761 },
-            { institute: "IIT Bombay", category: "OBC", round1: "860", round5: "441", round9: "-", minScore: 441 },
-            { institute: "IIT Bombay", category: "SC", round1: "872,772", round5: "-", round9: "-", minScore: 772 },
-            { institute: "IIT Bombay", category: "ST", round1: "562", round5: "-", round9: "-", minScore: 562 },
-            
-            { institute: "IIT Delhi", category: "GEN", round1: "931", round5: "881", round9: "-", minScore: 881 },
-            { institute: "IIT Delhi", category: "EWS", round1: "907", round5: "-", round9: "-", minScore: 907 },
-            { institute: "IIT Delhi", category: "OBC", round1: "860", round5: "781,744", round9: "718", minScore: 718 },
-            { institute: "IIT Delhi", category: "SC", round1: "-", round5: "-", round9: "-", minScore: 0 },
-            { institute: "IIT Delhi", category: "ST", round1: "562,529", round5: "467", round9: "-", minScore: 467 },
-            
-            { institute: "IIT Madras", category: "GEN", round1: "931", round5: "931,901", round9: "-", minScore: 901 },
-            { institute: "IIT Madras", category: "EWS", round1: "907", round5: "-", round9: "-", minScore: 907 },
-            { institute: "IIT Madras", category: "OBC", round1: "860", round5: "802", round9: "-", minScore: 802 },
-            { institute: "IIT Madras", category: "SC", round1: "872,772", round5: "-", round9: "-", minScore: 772 },
-            { institute: "IIT Madras", category: "ST", round1: "-", round5: "-", round9: "-", minScore: 0 },
-            
-            { institute: "IIT Kanpur", category: "GEN", round1: "901,893,885", round5: "856", round9: "-", minScore: 856 },
-            { institute: "IIT Kanpur", category: "EWS", round1: "907,827", round5: "-", round9: "-", minScore: 827 },
-            { institute: "IIT Kanpur", category: "OBC", round1: "860", round5: "793,780", round9: "-", minScore: 780 },
-            { institute: "IIT Kanpur", category: "SC", round1: "572", round5: "-", round9: "-", minScore: 572 },
-            { institute: "IIT Kanpur", category: "ST", round1: "-", round5: "-", round9: "-", minScore: 0 },
-            
-            { institute: "IIT Kharagpur", category: "GEN", round1: "868", round5: "831", round9: "-", minScore: 831 },
-            { institute: "IIT Kharagpur", category: "EWS", round1: "850", round5: "-", round9: "-", minScore: 850 },
-            { institute: "IIT Kharagpur", category: "OBC", round1: "802,797", round5: "756,744,741", round9: "-", minScore: 741 },
-            { institute: "IIT Kharagpur", category: "SC", round1: "872", round5: "-", round9: "-", minScore: 872 },
-            { institute: "IIT Kharagpur", category: "ST", round1: "556", round5: "-", round9: "-", minScore: 556 },
-            
-            { institute: "IIT Roorkee", category: "GEN", round1: "901,893", round5: "831", round9: "-", minScore: 831 },
-            { institute: "IIT Roorkee", category: "EWS", round1: "-", round5: "-", round9: "-", minScore: 0 },
-            { institute: "IIT Roorkee", category: "OBC", round1: "744", round5: "756,731", round9: "718", minScore: 718 },
-            { institute: "IIT Roorkee", category: "SC", round1: "-", round5: "-", round9: "-", minScore: 0 },
-            { institute: "IIT Roorkee", category: "ST", round1: "562", round5: "-", round9: "-", minScore: 562 },
-            
-            { institute: "IIT Hyderabad", category: "GEN", round1: "893,881", round5: "826", round9: "-", minScore: 826 },
-            { institute: "IIT Hyderabad", category: "EWS", round1: "827", round5: "-", round9: "-", minScore: 827 },
-            { institute: "IIT Hyderabad", category: "OBC", round1: "-", round5: "780,664,689", round9: "-", minScore: 664 },
-            { institute: "IIT Hyderabad", category: "SC", round1: "-", round5: "-", round9: "-", minScore: 0 },
-            { institute: "IIT Hyderabad", category: "ST", round1: "-", round5: "-", round9: "-", minScore: 0 },
-            
-            { institute: "IIT Indore", category: "GEN", round1: "-", round5: "770", round9: "622", minScore: 622 },
-            { institute: "IIT Indore", category: "EWS", round1: "-", round5: "756", round9: "-", minScore: 756 },
-            { institute: "IIT Indore", category: "OBC", round1: "-", round5: "741", round9: "-", minScore: 741 },
-            { institute: "IIT Indore", category: "SC", round1: "-", round5: "-", round9: "-", minScore: 0 },
-            { institute: "IIT Indore", category: "ST", round1: "-", round5: "-", round9: "-", minScore: 0 },
-            
-            { institute: "IIT BHU", category: "GEN", round1: "835,802", round5: "777,718", round9: "770,706", minScore: 706 },
-            { institute: "IIT BHU", category: "EWS", round1: "-", round5: "761", round9: "-", minScore: 761 },
-            { institute: "IIT BHU", category: "OBC", round1: "780", round5: "744,741", round9: "-", minScore: 741 },
-            { institute: "IIT BHU", category: "SC", round1: "-", round5: "-", round9: "-", minScore: 0 },
-            { institute: "IIT BHU", category: "ST", round1: "-", round5: "-", round9: "-", minScore: 0 },
-            
-            { institute: "IISC Bangalore", category: "GEN", round1: "931,914,866,867", round5: "-", round9: "-", minScore: 866 },
-            { institute: "IISC Bangalore", category: "EWS", round1: "850,827", round5: "-", round9: "-", minScore: 827 },
-            { institute: "IISC Bangalore", category: "OBC", round1: "860,853", round5: "-", round9: "-", minScore: 853 },
-            { institute: "IISC Bangalore", category: "SC", round1: "872,772,579", round5: "-", round9: "-", minScore: 579 },
-            { institute: "IISC Bangalore", category: "ST", round1: "529,579", round5: "-", round9: "-", minScore: 529 }
-        ];
-
-        // NIT CSE Cutoff Data
-        const nitCseCutoffs = [
-            { institute: "NIT Trichy", category: "GEN", openingRank: 500, closingRank: 800, minScore: 750 },
-            { institute: "NIT Trichy", category: "OBC", openingRank: 800, closingRank: 1200, minScore: 720 },
-            { institute: "NIT Trichy", category: "SC", openingRank: 1500, closingRank: 2000, minScore: 650 },
-            { institute: "NIT Trichy", category: "ST", openingRank: 2000, closingRank: 2500, minScore: 600 },
-            
-            { institute: "NIT Warangal", category: "GEN", openingRank: 600, closingRank: 900, minScore: 740 },
-            { institute: "NIT Warangal", category: "OBC", openingRank: 900, closingRank: 1400, minScore: 710 },
-            { institute: "NIT Warangal", category: "SC", openingRank: 1600, closingRank: 2200, minScore: 640 },
-            { institute: "NIT Warangal", category: "ST", openingRank: 2100, closingRank: 2700, minScore: 590 },
-            
-            { institute: "NIT Surathkal", category: "GEN", openingRank: 700, closingRank: 1000, minScore: 730 },
-            { institute: "NIT Surathkal", category: "OBC", openingRank: 1000, closingRank: 1500, minScore: 700 },
-            { institute: "NIT Surathkal", category: "SC", openingRank: 1700, closingRank: 2300, minScore: 630 },
-            { institute: "NIT Surathkal", category: "ST", openingRank: 2200, closingRank: 2800, minScore: 580 },
-            
-            { institute: "NIT Rourkela", category: "GEN", openingRank: 800, closingRank: 1200, minScore: 720 },
-            { institute: "NIT Rourkela", category: "OBC", openingRank: 1200, closingRank: 1800, minScore: 690 },
-            { institute: "NIT Rourkela", category: "SC", openingRank: 1900, closingRank: 2500, minScore: 620 },
-            { institute: "NIT Rourkela", category: "ST", openingRank: 2400, closingRank: 3000, minScore: 570 },
-            
-            { institute: "NIT Calicut", category: "GEN", openingRank: 900, closingRank: 1300, minScore: 710 },
-            { institute: "NIT Calicut", category: "OBC", openingRank: 1300, closingRank: 1900, minScore: 680 },
-            { institute: "NIT Calicut", category: "SC", openingRank: 2000, closingRank: 2600, minScore: 610 },
-            { institute: "NIT Calicut", category: "ST", openingRank: 2500, closingRank: 3200, minScore: 560 }
-        ];
-
-        // College Data with admission chances - ONLY IITs and NITs
+        // College Data
         const colleges = [
             { name: "IIT Bombay", minScore: 900, category: "IIT", location: "Mumbai", tier: "Top" },
             { name: "IIT Delhi", minScore: 880, category: "IIT", location: "Delhi", tier: "Top" },
@@ -1204,7 +953,7 @@
             { name: "NIT Rourkela", minScore: 720, category: "NIT", location: "Rourkela", tier: "Excellent" }
         ];
 
-        // PSU Data with job opportunities
+        // PSU Data
         const psus = [
             { name: "DRDO", minScore: 780, category: "Research", branch: "All", package: "High" },
             { name: "ISRO", minScore: 800, category: "Research", branch: "All", package: "High" },
@@ -1223,6 +972,37 @@
         let scoreChart = null;
         let userScore = 0;
         let userCategory = 'GEN';
+        let isRealTime = true;
+
+        // Slider update functions
+        function updateCorrect1() {
+            const value = document.getElementById('correct1Range').value;
+            document.getElementById('correct1').value = value;
+            if (isRealTime) calculateMarks();
+        }
+
+        function updateWrong1() {
+            const value = document.getElementById('wrong1Range').value;
+            document.getElementById('wrong1').value = value;
+            if (isRealTime) calculateMarks();
+        }
+
+        function updateCorrect2() {
+            const value = document.getElementById('correct2Range').value;
+            document.getElementById('correct2').value = value;
+            if (isRealTime) calculateMarks();
+        }
+
+        function updateWrong2() {
+            const value = document.getElementById('wrong2Range').value;
+            document.getElementById('wrong2').value = value;
+            if (isRealTime) calculateMarks();
+        }
+
+        function updateSlider(sliderId, value) {
+            const slider = document.getElementById(sliderId);
+            slider.value = value;
+        }
 
         // Calculate marks and score
         function calculateMarks() {
@@ -1230,6 +1010,19 @@
             const wrong1 = parseInt(document.getElementById('wrong1').value) || 0;
             const correct2 = parseInt(document.getElementById('correct2').value) || 0;
             const wrong2 = parseInt(document.getElementById('wrong2').value) || 0;
+            
+            // Validate inputs
+            if (correct1 + wrong1 > 30) {
+                showHint('hint1', 'Total 1-mark questions cannot exceed 30!');
+                return;
+            }
+            if (correct2 + wrong2 > 35) {
+                showHint('hint2', 'Total 2-mark questions cannot exceed 35!');
+                return;
+            }
+            
+            hideHint('hint1');
+            hideHint('hint2');
             
             // Calculate marks
             const marks = (correct1 * 1) - (wrong1 * 0.33) + (correct2 * 2) - (wrong2 * 0.66);
@@ -1241,6 +1034,9 @@
             // Update display
             document.getElementById('calculatedMarks').value = finalMarks.toFixed(2);
             document.getElementById('expectedScore').value = score.toFixed(2);
+            
+            // Update button text based on score
+            updatePredictButton(score);
             
             return { marks: finalMarks, score: score };
         }
@@ -1261,6 +1057,17 @@
             return 343 + (marks - 28.56) * (657 / 71.44);
         }
 
+        function updatePredictButton(score) {
+            const button = document.getElementById('predictButton');
+            let emoji = '🚀';
+            if (score >= 800) emoji = '🏆';
+            else if (score >= 700) emoji = '⭐';
+            else if (score >= 600) emoji = '📈';
+            else emoji = '🎯';
+            
+            button.innerHTML = `${emoji} Predict Rank, Score, College & PSU Opportunities`;
+        }
+
         // Main prediction function
         function predictEverything() {
             // First calculate marks
@@ -1269,12 +1076,13 @@
             userScore = result.score;
             
             if (marks === 0) {
-                alert('Please enter your answer details first.');
+                showFloatingInfo('Please enter your answer details first!', 'error');
                 return;
             }
             
             // Show loading
             document.getElementById('loading').style.display = 'block';
+            document.getElementById('predictButton').disabled = true;
             
             // Get inputs
             const paper = document.getElementById('paperCode').value;
@@ -1297,11 +1105,6 @@
                 // Calculate overall opportunity status
                 const overallStatus = calculateOverallStatus(collegeOpportunities, psuOpportunities);
                 
-                // Populate cutoff tables
-                populateIitCseTable();
-                populateNitCseTable();
-                populateTopIitsTable();
-                
                 // Display all results
                 displayAllResults(rankPrediction, marks, userScore, qualification, collegeOpportunities, psuOpportunities, overallStatus);
                 
@@ -1312,11 +1115,14 @@
                 document.getElementById('loading').style.display = 'none';
                 document.getElementById('results').style.display = 'block';
                 document.getElementById('opportunitiesSection').style.display = 'block';
-                document.getElementById('cutoffSection').style.display = 'block';
+                document.getElementById('predictButton').disabled = false;
                 
                 // Scroll to results
                 document.getElementById('results').scrollIntoView({ behavior: 'smooth' });
-            }, 500);
+                
+                // Show success message
+                showFloatingInfo('Prediction complete! Check your results below.', 'success');
+            }, 800);
         }
 
         function predictRank(score, paper, category) {
@@ -1335,14 +1141,13 @@
             // Apply competition multiplier
             estimatedRank = Math.round(estimatedRank * (competitionMultipliers[paper] || 1));
             
-            // FIXED: Category adjustments - OBC should have better rank than GEN
-            // SC/ST should have much better ranks
+            // Category adjustments
             const categoryMultipliers = {
                 'GEN': 1.0,
-                'EWS': 0.95,    // Slightly better than GEN
-                'OBC': 0.85,    // Better than GEN
-                'SC': 0.45,     // Much better than GEN
-                'ST': 0.35      // Even better than SC
+                'EWS': 0.95,
+                'OBC': 0.85,
+                'SC': 0.45,
+                'ST': 0.35
             };
             
             const categoryWiseRank = {};
@@ -1350,8 +1155,7 @@
                 categoryWiseRank[cat] = Math.max(1, Math.round(estimatedRank * multiplier));
             }
             
-            // Ensure logical order: ST < SC < OBC < EWS < GEN
-            // This ensures that reserved categories have better ranks
+            // Ensure logical order
             categoryWiseRank['ST'] = Math.min(categoryWiseRank['ST'], Math.round(categoryWiseRank['SC'] * 0.8));
             categoryWiseRank['SC'] = Math.min(categoryWiseRank['SC'], Math.round(categoryWiseRank['OBC'] * 0.6));
             categoryWiseRank['OBC'] = Math.min(categoryWiseRank['OBC'], Math.round(categoryWiseRank['EWS'] * 0.9));
@@ -1404,16 +1208,13 @@
         }
 
         function predictCollegeOpportunities(score, paper) {
-            // Only show IITs and NITs
             const eligibleColleges = colleges.filter(college => 
                 score >= college.minScore && 
                 (college.category === "IIT" || college.category === "NIT")
             );
             
-            // Sort by minScore (higher scores first)
             const sortedColleges = eligibleColleges.sort((a, b) => b.minScore - a.minScore);
             
-            // Calculate chance for each college
             const collegesWithChance = sortedColleges.map(college => {
                 let chance = 'low';
                 if (score >= college.minScore + 50) chance = 'high';
@@ -1426,7 +1227,7 @@
                 };
             });
             
-            return collegesWithChance.slice(0, 6); // Return top 6 colleges
+            return collegesWithChance.slice(0, 6);
         }
 
         function predictPSUOpportunities(score, paper) {
@@ -1435,10 +1236,8 @@
                 (psu.branch === 'All' || psu.branch.includes(paper))
             );
             
-            // Sort by minScore (higher scores first)
             const sortedPSUs = eligiblePSUs.sort((a, b) => b.minScore - a.minScore);
             
-            // Calculate chance for each PSU
             const psusWithChance = sortedPSUs.map(psu => {
                 let chance = 'low';
                 if (score >= psu.minScore + 50) chance = 'high';
@@ -1451,7 +1250,7 @@
                 };
             });
             
-            return psusWithChance.slice(0, 6); // Return top 6 PSUs
+            return psusWithChance.slice(0, 6);
         }
 
         function calculateOverallStatus(collegeOpportunities, psuOpportunities) {
@@ -1496,7 +1295,7 @@
             document.getElementById('percentile').nextElementSibling.textContent = 
                 `Top ${rankPrediction.percentile}% of candidates`;
             
-            // Display category ranks - FIXED: Now OBC < GEN, SC < OBC, ST < SC
+            // Display category ranks
             document.getElementById('rankGEN').textContent = `AIR ${Math.round(rankPrediction.categoryWiseRank.GEN)}`;
             document.getElementById('rankOBC').textContent = `AIR ${Math.round(rankPrediction.categoryWiseRank.OBC)}`;
             document.getElementById('rankSC').textContent = `AIR ${Math.round(rankPrediction.categoryWiseRank.SC)}`;
@@ -1530,6 +1329,7 @@
                 colleges.forEach(college => {
                     const li = document.createElement('li');
                     li.className = 'college-item';
+                    li.onclick = () => showCollegeDetails(college);
                     
                     const chanceClass = college.chance === 'high' ? 'high-chance' : 
                                       college.chance === 'medium' ? 'medium-chance' : 'low-chance';
@@ -1567,6 +1367,7 @@
                 psus.forEach(psu => {
                     const li = document.createElement('li');
                     li.className = 'psu-item';
+                    li.onclick = () => showPSUDetails(psu);
                     
                     const chanceClass = psu.chance === 'high' ? 'high-chance' : 
                                       psu.chance === 'medium' ? 'medium-chance' : 'low-chance';
@@ -1597,16 +1398,14 @@
         function createScoreGraph(score, rank) {
             const ctx = document.getElementById('scoreChart').getContext('2d');
             
-            // Destroy previous chart if exists
             if (scoreChart) {
                 scoreChart.destroy();
             }
             
-            // Prepare data for better visualization
+            // Prepare data
             const scores = gate2025Data.map(d => d.score);
             const ranks = gate2025Data.map(d => d.rank);
             
-            // Create evenly spaced points for better curve
             const step = Math.ceil(gate2025Data.length / 20);
             const plotScores = [];
             const plotRanks = [];
@@ -1616,11 +1415,10 @@
                 plotRanks.push(gate2025Data[i].rank);
             }
             
-            // Add the last point
             plotScores.push(gate2025Data[gate2025Data.length - 1].score);
             plotRanks.push(gate2025Data[gate2025Data.length - 1].rank);
             
-            // Find user's position on the curve
+            // Find user's position
             let userRankIndex = 0;
             for (let i = 0; i < plotRanks.length - 1; i++) {
                 if (rank >= plotRanks[i] && rank <= plotRanks[i + 1]) {
@@ -1662,9 +1460,7 @@
                         legend: {
                             labels: {
                                 color: 'white',
-                                font: {
-                                    size: 12
-                                }
+                                font: { size: 12 }
                             }
                         },
                         tooltip: {
@@ -1684,44 +1480,27 @@
                             beginAtZero: false,
                             min: 300,
                             max: 1000,
-                            grid: {
-                                color: 'rgba(255, 255, 255, 0.2)'
-                            },
-                            ticks: {
-                                color: 'white',
-                                font: {
-                                    size: 12
-                                }
-                            },
+                            grid: { color: 'rgba(255, 255, 255, 0.2)' },
+                            ticks: { color: 'white', font: { size: 12 } },
                             title: {
                                 display: true,
                                 text: 'GATE Score',
                                 color: 'white',
-                                font: {
-                                    size: 14,
-                                    weight: 'bold'
-                                }
+                                font: { size: 14, weight: 'bold' }
                             }
                         },
                         x: {
-                            grid: {
-                                color: 'rgba(255, 255, 255, 0.2)'
-                            },
-                            ticks: {
-                                color: 'white',
-                                font: {
-                                    size: 11
-                                },
+                            grid: { color: 'rgba(255, 255, 255, 0.2)' },
+                            ticks: { 
+                                color: 'white', 
+                                font: { size: 11 },
                                 maxRotation: 45
                             },
                             title: {
                                 display: true,
                                 text: 'Rank',
                                 color: 'white',
-                                font: {
-                                    size: 14,
-                                    weight: 'bold'
-                                }
+                                font: { size: 14, weight: 'bold' }
                             }
                         }
                     }
@@ -1729,180 +1508,126 @@
             });
         }
 
-        function switchCutoffTab(tabId) {
-            // Update tab buttons
-            document.querySelectorAll('.cutoff-tab').forEach(tab => {
-                tab.classList.remove('active');
-            });
-            event.target.classList.add('active');
+        // Interactive Functions
+        function autoFillGoodScore() {
+            document.getElementById('correct1').value = 22;
+            document.getElementById('wrong1').value = 3;
+            document.getElementById('correct2').value = 26;
+            document.getElementById('wrong2').value = 4;
             
-            // Update tab content
-            document.querySelectorAll('.cutoff-content').forEach(content => {
-                content.classList.remove('active');
-            });
-            document.getElementById(`${tabId}-tab`).classList.add('active');
+            updateSlider('correct1Range', 22);
+            updateSlider('wrong1Range', 3);
+            updateSlider('correct2Range', 26);
+            updateSlider('wrong2Range', 4);
             
-            // Populate table if not already done
-            if (tabId === 'iit-cse') {
-                populateIitCseTable();
-            } else if (tabId === 'nit-cse') {
-                populateNitCseTable();
-            } else if (tabId === 'top-iits') {
-                populateTopIitsTable();
+            calculateMarks();
+            showFloatingInfo('Good score sample filled! Click predict to see results.', 'info');
+        }
+
+        function autoFillAverageScore() {
+            document.getElementById('correct1').value = 16;
+            document.getElementById('wrong1').value = 6;
+            document.getElementById('correct2').value = 19;
+            document.getElementById('wrong2').value = 8;
+            
+            updateSlider('correct1Range', 16);
+            updateSlider('wrong1Range', 6);
+            updateSlider('correct2Range', 19);
+            updateSlider('wrong2Range', 8);
+            
+            calculateMarks();
+            showFloatingInfo('Average score sample filled! Click predict to see results.', 'info');
+        }
+
+        function showCollegeDetails(college) {
+            alert(`${college.name}\n\nLocation: ${college.location}\nCategory: ${college.category}\nTier: ${college.tier}\nMinimum Score Required: ${college.minScore}\n\nYour Score: ${college.yourScore}\nAdmission Chance: ${college.chance.toUpperCase()}`);
+        }
+
+        function showPSUDetails(psu) {
+            alert(`${psu.name}\n\nCategory: ${psu.category}\nBranch Eligibility: ${psu.branch}\nPackage: ${psu.package}\nMinimum Score Required: ${psu.minScore}\n\nYour Score: ${psu.yourScore}\nSelection Chance: ${psu.chance.toUpperCase()}`);
+        }
+
+        function shareResults() {
+            const rank = document.getElementById('predictedRank').textContent;
+            const score = document.getElementById('predictedScore').textContent;
+            const text = `My GATE 2026 Prediction:\nRank: ${rank}\nScore: ${score}\n\nCheck yours at: GATE Rank Predictor by Raj Bittu`;
+            
+            if (navigator.share) {
+                navigator.share({
+                    title: 'My GATE 2026 Prediction',
+                    text: text,
+                    url: window.location.href
+                });
+            } else {
+                navigator.clipboard.writeText(text).then(() => {
+                    showFloatingInfo('Results copied to clipboard!', 'success');
+                });
             }
         }
 
-        function populateIitCseTable() {
-            const tableBody = document.getElementById('iitCseTable');
-            tableBody.innerHTML = '';
+        function saveResults() {
+            const results = {
+                rank: document.getElementById('predictedRank').textContent,
+                score: document.getElementById('predictedScore').textContent,
+                marks: document.getElementById('predictedMarks').textContent,
+                percentile: document.getElementById('percentile').textContent,
+                timestamp: new Date().toLocaleString()
+            };
             
-            iitCseCutoffs.forEach(row => {
-                const tr = document.createElement('tr');
-                
-                // Get badge for institute
-                let badge = '';
-                if (row.institute.includes('IIT')) {
-                    badge = '<span class="institute-badge iit-badge">IIT</span>';
-                } else if (row.institute.includes('IISC')) {
-                    badge = '<span class="institute-badge iisc-badge">IISC</span>';
-                }
-                
-                // Determine score badge color
-                let scoreClass = getScoreClass(row.minScore);
-                
-                // Highlight row if user's score meets cutoff
-                const rowClass = (userScore >= row.minScore && row.category === userCategory) ? 'highlight-row' : '';
-                
-                tr.innerHTML = `
-                    <td class="${rowClass}"><strong>${row.institute}</strong>${badge}</td>
-                    <td class="${rowClass}">${row.category}</td>
-                    <td class="${rowClass}">${row.round1 || '-'}</td>
-                    <td class="${rowClass}">${row.round5 || '-'}</td>
-                    <td class="${rowClass}">${row.round9 || '-'}</td>
-                    <td class="${rowClass}">
-                        ${row.minScore > 0 ? 
-                            `<span class="score-badge ${scoreClass}">${row.minScore}</span>` : 
-                            `<span class="score-badge score-very-low">N/A</span>`
-                        }
-                    </td>
-                `;
-                tableBody.appendChild(tr);
-            });
+            localStorage.setItem('gatePredictionResults', JSON.stringify(results));
+            showFloatingInfo('Prediction saved locally!', 'success');
         }
 
-        function populateNitCseTable() {
-            const tableBody = document.getElementById('nitCseTable');
-            tableBody.innerHTML = '';
+        function resetForm() {
+            document.getElementById('correct1').value = '';
+            document.getElementById('wrong1').value = '';
+            document.getElementById('correct2').value = '';
+            document.getElementById('wrong2').value = '';
+            document.getElementById('calculatedMarks').value = '';
+            document.getElementById('expectedScore').value = '';
+            document.getElementById('results').style.display = 'none';
+            document.getElementById('opportunitiesSection').style.display = 'none';
             
-            nitCseCutoffs.forEach(row => {
-                const tr = document.createElement('tr');
-                
-                // Determine chance based on score
-                let chance = 'Low';
-                let chanceClass = 'score-low';
-                if (row.minScore >= 750) {
-                    chance = 'Very High';
-                    chanceClass = 'score-very-high';
-                } else if (row.minScore >= 700) {
-                    chance = 'High';
-                    chanceClass = 'score-high';
-                } else if (row.minScore >= 650) {
-                    chance = 'Medium';
-                    chanceClass = 'score-medium';
-                }
-                
-                // Determine score badge color
-                let scoreClass = getScoreClass(row.minScore);
-                
-                // Highlight row if user's score meets cutoff
-                const rowClass = (userScore >= row.minScore && row.category === userCategory) ? 'highlight-row' : '';
-                
-                tr.innerHTML = `
-                    <td class="${rowClass}"><strong>${row.institute}</strong> <span class="institute-badge nit-badge">NIT</span></td>
-                    <td class="${rowClass}">${row.category}</td>
-                    <td class="${rowClass}">${row.openingRank}</td>
-                    <td class="${rowClass}">${row.closingRank}</td>
-                    <td class="${rowClass}"><span class="score-badge ${scoreClass}">${row.minScore}</span></td>
-                    <td class="${rowClass}"><span class="score-badge ${chanceClass}">${chance}</span></td>
-                `;
-                tableBody.appendChild(tr);
-            });
+            updateSlider('correct1Range', 15);
+            updateSlider('wrong1Range', 5);
+            updateSlider('correct2Range', 20);
+            updateSlider('wrong2Range', 8);
+            
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+            showFloatingInfo('Form reset! Enter your details to get prediction.', 'info');
         }
 
-        function populateTopIitsTable() {
-            const topIits = [
-                { institute: 'IIT Bombay', gen: 810, obc: 441, sc: 772, st: 562, competition: 'Very High' },
-                { institute: 'IIT Delhi', gen: 881, obc: 718, sc: 0, st: 467, competition: 'Very High' },
-                { institute: 'IIT Madras', gen: 901, obc: 802, sc: 772, st: 0, competition: 'Very High' },
-                { institute: 'IIT Kanpur', gen: 856, obc: 780, sc: 572, st: 0, competition: 'High' },
-                { institute: 'IIT Kharagpur', gen: 831, obc: 741, sc: 872, st: 556, competition: 'High' },
-                { institute: 'IIT Roorkee', gen: 831, obc: 718, sc: 0, st: 562, competition: 'High' },
-                { institute: 'IIT Hyderabad', gen: 826, obc: 664, sc: 0, st: 0, competition: 'Medium' },
-                { institute: 'IIT Indore', gen: 622, obc: 741, sc: 0, st: 0, competition: 'Medium' },
-                { institute: 'IIT BHU', gen: 706, obc: 741, sc: 0, st: 0, competition: 'Medium' }
-            ];
-            
-            const tableBody = document.getElementById('topIitsTable');
-            tableBody.innerHTML = '';
-            
-            topIits.forEach(row => {
-                const tr = document.createElement('tr');
-                
-                // Highlight row if user's score meets GEN cutoff
-                const rowClass = (userScore >= row.gen && userCategory === 'GEN') ? 'highlight-row' : '';
-                
-                tr.innerHTML = `
-                    <td class="${rowClass}"><strong>${row.institute}</strong> <span class="institute-badge iit-badge">IIT</span></td>
-                    <td class="${rowClass}">
-                        ${row.gen > 0 ? 
-                            `<span class="score-badge ${getScoreClass(row.gen)}">${row.gen}</span>` : 
-                            `<span class="score-badge score-very-low">N/A</span>`
-                        }
-                    </td>
-                    <td class="${rowClass}">
-                        ${row.obc > 0 ? 
-                            `<span class="score-badge ${getScoreClass(row.obc)}">${row.obc}</span>` : 
-                            `<span class="score-badge score-very-low">N/A</span>`
-                        }
-                    </td>
-                    <td class="${rowClass}">
-                        ${row.sc > 0 ? 
-                            `<span class="score-badge ${getScoreClass(row.sc)}">${row.sc}</span>` : 
-                            `<span class="score-badge score-very-low">N/A</span>`
-                        }
-                    </td>
-                    <td class="${rowClass}">
-                        ${row.st > 0 ? 
-                            `<span class="score-badge ${getScoreClass(row.st)}">${row.st}</span>` : 
-                            `<span class="score-badge score-very-low">N/A</span>`
-                        }
-                    </td>
-                    <td class="${rowClass}">
-                        <span class="score-badge ${getCompetitionClass(row.competition)}">
-                            ${row.competition}
-                        </span>
-                    </td>
-                `;
-                tableBody.appendChild(tr);
-            });
+        // UI Helper Functions
+        function showHint(hintId, message) {
+            const hint = document.getElementById(hintId);
+            hint.textContent = message;
+            hint.style.display = 'block';
+            setTimeout(() => {
+                hint.style.display = 'none';
+            }, 3000);
         }
 
-        function getScoreClass(score) {
-            if (score >= 800) return 'score-very-high';
-            if (score >= 700) return 'score-high';
-            if (score >= 600) return 'score-medium';
-            if (score >= 500) return 'score-low';
-            return 'score-very-low';
+        function hideHint(hintId) {
+            document.getElementById(hintId).style.display = 'none';
         }
 
-        function getCompetitionClass(competition) {
-            switch(competition) {
-                case 'Very High': return 'score-very-high';
-                case 'High': return 'score-high';
-                case 'Medium': return 'score-medium';
-                case 'Low': return 'score-low';
-                default: return 'score-very-low';
+        function showFloatingInfo(message, type = 'info') {
+            const floatingInfo = document.getElementById('floatingInfo');
+            floatingInfo.textContent = message;
+            
+            // Set color based on type
+            if (type === 'error') {
+                floatingInfo.style.borderLeft = '4px solid #f44336';
+            } else if (type === 'success') {
+                floatingInfo.style.borderLeft = '4px solid #4CAF50';
+            } else {
+                floatingInfo.style.borderLeft = '4px solid #2196F3';
             }
+            
+            floatingInfo.style.display = 'block';
+            setTimeout(() => {
+                floatingInfo.style.display = 'none';
+            }, 4000);
         }
 
         function updateCompetition() {
@@ -1925,28 +1650,33 @@
             }
         }
 
-        function resetForm() {
-            document.getElementById('correct1').value = '';
-            document.getElementById('wrong1').value = '';
-            document.getElementById('correct2').value = '';
-            document.getElementById('wrong2').value = '';
-            document.getElementById('calculatedMarks').value = '';
-            document.getElementById('expectedScore').value = '';
-            document.getElementById('results').style.display = 'none';
-            document.getElementById('opportunitiesSection').style.display = 'none';
-            document.getElementById('cutoffSection').style.display = 'none';
-            window.scrollTo({ top: 0, behavior: 'smooth' });
-        }
-
         // Initialize
         window.onload = function() {
             updateCompetition();
-            // Auto-fill sample data for demonstration
-            document.getElementById('correct1').value = '18';
-            document.getElementById('wrong1').value = '4';
-            document.getElementById('correct2').value = '22';
-            document.getElementById('wrong2').value = '6';
-            calculateMarks();
+            
+            // Set up real-time toggle
+            document.getElementById('realTimeToggle').addEventListener('change', function() {
+                isRealTime = this.checked;
+                showFloatingInfo(`Real-time updates ${isRealTime ? 'enabled' : 'disabled'}`, 'info');
+            });
+            
+            // Add input event listeners for real-time updates
+            const inputs = ['correct1', 'wrong1', 'correct2', 'wrong2'];
+            inputs.forEach(id => {
+                document.getElementById(id).addEventListener('input', function() {
+                    if (isRealTime) {
+                        calculateMarks();
+                    }
+                });
+            });
+            
+            // Auto-fill for demonstration
+            autoFillGoodScore();
+            
+            // Show welcome message
+            setTimeout(() => {
+                showFloatingInfo('Welcome! Try adjusting sliders for real-time updates.', 'info');
+            }, 1000);
         }
     </script>
 </body>
