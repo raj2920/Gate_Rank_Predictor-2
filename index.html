@@ -580,114 +580,49 @@
                 name: "IIT Bombay", 
                 minScore: 800, 
                 category: "IIT", 
-                badge: "iit-badge",
-                // Reservation percentages
-                reservation: {
-                    GEN: 40.5,
-                    OBC: 27,
-                    SC: 15,
-                    ST: 7.5,
-                    EWS: 10,
-                    PwD: 5
-                }
+                badge: "iit-badge"
             },
             { 
                 name: "IIT Delhi", 
                 minScore: 780, 
                 category: "IIT", 
-                badge: "iit-badge",
-                reservation: {
-                    GEN: 40.5,
-                    OBC: 27,
-                    SC: 15,
-                    ST: 7.5,
-                    EWS: 10,
-                    PwD: 5
-                }
+                badge: "iit-badge"
             },
             { 
                 name: "IIT Madras", 
                 minScore: 770, 
                 category: "IIT", 
-                badge: "iit-badge",
-                reservation: {
-                    GEN: 40.5,
-                    OBC: 27,
-                    SC: 15,
-                    ST: 7.5,
-                    EWS: 10,
-                    PwD: 5
-                }
+                badge: "iit-badge"
             },
             { 
                 name: "IIT Kanpur", 
                 minScore: 760, 
                 category: "IIT", 
-                badge: "iit-badge",
-                reservation: {
-                    GEN: 40.5,
-                    OBC: 27,
-                    SC: 15,
-                    ST: 7.5,
-                    EWS: 10,
-                    PwD: 5
-                }
+                badge: "iit-badge"
             },
             { 
                 name: "IIT Kharagpur", 
                 minScore: 750, 
                 category: "IIT", 
-                badge: "iit-badge",
-                reservation: {
-                    GEN: 40.5,
-                    OBC: 27,
-                    SC: 15,
-                    ST: 7.5,
-                    EWS: 10,
-                    PwD: 5
-                }
+                badge: "iit-badge"
             },
             { 
                 name: "IISC Bangalore", 
                 minScore: 790, 
                 category: "IISC", 
-                badge: "iisc-badge",
-                reservation: {
-                    GEN: 40.5,
-                    OBC: 27,
-                    SC: 15,
-                    ST: 7.5,
-                    EWS: 10,
-                    PwD: 5
-                }
+                badge: "iisc-badge"
             },
             { 
                 name: "IIT Roorkee", 
                 minScore: 740, 
                 category: "IIT", 
-                badge: "iit-badge",
-                reservation: {
-                    GEN: 40.5,
-                    OBC: 27,
-                    SC: 15,
-                    ST: 7.5,
-                    EWS: 10,
-                    PwD: 5
-                }
+                badge: "iit-badge"
             },
             { 
                 name: "IIT Hyderabad", 
                 minScore: 730, 
                 category: "IIT", 
-                badge: "iit-badge",
-                reservation: {
-                    GEN: 40.5,
-                    OBC: 27,
-                    SC: 15,
-                    ST: 7.5,
-                    EWS: 10,
-                    PwD: 5
-                }
+                badge: "iit-badge"
             }
         ];
 
@@ -837,11 +772,11 @@
                 // Check qualification
                 const qualification = checkQualification(marks, paper, category);
                 
-                // Calculate category-wise ranks with reservation
-                const categoryRanks = calculateCategoryRanks(predictedRank);
+                // Calculate category-wise ranks with CORRECT reservation logic
+                const categoryRanks = calculateCategoryRanks(predictedRank, category);
                 
                 // Get opportunities with reservation consideration
-                const collegeOpps = getCollegeOpportunities(score, category);
+                const collegeOpps = getCollegeOpportunities(score, category, predictedRank);
                 const psuOpps = getPSUOpportunities(score, category);
                 
                 // Display results
@@ -903,27 +838,36 @@
             return Math.max(1, rank);
         }
 
-        function calculateCategoryRanks(generalRank) {
-            // Reservation percentages for different categories
-            const reservationPercentages = {
-                'GEN': 100,      // 40.5% of seats + some from unused reserved seats
-                'EWS': 80,       // Better rank due to 10% reservation
-                'OBC': 70,       // Better rank due to 27% reservation
-                'SC': 40,        // Much better rank due to 15% reservation
-                'ST': 25,        // Best improvement due to 7.5% reservation
-                'PwD': 20        // Horizontal reservation across all categories
+        function calculateCategoryRanks(generalRank, userCategory) {
+            // CORRECTED: Reservation percentages mean better (lower) ranks for reserved categories
+            // If GEN rank is 80, then:
+            // OBC should be better than 80 (lower number)
+            // SC should be much better (even lower number)
+            // ST should be best (lowest number)
+            
+            const ranks = {
+                'GEN': generalRank,  // General rank is the base
+                'EWS': Math.max(1, Math.round(generalRank * 0.85)),  // EWS: 85% of GEN rank (better)
+                'OBC': Math.max(1, Math.round(generalRank * 0.65)),  // OBC: 65% of GEN rank (better)
+                'SC': Math.max(1, Math.round(generalRank * 0.35)),   // SC: 35% of GEN rank (much better)
+                'ST': Math.max(1, Math.round(generalRank * 0.20)),   // ST: 20% of GEN rank (best)
+                'PwD': Math.max(1, Math.round(generalRank * 0.15))   // PwD: 15% of GEN rank (best)
             };
             
-            const ranks = {};
-            for (const [category, percentage] of Object.entries(reservationPercentages)) {
-                ranks[category] = Math.max(1, Math.round(generalRank * percentage / 100));
+            // Ensure logical ordering: ST < SC < OBC < EWS < GEN
+            ranks['ST'] = Math.min(ranks['ST'], ranks['SC'] - 10);
+            ranks['SC'] = Math.min(ranks['SC'], ranks['OBC'] - 20);
+            ranks['OBC'] = Math.min(ranks['OBC'], ranks['EWS'] - 15);
+            ranks['EWS'] = Math.min(ranks['EWS'], ranks['GEN'] - 10);
+            
+            // Ensure minimum rank of 1
+            for (const cat in ranks) {
+                ranks[cat] = Math.max(1, ranks[cat]);
             }
             
-            // Ensure logical ordering
-            ranks['ST'] = Math.min(ranks['ST'], Math.round(ranks['SC'] * 0.6));
-            ranks['SC'] = Math.min(ranks['SC'], Math.round(ranks['OBC'] * 0.6));
-            ranks['OBC'] = Math.min(ranks['OBC'], Math.round(ranks['EWS'] * 0.9));
-            ranks['EWS'] = Math.min(ranks['EWS'], Math.round(ranks['GEN'] * 0.8));
+            // Highlight the user's category
+            ranks.userCategory = userCategory;
+            ranks.userRank = ranks[userCategory];
             
             return ranks;
         }
@@ -943,18 +887,42 @@
             };
         }
 
-        function getCollegeOpportunities(score, category) {
+        function getCollegeOpportunities(score, category, predictedRank) {
             const opportunities = [];
             
-            // Check IITs with reservation consideration
+            // Get category-specific rank
+            const categoryRanks = calculateCategoryRanks(predictedRank, category);
+            const categoryRank = categoryRanks[category];
+            
+            // Check IITs based on category rank
             iits.forEach(iit => {
-                const adjustedScore = score * (100 / iit.reservation[category]);
-                if (adjustedScore >= iit.minScore) {
+                // For IITs, rank matters more than score
+                let chance = 'low';
+                let requiredRank = 0;
+                
+                // Define rank cutoffs for different IITs
+                if (iit.name === "IIT Bombay") requiredRank = 100;
+                else if (iit.name === "IIT Delhi") requiredRank = 150;
+                else if (iit.name === "IIT Madras") requiredRank = 200;
+                else if (iit.name === "IIT Kanpur") requiredRank = 250;
+                else if (iit.name === "IIT Kharagpur") requiredRank = 300;
+                else if (iit.name === "IISC Bangalore") requiredRank = 120;
+                else if (iit.name === "IIT Roorkee") requiredRank = 400;
+                else if (iit.name === "IIT Hyderabad") requiredRank = 500;
+                
+                // Adjust required rank based on category
+                const adjustedRequiredRank = Math.round(requiredRank * getCategoryMultiplier(category));
+                
+                if (categoryRank <= adjustedRequiredRank * 0.5) chance = 'high';
+                else if (categoryRank <= adjustedRequiredRank * 0.8) chance = 'medium';
+                else if (categoryRank <= adjustedRequiredRank) chance = 'low';
+                
+                if (categoryRank <= adjustedRequiredRank) {
                     opportunities.push({
                         ...iit,
-                        yourScore: score,
-                        adjustedScore: adjustedScore,
-                        chance: calculateChance(adjustedScore, iit.minScore)
+                        categoryRank: categoryRank,
+                        requiredRank: adjustedRequiredRank,
+                        chance: chance
                     });
                 }
             });
@@ -973,35 +941,46 @@
             return opportunities;
         }
 
+        function getCategoryMultiplier(category) {
+            // Higher multiplier means easier to get in (lower required rank)
+            const multipliers = {
+                'GEN': 1.0,
+                'EWS': 0.9,
+                'OBC': 0.7,
+                'SC': 0.4,
+                'ST': 0.3,
+                'PwD': 0.25
+            };
+            return multipliers[category] || 1.0;
+        }
+
         function getPSUOpportunities(score, category) {
             const opportunities = [];
             
+            // Adjust score based on category for PSUs
+            const categoryMultipliers = {
+                'GEN': 1.0,
+                'EWS': 0.95,
+                'OBC': 0.85,
+                'SC': 0.60,
+                'ST': 0.50,
+                'PwD': 0.45
+            };
+            
+            const adjustedScore = score * (categoryMultipliers[category] || 1.0);
+            
             psus.forEach(psu => {
-                // For PSUs with reservation, adjust score
-                const adjustedScore = psu.reservation ? score * (100 / getPSUReservationFactor(category)) : score;
                 if (adjustedScore >= psu.minScore) {
                     opportunities.push({
                         ...psu,
                         yourScore: score,
-                        adjustedScore: psu.reservation ? adjustedScore : null,
+                        adjustedScore: adjustedScore,
                         chance: calculateChance(adjustedScore, psu.minScore)
                     });
                 }
             });
             
             return opportunities;
-        }
-
-        function getPSUReservationFactor(category) {
-            const factors = {
-                'GEN': 100,
-                'EWS': 90,
-                'OBC': 80,
-                'SC': 70,
-                'ST': 60,
-                'PwD': 50
-            };
-            return factors[category] || 100;
         }
 
         function calculateChance(score, minScore) {
@@ -1021,7 +1000,7 @@
             const percentile = ((150000 - predictedRank) / 150000 * 100).toFixed(2);
             document.getElementById('percentile').textContent = `${percentile}%`;
             
-            // Category ranks
+            // Category ranks - NOW SHOWING CORRECT LOGIC
             document.getElementById('rankGEN').textContent = `AIR ${categoryRanks.GEN}`;
             document.getElementById('rankOBC').textContent = `AIR ${categoryRanks.OBC}`;
             document.getElementById('rankSC').textContent = `AIR ${categoryRanks.SC}`;
@@ -1059,15 +1038,16 @@
                                 <span class="college-badge ${college.badge}">${college.category}</span>
                             </div>
                             <div class="${chanceClass}">${college.chance.toUpperCase()} CHANCE</div>
+                            ${college.categoryRank ? `<div style="font-size: 0.7rem; color: #666;">Your AIR: ${college.categoryRank}</div>` : ''}
                         </div>
                         <div style="background: white; padding: 3px 8px; border-radius: 12px; font-size: 0.8rem;">
-                            Min: ${college.minScore}
+                            ${college.requiredRank ? `AIR ≤ ${college.requiredRank}` : `Score: ${college.minScore}`}
                         </div>
                     `;
                     collegeList.appendChild(li);
                 });
             } else {
-                collegeList.innerHTML = '<li class="college-item" style="text-align: center; color: #666;">Score too low for IITs/NITs</li>';
+                collegeList.innerHTML = '<li class="college-item" style="text-align: center; color: #666;">Score/Rank too low for IITs/NITs</li>';
             }
             
             // PSU opportunities
@@ -1088,7 +1068,7 @@
                                 <span class="psu-badge ${psu.badge}">${psu.category}</span>
                             </div>
                             <div class="${chanceClass}">${psu.chance.toUpperCase()} CHANCE</div>
-                            ${psu.reservation ? '<div style="font-size: 0.7rem; color: #666;">Reservation applied</div>' : ''}
+                            <div style="font-size: 0.7rem; color: #666;">Reservation applied</div>
                         </div>
                         <div style="background: white; padding: 3px 8px; border-radius: 12px; font-size: 0.8rem;">
                             Min: ${psu.minScore}
