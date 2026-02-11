@@ -425,6 +425,49 @@
             color: #666;
         }
 
+        /* Analysis Box - MOVED POSITION */
+        .analysis-box {
+            background: linear-gradient(135deg, #fff8e1, #ffeaa7);
+            padding: 25px;
+            border-radius: 12px;
+            margin: 25px 0;
+            border-left: 5px solid var(--warning);
+        }
+
+        .analysis-box h4 {
+            color: var(--primary);
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .analysis-text {
+            font-size: 1.1rem;
+            line-height: 1.6;
+            color: #2c3e50;
+        }
+
+        .excellent {
+            color: var(--success);
+            font-weight: 700;
+        }
+
+        .good {
+            color: #3498db;
+            font-weight: 700;
+        }
+
+        .average {
+            color: var(--warning);
+            font-weight: 700;
+        }
+
+        .improve {
+            color: var(--danger);
+            font-weight: 700;
+        }
+
         /* PSU Chances Section */
         .psu-section {
             background: linear-gradient(135deg, #fff0e1, #ffe3b3);
@@ -744,49 +787,6 @@
             font-weight: 600;
         }
 
-        /* Analysis Box */
-        .analysis-box {
-            background: linear-gradient(135deg, #fff8e1, #ffeaa7);
-            padding: 25px;
-            border-radius: 12px;
-            margin-top: 30px;
-            border-left: 5px solid var(--warning);
-        }
-
-        .analysis-box h4 {
-            color: var(--primary);
-            margin-bottom: 15px;
-            display: flex;
-            align-items: center;
-            gap: 10px;
-        }
-
-        .analysis-text {
-            font-size: 1.1rem;
-            line-height: 1.6;
-            color: #2c3e50;
-        }
-
-        .excellent {
-            color: var(--success);
-            font-weight: 700;
-        }
-
-        .good {
-            color: #3498db;
-            font-weight: 700;
-        }
-
-        .average {
-            color: var(--warning);
-            font-weight: 700;
-        }
-
-        .improve {
-            color: var(--danger);
-            font-weight: 700;
-        }
-
         /* Share Buttons */
         .share-buttons {
             display: flex;
@@ -1075,6 +1075,14 @@
                     </div>
                 </div>
 
+                <!-- Analysis Box - MOVED HERE (below IIT Admission) -->
+                <div class="analysis-box">
+                    <h4><i class="fas fa-lightbulb"></i> Analysis & Insights</h4>
+                    <div class="analysis-text" id="analysisText">
+                        Enter your marks and click predict to see detailed analysis...
+                    </div>
+                </div>
+
                 <!-- PSU Chances Section -->
                 <div class="psu-section" id="psuSection">
                     <h4><i class="fas fa-building"></i> PSU Recruitment Chances</h4>
@@ -1088,14 +1096,6 @@
                     <h4><i class="fas fa-flag-checkered"></i> GATE 2026 Expected Cutoff Marks</h4>
                     <div id="cutoffTableContainer">
                         <!-- Will be populated by JavaScript -->
-                    </div>
-                </div>
-
-                <!-- Analysis Box -->
-                <div class="analysis-box">
-                    <h4><i class="fas fa-lightbulb"></i> Analysis & Insights</h4>
-                    <div class="analysis-text" id="analysisText">
-                        Enter your marks and click predict to see detailed analysis...
                     </div>
                 </div>
 
