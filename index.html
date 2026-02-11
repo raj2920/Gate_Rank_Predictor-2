@@ -189,7 +189,7 @@
             transform: translateY(-2px);
         }
 
-        /* Simplified Input Groups - Removed extra buttons */
+        /* Marks Input Groups */
         .marks-input-group {
             display: grid;
             grid-template-columns: 1fr 1fr;
@@ -209,7 +209,13 @@
             font-size: 0.95rem;
             display: flex;
             align-items: center;
-            gap: 6px;
+            justify-content: space-between;
+        }
+
+        .input-label .max-limit {
+            font-size: 0.8rem;
+            color: #777;
+            font-weight: normal;
         }
 
         .marks-input {
@@ -227,6 +233,18 @@
             border-color: var(--secondary);
             outline: none;
             box-shadow: 0 0 0 3px rgba(52, 152, 219, 0.2);
+        }
+
+        .marks-input.invalid {
+            border-color: var(--danger);
+            background-color: rgba(231, 76, 60, 0.05);
+        }
+
+        .error-message {
+            color: var(--danger);
+            font-size: 0.85rem;
+            margin-top: 5px;
+            display: none;
         }
 
         /* Category Buttons */
@@ -292,6 +310,13 @@
         .predict-btn:hover {
             transform: translateY(-3px) scale(1.05);
             box-shadow: 0 15px 30px rgba(52, 152, 219, 0.4);
+        }
+
+        .predict-btn:disabled {
+            background: #95a5a6;
+            cursor: not-allowed;
+            transform: none;
+            box-shadow: none;
         }
 
         /* Marks Preview */
@@ -400,6 +425,85 @@
             margin-bottom: 10px;
         }
 
+        /* IIT Admission Chances */
+        .iit-chances {
+            background: linear-gradient(135deg, rgba(52, 152, 219, 0.1), rgba(52, 152, 219, 0.05));
+            border-radius: 12px;
+            padding: 20px;
+            margin: 25px 0;
+            border: 2px solid var(--secondary);
+        }
+
+        .iit-chances h3 {
+            color: var(--primary);
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .chance-cards {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 15px;
+        }
+
+        @media (max-width: 768px) {
+            .chance-cards {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .chance-card {
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            text-align: center;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+            border: 2px solid #e0e0e0;
+        }
+
+        .chance-card.high {
+            border-color: var(--success);
+        }
+
+        .chance-card.medium {
+            border-color: var(--warning);
+        }
+
+        .chance-card.low {
+            border-color: var(--danger);
+        }
+
+        .chance-icon {
+            font-size: 2.5rem;
+            margin-bottom: 15px;
+        }
+
+        .chance-title {
+            font-weight: 700;
+            margin-bottom: 10px;
+            color: var(--primary);
+        }
+
+        .chance-rank {
+            font-size: 1.2rem;
+            font-weight: 800;
+            margin: 10px 0;
+        }
+
+        .chance-rank.high {
+            color: var(--success);
+        }
+
+        .chance-rank.medium {
+            color: var(--warning);
+        }
+
+        .chance-rank.low {
+            color: var(--danger);
+        }
+
         /* Scores Table */
         .scores-table {
             width: 100%;
@@ -427,6 +531,32 @@
 
         .scores-table tr:hover {
             background: #f9f9f9;
+        }
+
+        /* PSU Eligibility */
+        .psu-eligibility {
+            background: linear-gradient(135deg, rgba(243, 156, 18, 0.1), rgba(243, 156, 18, 0.05));
+            border-radius: 12px;
+            padding: 20px;
+            margin: 25px 0;
+            border: 2px solid var(--warning);
+        }
+
+        .psu-list {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-top: 15px;
+        }
+
+        .psu-badge {
+            background: white;
+            padding: 8px 15px;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            font-weight: 600;
+            border: 2px solid var(--warning);
+            color: var(--warning);
         }
 
         /* Graph Section */
@@ -473,19 +603,109 @@
             100% { transform: rotate(360deg); }
         }
 
+        /* Action Buttons */
+        .action-buttons {
+            display: flex;
+            gap: 15px;
+            justify-content: center;
+            margin: 30px 0;
+            flex-wrap: wrap;
+        }
+
+        .action-btn {
+            padding: 12px 25px;
+            border-radius: 10px;
+            font-weight: 600;
+            cursor: pointer;
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            border: 2px solid;
+            transition: all 0.3s;
+        }
+
+        .save-btn {
+            background: white;
+            color: var(--secondary);
+            border-color: var(--secondary);
+        }
+
+        .share-btn {
+            background: white;
+            color: var(--success);
+            border-color: var(--success);
+        }
+
+        .export-btn {
+            background: white;
+            color: var(--primary);
+            border-color: var(--primary);
+        }
+
+        .action-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+
         /* Footer */
         footer {
-            background: var(--primary);
+            background: linear-gradient(135deg, var(--primary) 0%, #1a2530 100%);
             color: white;
-            padding: 30px 40px;
+            padding: 40px;
             margin-top: 40px;
             text-align: center;
+        }
+
+        .footer-content h3 {
+            font-size: 1.8rem;
+            margin-bottom: 15px;
+            color: white;
+        }
+
+        .footer-content p {
+            opacity: 0.9;
+            margin-bottom: 25px;
+        }
+
+        .contact-info {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 15px;
+            margin: 25px 0;
+        }
+
+        .contact-item {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 1.1rem;
+        }
+
+        .contact-item i {
+            color: var(--secondary);
+            font-size: 1.3rem;
+        }
+
+        .contact-email {
+            background: rgba(255, 255, 255, 0.1);
+            padding: 12px 25px;
+            border-radius: 50px;
+            margin-top: 10px;
+            transition: all 0.3s;
+        }
+
+        .contact-email:hover {
+            background: rgba(255, 255, 255, 0.2);
+            transform: translateY(-3px);
         }
 
         .copyright {
             opacity: 0.9;
             font-size: 1rem;
             margin-top: 20px;
+            padding-top: 20px;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
             display: flex;
             align-items: center;
             justify-content: center;
@@ -521,6 +741,17 @@
                 padding: 14px 28px;
                 font-size: 1.1rem;
             }
+
+            .action-buttons {
+                flex-direction: column;
+                align-items: center;
+            }
+
+            .action-btn {
+                width: 100%;
+                max-width: 300px;
+                justify-content: center;
+            }
         }
 
         @media (max-width: 480px) {
@@ -545,6 +776,7 @@
             <p class="tagline">
                 <span>Accurate Rank Prediction</span> 
                 <span>IIT Admission Chances</span>
+                <span>PSU Eligibility Check</span>
             </p>
         </header>
 
@@ -580,12 +812,20 @@
                         <label><i class="fas fa-1"></i> 1-Mark Questions</label>
                         <div class="marks-input-group">
                             <div class="input-with-label">
-                                <div class="input-label">Correct Answers</div>
-                                <input type="number" id="type1Correct" class="marks-input" min="0" max="100" step="1" value="30" oninput="updateMarks()">
+                                <div class="input-label">
+                                    Correct Answers
+                                    <span class="max-limit">Max: 30</span>
+                                </div>
+                                <input type="number" id="type1Correct" class="marks-input" min="0" max="30" step="1" value="15" oninput="validateInput('type1')">
+                                <div class="error-message" id="type1Error"></div>
                             </div>
                             <div class="input-with-label">
-                                <div class="input-label">Wrong Answers</div>
-                                <input type="number" id="type1Wrong" class="marks-input" min="0" max="100" step="1" value="5" oninput="updateMarks()">
+                                <div class="input-label">
+                                    Wrong Answers
+                                    <span class="max-limit">Max: 30</span>
+                                </div>
+                                <input type="number" id="type1Wrong" class="marks-input" min="0" max="30" step="1" value="2" oninput="validateInput('type1')">
+                                <div class="error-message" id="type1WrongError"></div>
                             </div>
                         </div>
                     </div>
@@ -595,12 +835,20 @@
                         <label><i class="fas fa-2"></i> 2-Mark Questions</label>
                         <div class="marks-input-group">
                             <div class="input-with-label">
-                                <div class="input-label">Correct Answers</div>
-                                <input type="number" id="type2Correct" class="marks-input" min="0" max="50" step="1" value="18" oninput="updateMarks()">
+                                <div class="input-label">
+                                    Correct Answers
+                                    <span class="max-limit">Max: 35</span>
+                                </div>
+                                <input type="number" id="type2Correct" class="marks-input" min="0" max="35" step="1" value="10" oninput="validateInput('type2')">
+                                <div class="error-message" id="type2Error"></div>
                             </div>
                             <div class="input-with-label">
-                                <div class="input-label">Wrong Answers</div>
-                                <input type="number" id="type2Wrong" class="marks-input" min="0" max="50" step="1" value="3" oninput="updateMarks()">
+                                <div class="input-label">
+                                    Wrong Answers
+                                    <span class="max-limit">Max: 35</span>
+                                </div>
+                                <input type="number" id="type2Wrong" class="marks-input" min="0" max="35" step="1" value="1" oninput="validateInput('type2')">
+                                <div class="error-message" id="type2WrongError"></div>
                             </div>
                         </div>
                     </div>
@@ -637,14 +885,14 @@
 
                     <!-- Note Box -->
                     <div class="note-box">
-                        <p><i class="fas fa-info-circle"></i> <strong>Note:</strong> GATE 2026 cutoffs expected to increase by 1.5 marks. SC/ST categories have significant benefits for IIT admissions.</p>
+                        <p><i class="fas fa-info-circle"></i> <strong>Note:</strong> GATE 2026 has 30 one-mark questions (total 30 marks) and 35 two-mark questions (total 70 marks). Total marks: 100. Cutoffs expected to increase by 1.5 marks from 2025.</p>
                     </div>
                 </div>
             </div>
 
             <!-- Predict Button -->
             <div class="predict-container">
-                <button class="predict-btn" onclick="predictRank()">
+                <button class="predict-btn" id="predictBtn" onclick="predictRank()">
                     <i class="fas fa-bolt"></i> 
                     PREDICT MY RANK & IIT CHANCES
                 </button>
@@ -668,17 +916,28 @@
                     <!-- Will be populated by JavaScript -->
                 </div>
 
+                <!-- IIT Admission Chances -->
+                <div class="iit-chances" id="iitChances">
+                    <!-- Will be populated by JavaScript -->
+                </div>
+
+                <!-- PSU Eligibility -->
+                <div class="psu-eligibility" id="psuEligibility">
+                    <!-- Will be populated by JavaScript -->
+                </div>
+
                 <!-- Scores Table -->
                 <div style="margin: 30px 0;">
                     <h4 style="color: var(--primary); margin-bottom: 15px; display: flex; align-items: center; gap: 10px;">
-                        <i class="fas fa-chart-bar"></i> Category Scores
+                        <i class="fas fa-chart-bar"></i> Category-wise Cutoff Analysis
                     </h4>
                     <table class="scores-table">
                         <thead>
                             <tr>
                                 <th>Category</th>
-                                <th>Score</th>
-                                <th>Qualification Status</th>
+                                <th>Expected Cutoff 2026</th>
+                                <th>Your Status</th>
+                                <th>Difference</th>
                             </tr>
                         </thead>
                         <tbody id="scoresTableBody">
@@ -687,11 +946,24 @@
                     </table>
                 </div>
 
+                <!-- Action Buttons -->
+                <div class="action-buttons">
+                    <button class="action-btn save-btn" onclick="saveResults()">
+                        <i class="fas fa-save"></i> Save Results
+                    </button>
+                    <button class="action-btn share-btn" onclick="shareResults()">
+                        <i class="fas fa-share-alt"></i> Share Results
+                    </button>
+                    <button class="action-btn export-btn" onclick="exportToPDF()">
+                        <i class="fas fa-file-pdf"></i> Export as PDF
+                    </button>
+                </div>
+
                 <!-- Graph Section -->
                 <div class="graph-section">
                     <div class="graph-header">
-                        <h3><i class="fas fa-chart-line"></i> Rank Distribution</h3>
-                        <p>Your position among GATE 2025 candidates</p>
+                        <h3><i class="fas fa-chart-line"></i> Rank Distribution Analysis</h3>
+                        <p>Your position among GATE 2025 candidates with similar scores</p>
                     </div>
                     <div class="graph-container">
                         <canvas id="rankChart"></canvas>
@@ -704,9 +976,26 @@
         <footer>
             <div class="footer-content">
                 <h3>GATE Rank Predictor 2026</h3>
-                <p>Accurate predictions with category-specific IIT admission analysis</p>
+                <p>Accurate predictions with category-specific IIT admission analysis and PSU eligibility</p>
+                
+                <div class="contact-info">
+                    <div class="contact-item">
+                        <i class="fas fa-envelope"></i>
+                        <div>
+                            <p>Contact for Queries & Suggestions</p>
+                            <a href="mailto:bituraj036@gmail.com" class="contact-email">
+                                bituraj036@gmail.com
+                            </a>
+                        </div>
+                    </div>
+                    <div class="contact-item">
+                        <i class="fas fa-info-circle"></i>
+                        <p>Need help? Email us for support</p>
+                    </div>
+                </div>
+                
                 <div class="copyright">
-                    <i class="fas fa-copyright"></i> 2025 GATE Rank Predictor
+                    <i class="fas fa-copyright"></i> 2025 GATE Rank Predictor | Created by Bitu Raj
                 </div>
             </div>
         </footer>
@@ -770,9 +1059,110 @@
             "CH": { GEN: 27.7, OBC: 24.9, EWS: 24.9, SC: 18.4, ST: 18.4, PWD: 18.4 }
         };
 
+        // IIT Admission Cutoffs (Rank thresholds)
+        const iitCutoffs = {
+            "CS": {
+                "GEN": { topIITs: 100, oldIITs: 500, newIITs: 1500 },
+                "OBC": { topIITs: 200, oldIITs: 1000, newIITs: 3000 },
+                "SC": { topIITs: 400, oldIITs: 2000, newIITs: 6000 },
+                "ST": { topIITs: 600, oldIITs: 3000, newIITs: 8000 },
+                "EWS": { topIITs: 200, oldIITs: 1000, newIITs: 3000 },
+                "PWD": { topIITs: 400, oldIITs: 2000, newIITs: 6000 }
+            },
+            "CE": {
+                "GEN": { topIITs: 150, oldIITs: 700, newIITs: 2000 },
+                "OBC": { topIITs: 300, oldIITs: 1400, newIITs: 4000 },
+                "SC": { topIITs: 600, oldIITs: 2800, newIITs: 8000 },
+                "ST": { topIITs: 900, oldIITs: 4200, newIITs: 12000 },
+                "EWS": { topIITs: 300, oldIITs: 1400, newIITs: 4000 },
+                "PWD": { topIITs: 600, oldIITs: 2800, newIITs: 8000 }
+            },
+            "ME": {
+                "GEN": { topIITs: 200, oldIITs: 800, newIITs: 2500 },
+                "OBC": { topIITs: 400, oldIITs: 1600, newIITs: 5000 },
+                "SC": { topIITs: 800, oldIITs: 3200, newIITs: 10000 },
+                "ST": { topIITs: 1200, oldIITs: 4800, newIITs: 15000 },
+                "EWS": { topIITs: 400, oldIITs: 1600, newIITs: 5000 },
+                "PWD": { topIITs: 800, oldIITs: 3200, newIITs: 10000 }
+            }
+        };
+
+        // PSU Eligibility Data
+        const psuData = {
+            "GEN": { topPSUs: 200, goodPSUs: 1000, allPSUs: 5000 },
+            "OBC": { topPSUs: 400, goodPSUs: 2000, allPSUs: 10000 },
+            "SC": { topPSUs: 800, goodPSUs: 4000, allPSUs: 15000 },
+            "ST": { topPSUs: 1200, goodPSUs: 6000, allPSUs: 20000 },
+            "EWS": { topPSUs: 400, goodPSUs: 2000, allPSUs: 10000 },
+            "PWD": { topPSUs: 800, goodPSUs: 4000, allPSUs: 15000 }
+        };
+
         const cutoffIncrease2026 = 1.5;
         let rankChart = null;
         let currentCategory = 'GEN';
+
+        // Input validation for 1-mark and 2-mark questions
+        function validateInput(type) {
+            const correctInput = document.getElementById(`${type}Correct`);
+            const wrongInput = document.getElementById(`${type}Wrong`);
+            const errorElement = document.getElementById(`${type}Error`);
+            const wrongErrorElement = document.getElementById(`${type}WrongError`);
+            
+            const maxQuestions = type === 'type1' ? 30 : 35;
+            const correct = parseInt(correctInput.value) || 0;
+            const wrong = parseInt(wrongInput.value) || 0;
+            
+            let hasError = false;
+            
+            // Check correct answers
+            if (correct > maxQuestions) {
+                errorElement.textContent = `Cannot exceed ${maxQuestions} questions`;
+                errorElement.style.display = 'block';
+                correctInput.classList.add('invalid');
+                hasError = true;
+            } else {
+                errorElement.style.display = 'none';
+                correctInput.classList.remove('invalid');
+            }
+            
+            // Check wrong answers
+            if (wrong > maxQuestions) {
+                wrongErrorElement.textContent = `Cannot exceed ${maxQuestions} questions`;
+                wrongErrorElement.style.display = 'block';
+                wrongInput.classList.add('invalid');
+                hasError = true;
+            } else if (correct + wrong > maxQuestions) {
+                wrongErrorElement.textContent = `Total ${type === 'type1' ? '1-mark' : '2-mark'} questions cannot exceed ${maxQuestions}`;
+                wrongErrorElement.style.display = 'block';
+                wrongInput.classList.add('invalid');
+                hasError = true;
+            } else {
+                wrongErrorElement.style.display = 'none';
+                wrongInput.classList.remove('invalid');
+            }
+            
+            // Update button state
+            updatePredictButton();
+            updateMarks();
+            
+            return !hasError;
+        }
+
+        function updatePredictButton() {
+            const predictBtn = document.getElementById('predictBtn');
+            const type1Correct = parseInt(document.getElementById('type1Correct').value) || 0;
+            const type1Wrong = parseInt(document.getElementById('type1Wrong').value) || 0;
+            const type2Correct = parseInt(document.getElementById('type2Correct').value) || 0;
+            const type2Wrong = parseInt(document.getElementById('type2Wrong').value) || 0;
+            
+            const totalQuestions = type1Correct + type1Wrong + type2Correct + type2Wrong;
+            
+            if (totalQuestions === 0) {
+                predictBtn.disabled = true;
+            } else {
+                predictBtn.disabled = false;
+            }
+        }
 
         // Select category function
         function selectCategory(category) {
@@ -782,7 +1172,21 @@
             document.querySelectorAll('.category-btn').forEach(btn => {
                 btn.classList.remove('active');
             });
-            event.target.classList.add('active');
+            
+            const categoryButtons = {
+                'GEN': 'General',
+                'OBC': 'OBC-NCL', 
+                'EWS': 'EWS',
+                'SC': 'SC',
+                'ST': 'ST',
+                'PWD': 'PwD'
+            };
+            
+            document.querySelectorAll('.category-btn').forEach(btn => {
+                if (btn.textContent === categoryButtons[category]) {
+                    btn.classList.add('active');
+                }
+            });
             
             updateMarks();
         }
@@ -798,9 +1202,9 @@
             const type2Marks = (type2Correct * 2) - (type2Wrong * 0.67);
             const totalMarks = type1Marks + type2Marks;
             
-            document.getElementById('type1Marks').textContent = type1Marks.toFixed(2);
-            document.getElementById('type2Marks').textContent = type2Marks.toFixed(2);
-            document.getElementById('totalMarks').textContent = totalMarks.toFixed(2);
+            document.getElementById('type1Marks').textContent = Math.max(type1Marks, 0).toFixed(2);
+            document.getElementById('type2Marks').textContent = Math.max(type2Marks, 0).toFixed(2);
+            document.getElementById('totalMarks').textContent = Math.max(totalMarks, 0).toFixed(2);
         }
 
         // Calculate rank from marks
@@ -854,8 +1258,14 @@
                         <td>${cutoff2026.toFixed(1)}</td>
                         <td>
                             ${passes ? 
-                                `<span style="color: var(--success); font-weight: 600;">PASS (+${diff})</span>` : 
-                                `<span style="color: var(--danger); font-weight: 600;">FAIL (${diff})</span>`
+                                `<span style="color: var(--success); font-weight: 600;">PASS</span>` : 
+                                `<span style="color: var(--danger); font-weight: 600;">FAIL</span>`
+                            }
+                        </td>
+                        <td>
+                            ${passes ? 
+                                `<span style="color: var(--success);">+${diff}</span>` : 
+                                `<span style="color: var(--danger);">${diff}</span>`
                             }
                         </td>
                     </tr>
@@ -902,6 +1312,92 @@
             }
         }
 
+        // Get IIT admission chances
+        function getIITAdmissionChances(rank, paper, category) {
+            const paperCutoffs = iitCutoffs[paper] || iitCutoffs["CS"];
+            const categoryCutoffs = paperCutoffs[category] || paperCutoffs["GEN"];
+            
+            const getChanceLevel = (rank, cutoff) => {
+                if (rank <= cutoff) return { level: "high", label: "High Chance" };
+                if (rank <= cutoff * 2) return { level: "medium", label: "Medium Chance" };
+                return { level: "low", label: "Low Chance" };
+            };
+            
+            const topIITs = getChanceLevel(rank, categoryCutoffs.topIITs);
+            const oldIITs = getChanceLevel(rank, categoryCutoffs.oldIITs);
+            const newIITs = getChanceLevel(rank, categoryCutoffs.newIITs);
+            
+            const iitChancesDiv = document.getElementById('iitChances');
+            iitChancesDiv.innerHTML = `
+                <h3><i class="fas fa-university"></i> IIT Admission Chances</h3>
+                <p>Based on your predicted rank and category</p>
+                
+                <div class="chance-cards">
+                    <div class="chance-card ${topIITs.level}">
+                        <div class="chance-icon">
+                            <i class="fas fa-crown"></i>
+                        </div>
+                        <div class="chance-title">Top IITs</div>
+                        <div class="chance-rank ${topIITs.level}">${topIITs.label}</div>
+                        <p>Rank needed: &lt;${categoryCutoffs.topIITs}</p>
+                        <p>Your rank: ${rank}</p>
+                    </div>
+                    
+                    <div class="chance-card ${oldIITs.level}">
+                        <div class="chance-icon">
+                            <i class="fas fa-building"></i>
+                        </div>
+                        <div class="chance-title">Old IITs</div>
+                        <div class="chance-rank ${oldIITs.level}">${oldIITs.label}</div>
+                        <p>Rank needed: &lt;${categoryCutoffs.oldIITs}</p>
+                        <p>Your rank: ${rank}</p>
+                    </div>
+                    
+                    <div class="chance-card ${newIITs.level}">
+                        <div class="chance-icon">
+                            <i class="fas fa-school"></i>
+                        </div>
+                        <div class="chance-title">New IITs</div>
+                        <div class="chance-rank ${newIITs.level}">${newIITs.label}</div>
+                        <p>Rank needed: &lt;${categoryCutoffs.newIITs}</p>
+                        <p>Your rank: ${rank}</p>
+                    </div>
+                </div>
+            `;
+        }
+
+        // Check PSU eligibility
+        function checkPSUEligibility(rank, category) {
+            const cutoffs = psuData[category] || psuData["GEN"];
+            
+            const eligiblePSUs = [];
+            if (rank <= cutoffs.topPSUs) {
+                eligiblePSUs.push("BARC", "ISRO", "DRDO", "IOCL", "BHEL", "NPCIL");
+            }
+            if (rank <= cutoffs.goodPSUs) {
+                eligiblePSUs.push("NTPC", "PGCIL", "GAIL", "HPCL", "ONGC", "SAIL");
+            }
+            if (rank <= cutoffs.allPSUs) {
+                eligiblePSUs.push("All Major PSUs");
+            }
+            
+            const psuEligibilityDiv = document.getElementById('psuEligibility');
+            if (eligiblePSUs.length > 0) {
+                psuEligibilityDiv.innerHTML = `
+                    <h3><i class="fas fa-briefcase"></i> PSU Eligibility</h3>
+                    <p>Based on your predicted rank, you may be eligible for:</p>
+                    <div class="psu-list">
+                        ${eligiblePSUs.map(psu => `<span class="psu-badge">${psu}</span>`).join('')}
+                    </div>
+                `;
+            } else {
+                psuEligibilityDiv.innerHTML = `
+                    <h3><i class="fas fa-briefcase"></i> PSU Eligibility</h3>
+                    <p>Your rank may be too high for most PSUs. Consider improving your rank for better opportunities.</p>
+                `;
+            }
+        }
+
         // Update chart
         function updateChart(userMarks, userRank) {
             const ctx = document.getElementById('rankChart').getContext('2d');
@@ -938,6 +1434,16 @@
                             display: true,
                             text: `Your Position: Rank ${userRank.toLocaleString()} (${userMarks.toFixed(2)} marks)`,
                             font: {size: 16, weight: 'bold'}
+                        },
+                        tooltip: {
+                            callbacks: {
+                                label: function(context) {
+                                    if (context.datasetIndex === 1) {
+                                        return `Your Rank: ${userRank.toLocaleString()}`;
+                                    }
+                                    return `Rank: ${context.parsed.x.toLocaleString()}, Marks: ${context.parsed.y.toFixed(2)}`;
+                                }
+                            }
                         }
                     },
                     scales: {
@@ -968,8 +1474,68 @@
             });
         }
 
+        // Save results to localStorage
+        function saveResults() {
+            const paper = document.getElementById('paper').value;
+            const userMarks = parseFloat(document.getElementById('totalMarks').textContent);
+            const predictedRank = calculateRankFromMarks(userMarks);
+            
+            const results = {
+                paper: paper,
+                category: currentCategory,
+                marks: userMarks,
+                rank: predictedRank,
+                timestamp: new Date().toISOString()
+            };
+            
+            localStorage.setItem('gatePrediction2026', JSON.stringify(results));
+            
+            // Show notification
+            alert('Results saved successfully! You can view them later.');
+        }
+
+        // Share results
+        function shareResults() {
+            const paper = document.getElementById('paper').value;
+            const userMarks = parseFloat(document.getElementById('totalMarks').textContent);
+            const predictedRank = calculateRankFromMarks(userMarks);
+            
+            const text = `My GATE 2026 Prediction: ${userMarks.toFixed(2)} marks in ${paper} (${currentCategory}). Predicted Rank: ${predictedRank.toLocaleString()}`;
+            
+            if (navigator.share) {
+                navigator.share({
+                    title: 'GATE 2026 Rank Prediction',
+                    text: text,
+                    url: window.location.href
+                });
+            } else {
+                navigator.clipboard.writeText(text);
+                alert('Results copied to clipboard!');
+            }
+        }
+
+        // Export to PDF (simulated)
+        function exportToPDF() {
+            const resultsSection = document.getElementById('resultsSection');
+            const printWindow = window.open('', '_blank');
+            printWindow.document.write('<html><head><title>GATE 2026 Prediction Results</title>');
+            printWindow.document.write('<style>body{font-family:Arial;padding:20px;}</style>');
+            printWindow.document.write('</head><body>');
+            printWindow.document.write('<h1>GATE 2026 Prediction Results</h1>');
+            printWindow.document.write(resultsSection.innerHTML);
+            printWindow.document.write('</body></html>');
+            printWindow.document.close();
+            printWindow.print();
+        }
+
         // Main prediction function
         function predictRank() {
+            // Validate inputs first
+            if (!validateInput('type1') || !validateInput('type2')) {
+                alert('Please fix the input errors before predicting.');
+                return;
+            }
+            
             document.getElementById('loading').style.display = 'block';
             document.getElementById('resultsSection').style.display = 'none';
             
@@ -991,6 +1557,8 @@
                 const qualified = userMarks >= requiredCutoff;
                 
                 getQualificationStatus(qualified, userMarks, requiredCutoff, paper, category);
+                getIITAdmissionChances(predictedRank, paper, category);
+                checkPSUEligibility(predictedRank, category);
                 
                 document.getElementById('scoresTableBody').innerHTML = createScoresTable(paper, userMarks);
                 
@@ -1000,12 +1568,19 @@
                 document.getElementById('resultsSection').style.display = 'block';
                 
                 document.getElementById('resultsSection').scrollIntoView({ behavior: 'smooth' });
-            }, 1000);
+            }, 1500);
         }
 
         // Initialize on load
         window.addEventListener('DOMContentLoaded', function() {
             updateMarks();
+            updatePredictButton();
+            
+            // Load saved results if any
+            const savedResults = localStorage.getItem('gatePrediction2026');
+            if (savedResults) {
+                console.log('Saved results found:', JSON.parse(savedResults));
+            }
         });
     </script>
 </body>
