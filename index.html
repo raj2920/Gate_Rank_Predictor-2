@@ -720,19 +720,135 @@
             position: relative;
         }
 
-        /* Footer */
+        /* Footer - UPDATED with QR Code and Contact */
         footer {
             background: var(--primary);
             color: white;
-            padding: 30px 40px;
+            padding: 40px 40px;
             margin-top: 40px;
             text-align: center;
+        }
+
+        .footer-content {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .footer-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 30px;
+            margin-top: 30px;
+            text-align: left;
+        }
+
+        @media (max-width: 768px) {
+            .footer-grid {
+                grid-template-columns: 1fr;
+                gap: 30px;
+            }
+        }
+
+        .contact-info {
+            background: rgba(255, 255, 255, 0.1);
+            padding: 25px;
+            border-radius: 15px;
+            border-left: 4px solid var(--secondary);
+        }
+
+        .contact-info h4 {
+            color: var(--secondary);
+            margin-bottom: 20px;
+            font-size: 1.2rem;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .contact-item {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 18px;
+            color: white;
+            font-size: 0.95rem;
+            word-break: break-all;
+        }
+
+        .contact-item i {
+            color: var(--secondary);
+            width: 20px;
+            font-size: 1.1rem;
+        }
+
+        .qr-section {
+            background: rgba(255, 255, 255, 0.1);
+            padding: 25px;
+            border-radius: 15px;
+            border-left: 4px solid var(--warning);
+            text-align: center;
+        }
+
+        .qr-section h4 {
+            color: var(--warning);
+            margin-bottom: 20px;
+            font-size: 1.2rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+        }
+
+        .qr-placeholder {
+            background: white;
+            width: 180px;
+            height: 180px;
+            margin: 0 auto 15px;
+            border-radius: 12px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 15px;
+            border: 3px solid var(--warning);
+        }
+
+        .qr-placeholder i {
+            font-size: 4rem;
+            color: var(--primary);
+            margin-bottom: 10px;
+        }
+
+        .qr-placeholder p {
+            color: var(--primary);
+            font-weight: 600;
+            font-size: 0.9rem;
+            margin: 5px 0;
+        }
+
+        .upi-id {
+            background: var(--warning);
+            color: white;
+            padding: 8px 15px;
+            border-radius: 25px;
+            font-weight: 600;
+            font-size: 0.9rem;
+            display: inline-block;
+            margin-top: 10px;
+        }
+
+        .support-text {
+            font-size: 0.9rem;
+            color: #ffeaa7;
+            margin-top: 15px;
         }
 
         .copyright {
             opacity: 0.9;
             font-size: 1rem;
-            margin-top: 20px;
+            margin-top: 40px;
+            padding-top: 30px;
+            border-top: 1px solid rgba(255, 255, 255, 0.2);
             display: flex;
             align-items: center;
             justify-content: center;
@@ -747,7 +863,7 @@
             display: inline-flex;
             align-items: center;
             gap: 8px;
-            margin-top: 10px;
+            margin-top: 5px;
             box-shadow: 0 4px 10px rgba(52, 152, 219, 0.3);
         }
 
@@ -870,6 +986,15 @@
                 max-width: 300px;
                 justify-content: center;
             }
+
+            .footer-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .qr-placeholder {
+                width: 160px;
+                height: 160px;
+            }
         }
     </style>
 </head>
@@ -978,7 +1103,7 @@
                     </div>
 
                     <div class="note-box" style="background: #fff8e1; padding: 15px; border-radius: 8px; margin-top: 20px; font-size: 0.9rem;">
-                        <p><i class="fas fa-info-circle"></i> <strong>Note:</strong> GATE 2026 cutoffs expected to increase by 1.5 marks. SC/ST categories have lower cutoffs for IIT admissions.</p>
+                        <p><i class="fas fa-info-circle"></i> <strong>Note:</strong> This GATE Rank Predictor estimates your expected rank and score. Actual results may differ due to normalization, competition level, and official evaluation.</p>
                     </div>
                 </div>
             </div>
@@ -1119,18 +1244,66 @@
             </div>
         </div>
 
-        <!-- Footer -->
+        <!-- Footer - UPDATED with QR Code and Contact Info -->
         <footer>
             <div class="footer-content">
                 <h3>GATE Rank Predictor 2026</h3>
                 <p>Accurate predictions with category-specific IIT admission & PSU chances analysis</p>
+                
+                <div class="footer-grid">
+                    <!-- Contact Information -->
+                    <div class="contact-info">
+                        <h4><i class="fas fa-envelope"></i> Contact & Support</h4>
+                        <div class="contact-item">
+                            <i class="fas fa-envelope"></i>
+                            <span>rajaryan292021@gmail.com</span>
+                        </div>
+                        <div class="contact-item">
+                            <i class="fas fa-phone-alt"></i>
+                            <span>+91 12345 67890</span>
+                        </div>
+                        <div class="contact-item">
+                            <i class="fas fa-map-marker-alt"></i>
+                            <span>Developed by RAJ BITTU</span>
+                        </div>
+                        <div class="contact-item">
+                            <i class="fas fa-code"></i>
+                            <span>Full Stack Developer</span>
+                        </div>
+                    </div>
+                    
+                    <!-- QR Code for UPI Payment -->
+                    <div class="qr-section">
+                        <h4><i class="fas fa-qrcode"></i> Support via UPI</h4>
+                        <div class="qr-placeholder">
+                            <i class="fas fa-qrcode"></i>
+                            <p><strong>Scan to Support</strong></p>
+                            <p style="font-size: 0.8rem; color: #666;">Upload your QR code here</p>
+                        </div>
+                        <div class="upi-id">
+                            <i class="fas fa-phone"></i> rajaryan292021@okicici
+                        </div>
+                        <p class="support-text">
+                            <i class="fas fa-heart" style="color: #ff6b6b;"></i> 
+                            Support development & maintenance
+                        </p>
+                        <p style="color: #ffeaa7; font-size: 0.8rem; margin-top: 10px;">
+                            Link your UPI number to PhonePe to receive money from app
+                        </p>
+                    </div>
+                </div>
+                
                 <div class="copyright">
-                    <i class="fas fa-copyright"></i> 2025 GATE Rank Predictor
+                    <i class="fas fa-copyright"></i> 2026 GATE Rank Predictor | All Rights Reserved
                     <div class="developer-badge">
                         <i class="fas fa-code developer-icon"></i>
                         <span class="developer-name">Developed by RAJ BITTU</span>
                     </div>
                 </div>
+                
+                <p style="margin-top: 20px; font-size: 0.8rem; opacity: 0.8;">
+                    For QR code upload, replace the qr-placeholder div with your actual QR code image
+                </p>
             </div>
         </footer>
     </div>
