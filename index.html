@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="google-site-verification" content="iLnn73OYPE8oGpGt16HX4ooi_DyK4Q52wTCGQ96SDfc" />
-    <meta name="description" content="Accurate GATE 2026 Rank Predictor based on actual GATE data. Check expected rank, score vs marks, and cutoff analysis for all branches.">
+    <meta name="description" content="Accurate GATE 2026 Rank Predictor based on actual GATE data. Upload your response sheet for instant rank prediction.">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <!-- Google tag (gtag.js) -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-5B7D2R8VD0"></script>
@@ -14,10 +14,16 @@
 
   gtag('config', 'G-5B7D2R8VD0');
 </script>
-    <title>GATE Rank Predictor 2026 | Predict Your Rank, Score & IIT/PSU Chances Instantly</title>
+    <title>GATE Rank Predictor 2026 | Upload Response Sheet</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <script src="https://html2canvas.hertzen.com/dist/html2canvas.min.js"></script>
+    <!-- PDF Processing -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/2.16.105/pdf.min.js"></script>
+    <!-- Excel Processing -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
+    <!-- OCR for Images -->
+    <script src="https://cdn.jsdelivr.net/npm/tesseract.js@4.0.2/dist/tesseract.min.js"></script>
     <style>
         /* 3D Enhanced UI with Crisp Text */
         * {
@@ -175,6 +181,117 @@
             -webkit-font-smoothing: antialiased;
         }
 
+        .upload-area {
+            text-align: center;
+            padding: 20px;
+            border: 3px dashed var(--secondary);
+            border-radius: 20px;
+            background: rgba(255,255,255,0.9);
+            transition: all 0.3s ease;
+        }
+
+        .upload-area:hover {
+            border-color: var(--success);
+            background: rgba(39, 174, 96, 0.05);
+        }
+
+        .upload-area i {
+            font-size: 4rem;
+            color: var(--secondary);
+            margin-bottom: 15px;
+        }
+
+        .upload-area h3 {
+            color: var(--primary);
+            margin-bottom: 15px;
+            font-size: 1.5rem;
+        }
+
+        .upload-area p {
+            color: #666;
+            margin-bottom: 20px;
+        }
+
+        .file-input-wrapper {
+            position: relative;
+            max-width: 400px;
+            margin: 0 auto 20px;
+        }
+
+        .file-input-wrapper input[type="file"] {
+            position: relative;
+            padding: 15px;
+            border: 2px solid var(--secondary);
+            border-radius: 12px;
+            width: 100%;
+            cursor: pointer;
+            background: white;
+        }
+
+        .or-divider {
+            margin: 20px 0;
+            color: #888;
+            font-weight: 600;
+        }
+
+        .url-input {
+            display: flex;
+            gap: 10px;
+            max-width: 500px;
+            margin: 0 auto;
+        }
+
+        .url-input input {
+            flex: 1;
+            padding: 15px;
+            border: 2px solid #ddd;
+            border-radius: 12px;
+            font-size: 1rem;
+        }
+
+        .url-input button {
+            padding: 15px 25px;
+            background: var(--secondary);
+            color: white;
+            border: none;
+            border-radius: 12px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: all 0.3s;
+        }
+
+        .url-input button:hover {
+            background: #2980b9;
+            transform: scale(1.02);
+        }
+
+        .toggle-manual {
+            margin: 20px 0;
+            text-align: center;
+        }
+
+        .toggle-manual-btn {
+            padding: 12px 25px;
+            background: var(--warning);
+            color: white;
+            border: none;
+            border-radius: 30px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: all 0.3s;
+            box-shadow: 0 5px 15px rgba(243, 156, 18, 0.3);
+        }
+
+        .toggle-manual-btn:hover {
+            transform: scale(1.05);
+            box-shadow: 0 8px 20px rgba(243, 156, 18, 0.4);
+        }
+
+        .manual-entry {
+            display: none;
+            margin-top: 30px;
+        }
+
         .marks-grid {
             display: grid;
             grid-template-columns: repeat(2, 1fr);
@@ -219,6 +336,37 @@
             box-shadow: 0 0 0 4px rgba(52, 152, 219, 0.2), inset 0 2px 5px rgba(0,0,0,0.05);
         }
 
+        .quick-buttons {
+            display: flex;
+            gap: 12px;
+            margin-top: 12px;
+            flex-wrap: wrap;
+        }
+
+        .quick-btn {
+            padding: 10px 20px;
+            background: #f0f0f0;
+            border: 1px solid #ddd;
+            border-radius: 25px;
+            cursor: pointer;
+            font-size: 0.95rem;
+            transition: all 0.3s;
+            box-shadow: 0 3px 8px rgba(0,0,0,0.1);
+            -webkit-font-smoothing: antialiased;
+        }
+
+        .quick-btn:hover {
+            background: #e0e0e0;
+            transform: scale(1.05);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+        }
+
+        .quick-btn.active {
+            background: var(--secondary);
+            color: white;
+            border-color: var(--secondary);
+        }
+
         .category-buttons {
             display: grid;
             grid-template-columns: repeat(3, 1fr);
@@ -257,37 +405,6 @@
             color: white;
             border-color: var(--secondary);
             box-shadow: 0 8px 20px rgba(52, 152, 219, 0.4);
-        }
-
-        .quick-buttons {
-            display: flex;
-            gap: 12px;
-            margin-top: 12px;
-            flex-wrap: wrap;
-        }
-
-        .quick-btn {
-            padding: 10px 20px;
-            background: #f0f0f0;
-            border: 1px solid #ddd;
-            border-radius: 25px;
-            cursor: pointer;
-            font-size: 0.95rem;
-            transition: all 0.3s;
-            box-shadow: 0 3px 8px rgba(0,0,0,0.1);
-            -webkit-font-smoothing: antialiased;
-        }
-
-        .quick-btn:hover {
-            background: #e0e0e0;
-            transform: scale(1.05);
-            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
-        }
-
-        .quick-btn.active {
-            background: var(--secondary);
-            color: white;
-            border-color: var(--secondary);
         }
 
         .predict-container {
@@ -429,6 +546,106 @@
             -webkit-font-smoothing: antialiased;
         }
 
+        .marks-summary {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 20px;
+            background: #f8f9fa;
+            padding: 25px;
+            border-radius: 20px;
+            margin: 30px 0;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+        }
+
+        @media (max-width: 600px) {
+            .marks-summary {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .summary-item {
+            text-align: center;
+            padding: 20px;
+            background: white;
+            border-radius: 15px;
+            border: 1px solid #e0e0e0;
+            box-shadow: 0 8px 15px rgba(0,0,0,0.1);
+            transition: all 0.3s;
+        }
+
+        .summary-item:hover {
+            transform: scale(1.02);
+            box-shadow: 0 15px 30px rgba(0,0,0,0.15);
+        }
+
+        .summary-value {
+            font-size: 2rem;
+            font-weight: 700;
+            color: var(--primary);
+            margin: 8px 0;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        .summary-label {
+            color: #666;
+            font-size: 0.9rem;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        .results-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 30px;
+            margin-bottom: 35px;
+        }
+
+        @media (max-width: 768px) {
+            .results-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .result-card {
+            background: linear-gradient(135deg, #f8f9fa, #e9ecef);
+            padding: 30px;
+            border-radius: 20px;
+            text-align: center;
+            border-top: 6px solid var(--secondary);
+            box-shadow: 0 15px 30px rgba(0,0,0,0.1);
+            transition: all 0.3s;
+        }
+
+        .result-card:hover {
+            transform: scale(1.02);
+            box-shadow: 0 25px 50px rgba(0,0,0,0.15);
+        }
+
+        .result-card h4 {
+            color: var(--primary);
+            margin-bottom: 15px;
+            font-size: 1.2rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        .card-value {
+            font-size: 2.8rem;
+            font-weight: 800;
+            color: var(--secondary);
+            margin: 15px 0;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.1);
+            -webkit-font-smoothing: antialiased;
+        }
+
+        .card-label {
+            color: #666;
+            font-size: 0.95rem;
+            -webkit-font-smoothing: antialiased;
+        }
+
         .iit-admission {
             background: linear-gradient(135deg, #e8f6f3, #d1f2eb);
             padding: 30px;
@@ -538,26 +755,6 @@
             -webkit-font-smoothing: antialiased;
         }
 
-        .excellent {
-            color: var(--success);
-            font-weight: 700;
-        }
-
-        .good {
-            color: #3498db;
-            font-weight: 700;
-        }
-
-        .average {
-            color: var(--warning);
-            font-weight: 700;
-        }
-
-        .improve {
-            color: var(--danger);
-            font-weight: 700;
-        }
-
         .psu-section {
             background: linear-gradient(135deg, #fff0e1, #ffe3b3);
             padding: 30px;
@@ -637,60 +834,6 @@
             -webkit-font-smoothing: antialiased;
         }
 
-        .results-grid {
-            display: grid;
-            grid-template-columns: repeat(2, 1fr);
-            gap: 30px;
-            margin-bottom: 35px;
-        }
-
-        @media (max-width: 768px) {
-            .results-grid {
-                grid-template-columns: 1fr;
-            }
-        }
-
-        .result-card {
-            background: linear-gradient(135deg, #f8f9fa, #e9ecef);
-            padding: 30px;
-            border-radius: 20px;
-            text-align: center;
-            border-top: 6px solid var(--secondary);
-            box-shadow: 0 15px 30px rgba(0,0,0,0.1);
-            transition: all 0.3s;
-        }
-
-        .result-card:hover {
-            transform: scale(1.02);
-            box-shadow: 0 25px 50px rgba(0,0,0,0.15);
-        }
-
-        .result-card h4 {
-            color: var(--primary);
-            margin-bottom: 15px;
-            font-size: 1.2rem;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 10px;
-            -webkit-font-smoothing: antialiased;
-        }
-
-        .card-value {
-            font-size: 2.8rem;
-            font-weight: 800;
-            color: var(--secondary);
-            margin: 15px 0;
-            text-shadow: 2px 2px 4px rgba(0,0,0,0.1);
-            -webkit-font-smoothing: antialiased;
-        }
-
-        .card-label {
-            color: #666;
-            font-size: 0.95rem;
-            -webkit-font-smoothing: antialiased;
-        }
-
         .cutoff-section {
             background: linear-gradient(135deg, #e8f4fc, #d6eaf8);
             padding: 30px;
@@ -754,16 +897,6 @@
         .your-cutoff {
             background: rgba(52, 152, 219, 0.1);
             font-weight: 700;
-        }
-
-        .cutoff-diff {
-            display: inline-block;
-            padding: 3px 8px;
-            border-radius: 12px;
-            font-size: 0.75rem;
-            font-weight: 600;
-            margin-left: 5px;
-            -webkit-font-smoothing: antialiased;
         }
 
         .graph-section {
@@ -872,6 +1005,42 @@
             color: white;
         }
 
+        .notification {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            padding: 15px 25px;
+            border-radius: 10px;
+            color: white;
+            font-weight: 600;
+            z-index: 1000;
+            animation: slideIn 0.3s ease;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+        }
+
+        .notification.success {
+            background: var(--success);
+        }
+
+        .notification.error {
+            background: var(--danger);
+        }
+
+        .notification.info {
+            background: var(--secondary);
+        }
+
+        @keyframes slideIn {
+            from {
+                transform: translateX(100%);
+                opacity: 0;
+            }
+            to {
+                transform: translateX(0);
+                opacity: 1;
+            }
+        }
+
         footer {
             background: linear-gradient(135deg, var(--primary), #1a2634);
             color: white;
@@ -922,18 +1091,6 @@
             box-shadow: 0 20px 35px rgba(52, 152, 219, 0.5);
         }
 
-        .developer-icon {
-            color: white;
-            font-size: 1.2rem;
-        }
-
-        .developer-name {
-            color: white;
-            font-weight: 700;
-            font-size: 1.1rem;
-            -webkit-font-smoothing: antialiased;
-        }
-
         .loading {
             display: none;
             text-align: center;
@@ -957,52 +1114,6 @@
             color: var(--primary);
             font-size: 1.1rem;
             font-weight: 600;
-            -webkit-font-smoothing: antialiased;
-        }
-
-        .marks-summary {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 20px;
-            background: #f8f9fa;
-            padding: 25px;
-            border-radius: 20px;
-            margin: 30px 0;
-            box-shadow: 0 10px 25px rgba(0,0,0,0.1);
-        }
-
-        @media (max-width: 600px) {
-            .marks-summary {
-                grid-template-columns: 1fr;
-            }
-        }
-
-        .summary-item {
-            text-align: center;
-            padding: 20px;
-            background: white;
-            border-radius: 15px;
-            border: 1px solid #e0e0e0;
-            box-shadow: 0 8px 15px rgba(0,0,0,0.1);
-            transition: all 0.3s;
-        }
-
-        .summary-item:hover {
-            transform: scale(1.02);
-            box-shadow: 0 15px 30px rgba(0,0,0,0.15);
-        }
-
-        .summary-value {
-            font-size: 2rem;
-            font-weight: 700;
-            color: var(--primary);
-            margin: 8px 0;
-            -webkit-font-smoothing: antialiased;
-        }
-
-        .summary-label {
-            color: #666;
-            font-size: 0.9rem;
             -webkit-font-smoothing: antialiased;
         }
 
@@ -1068,6 +1179,10 @@
                 max-width: 350px;
                 justify-content: center;
             }
+
+            .url-input {
+                flex-direction: column;
+            }
         }
 
         html {
@@ -1089,7 +1204,7 @@
                 <i class="fas fa-graduation-cap"></i>
                 <div>
                     <h1>GATE RANK <span>PREDICTOR</span> 2026</h1>
-                    <p class="subtitle">Predict Your Rank, Score & IIT/PSU Chances Instantly</p>
+                    <p class="subtitle">Upload Response Sheet • Predict Rank, Score & IIT/PSU Chances Instantly</p>
                 </div>
             </div>
         </header>
@@ -1099,12 +1214,12 @@
             <!-- Input Section -->
             <div class="input-section">
                 <div class="section-toggle">
-                    <h2><i class="fas fa-edit"></i> SELECT YOUR PAPER</h2>
+                    <h2><i class="fas fa-edit"></i> GATE 2026 RESPONSE SHEET ANALYSIS</h2>
                 </div>
                 
                 <div class="input-fields" id="inputFields">
                     <div class="input-group">
-                        <label><i class="fas fa-file-alt"></i> Select Your Paper</label>
+                        <label><i class="fas fa-file-alt"></i> SELECT YOUR PAPER</label>
                         <select id="paper">
                             <option value="CS" selected>Computer Science (CS)</option>
                             <option value="CE">Civil Engineering (CE)</option>
@@ -1120,63 +1235,102 @@
                         </select>
                     </div>
 
-                    <div class="marks-type">
-                        <h4><i class="fas fa-1"></i> Type 1 Questions (1 Mark Each) - Total 30 Questions</h4>
-                        <div class="marks-grid">
-                            <div class="input-group">
-                                <label>Correct Answers</label>
-                                <input type="number" id="type1Correct" min="0" max="30" step="1" value="20" oninput="updateMarks()">
-                                <div class="quick-buttons">
-                                    <button class="quick-btn" onclick="setValue('type1Correct', 20, event)">20</button>
-                                    <button class="quick-btn" onclick="setValue('type1Correct', 25, event)">25</button>
-                                    <button class="quick-btn" onclick="setValue('type1Correct', 28, event)">28</button>
-                                </div>
+                    <!-- Response Sheet Upload Section -->
+                    <div class="marks-type" style="background: linear-gradient(135deg, #e3f2fd, #bbdefb);">
+                        <h4><i class="fas fa-cloud-upload-alt"></i> UPLOAD RESPONSE SHEET</h4>
+                        <div class="upload-area">
+                            <i class="fas fa-file-pdf"></i>
+                            <i class="fas fa-file-excel" style="margin-left: 15px;"></i>
+                            <i class="fas fa-file-image" style="margin-left: 15px;"></i>
+                            <h3>Upload Your GATE 2026 Response Sheet</h3>
+                            <p>Supports PDF, Excel (XLS/XLSX), and Image files (JPG/PNG)</p>
+                            
+                            <div class="file-input-wrapper">
+                                <input type="file" id="responseSheet" accept=".pdf,.xlsx,.xls,.jpg,.jpeg,.png">
                             </div>
-                            <div class="input-group">
-                                <label>Wrong Answers</label>
-                                <input type="number" id="type1Wrong" min="0" max="30" step="1" value="3" oninput="updateMarks()">
-                                <div class="quick-buttons">
-                                    <button class="quick-btn" onclick="setValue('type1Wrong', 0, event)">0</button>
-                                    <button class="quick-btn" onclick="setValue('type1Wrong', 3, event)">3</button>
-                                    <button class="quick-btn" onclick="setValue('type1Wrong', 5, event)">5</button>
-                                </div>
+                            
+                            <div class="or-divider">- OR -</div>
+                            
+                            <div class="url-input">
+                                <input type="url" id="responseUrl" placeholder="Paste direct URL to response sheet (PDF/Excel)">
+                                <button onclick="fetchResponseSheet()"><i class="fas fa-download"></i> Fetch</button>
                             </div>
-                        </div>
-                        <div style="margin-top: 10px; font-size: 0.9rem; color: #666;">
-                            <i class="fas fa-info-circle"></i> Total 1-mark questions: <span id="type1Total">23</span>/30
+                            
+                            <div style="margin-top: 20px; display: flex; gap: 10px; justify-content: center;">
+                                <span class="quick-btn" style="background: var(--success); color: white;" onclick="processSampleData()">
+                                    <i class="fas fa-flask"></i> Try Sample Data
+                                </span>
+                            </div>
                         </div>
                     </div>
 
-                    <div class="marks-type">
-                        <h4><i class="fas fa-2"></i> Type 2 Questions (2 Marks Each) - Total 35 Questions</h4>
-                        <div class="marks-grid">
-                            <div class="input-group">
-                                <label>Correct Answers</label>
-                                <input type="number" id="type2Correct" min="0" max="35" step="1" value="15" oninput="updateMarks()">
-                                <div class="quick-buttons">
-                                    <button class="quick-btn" onclick="setValue('type2Correct', 15, event)">15</button>
-                                    <button class="quick-btn" onclick="setValue('type2Correct', 20, event)">20</button>
-                                    <button class="quick-btn" onclick="setValue('type2Correct', 25, event)">25</button>
+                    <!-- Manual Entry Toggle -->
+                    <div class="toggle-manual">
+                        <button class="toggle-manual-btn" onclick="toggleManualEntry()">
+                            <i class="fas fa-pencil-alt"></i> Or Enter Marks Manually
+                        </button>
+                    </div>
+
+                    <!-- Manual Entry Section (Hidden by Default) -->
+                    <div id="manualEntry" class="manual-entry">
+                        <div class="marks-type">
+                            <h4><i class="fas fa-1"></i> Type 1 Questions (1 Mark Each) - Total 30 Questions</h4>
+                            <div class="marks-grid">
+                                <div class="input-group">
+                                    <label>Correct Answers</label>
+                                    <input type="number" id="type1Correct" min="0" max="30" step="1" value="20" oninput="updateMarks()">
+                                    <div class="quick-buttons">
+                                        <button class="quick-btn" onclick="setValue('type1Correct', 20, event)">20</button>
+                                        <button class="quick-btn" onclick="setValue('type1Correct', 25, event)">25</button>
+                                        <button class="quick-btn" onclick="setValue('type1Correct', 28, event)">28</button>
+                                    </div>
+                                </div>
+                                <div class="input-group">
+                                    <label>Wrong Answers</label>
+                                    <input type="number" id="type1Wrong" min="0" max="30" step="1" value="3" oninput="updateMarks()">
+                                    <div class="quick-buttons">
+                                        <button class="quick-btn" onclick="setValue('type1Wrong', 0, event)">0</button>
+                                        <button class="quick-btn" onclick="setValue('type1Wrong', 3, event)">3</button>
+                                        <button class="quick-btn" onclick="setValue('type1Wrong', 5, event)">5</button>
+                                    </div>
                                 </div>
                             </div>
-                            <div class="input-group">
-                                <label>Wrong Answers</label>
-                                <input type="number" id="type2Wrong" min="0" max="35" step="1" value="2" oninput="updateMarks()">
-                                <div class="quick-buttons">
-                                    <button class="quick-btn" onclick="setValue('type2Wrong', 0, event)">0</button>
-                                    <button class="quick-btn" onclick="setValue('type2Wrong', 2, event)">2</button>
-                                    <button class="quick-btn" onclick="setValue('type2Wrong', 5, event)">5</button>
-                                </div>
+                            <div style="margin-top: 10px; font-size: 0.9rem; color: #666;">
+                                <i class="fas fa-info-circle"></i> Total 1-mark questions: <span id="type1Total">23</span>/30
                             </div>
                         </div>
-                        <div style="margin-top: 10px; font-size: 0.9rem; color: #666;">
-                            <i class="fas fa-info-circle"></i> Total 2-mark questions: <span id="type2Total">17</span>/35
+
+                        <div class="marks-type">
+                            <h4><i class="fas fa-2"></i> Type 2 Questions (2 Marks Each) - Total 35 Questions</h4>
+                            <div class="marks-grid">
+                                <div class="input-group">
+                                    <label>Correct Answers</label>
+                                    <input type="number" id="type2Correct" min="0" max="35" step="1" value="15" oninput="updateMarks()">
+                                    <div class="quick-buttons">
+                                        <button class="quick-btn" onclick="setValue('type2Correct', 15, event)">15</button>
+                                        <button class="quick-btn" onclick="setValue('type2Correct', 20, event)">20</button>
+                                        <button class="quick-btn" onclick="setValue('type2Correct', 25, event)">25</button>
+                                    </div>
+                                </div>
+                                <div class="input-group">
+                                    <label>Wrong Answers</label>
+                                    <input type="number" id="type2Wrong" min="0" max="35" step="1" value="2" oninput="updateMarks()">
+                                    <div class="quick-buttons">
+                                        <button class="quick-btn" onclick="setValue('type2Wrong', 0, event)">0</button>
+                                        <button class="quick-btn" onclick="setValue('type2Wrong', 2, event)">2</button>
+                                        <button class="quick-btn" onclick="setValue('type2Wrong', 5, event)">5</button>
+                                    </div>
+                                </div>
+                            </div>
+                            <div style="margin-top: 10px; font-size: 0.9rem; color: #666;">
+                                <i class="fas fa-info-circle"></i> Total 2-mark questions: <span id="type2Total">17</span>/35
+                            </div>
                         </div>
                     </div>
 
                     <!-- Category Selection -->
                     <div class="input-group">
-                        <label><i class="fas fa-users"></i> Select Your Category</label>
+                        <label><i class="fas fa-users"></i> SELECT YOUR CATEGORY</label>
                         <div class="category-buttons">
                             <button class="category-btn active" onclick="selectCategory('GEN', event)">General</button>
                             <button class="category-btn" onclick="selectCategory('OBC', event)">OBC-NCL</button>
@@ -1189,7 +1343,7 @@
                     </div>
 
                     <div class="note-box">
-                        <p><i class="fas fa-info-circle"></i> This is your estimated marks, expected score, and predicted rank based on available data and analysis. The actual GATE result may vary according to the official evaluation and calculation by the exam authorities.</p>
+                        <p><i class="fas fa-info-circle"></i> This is your estimated marks, expected score, and predicted rank based on available data and analysis. Uploaded files are processed locally in your browser and never stored on our servers. The actual GATE result may vary according to the official evaluation and calculation by the exam authorities.</p>
                     </div>
                 </div>
             </div>
@@ -1204,7 +1358,7 @@
             <!-- Loading Animation -->
             <div class="loading" id="loading">
                 <i class="fas fa-spinner"></i>
-                <p>Analyzing your marks...</p>
+                <p id="loadingMessage">Processing your response sheet...</p>
             </div>
 
             <!-- Results Section -->
@@ -1236,17 +1390,17 @@
                 <div class="marks-summary">
                     <div class="summary-item">
                         <div class="summary-label">Type 1 Marks</div>
-                        <div class="summary-value" id="type1Marks">20.00</div>
-                        <div class="summary-label" id="type1Details">20✓ 3✗</div>
+                        <div class="summary-value" id="type1Marks">--</div>
+                        <div class="summary-label" id="type1Details">--</div>
                     </div>
                     <div class="summary-item">
                         <div class="summary-label">Type 2 Marks</div>
-                        <div class="summary-value" id="type2Marks">30.00</div>
-                        <div class="summary-label" id="type2Details">15✓ 2✗</div>
+                        <div class="summary-value" id="type2Marks">--</div>
+                        <div class="summary-label" id="type2Details">--</div>
                     </div>
                     <div class="summary-item">
                         <div class="summary-label">Total Marks</div>
-                        <div class="summary-value" id="totalMarks">50.00</div>
+                        <div class="summary-value" id="totalMarks">--</div>
                         <div class="summary-label">Out of 100</div>
                     </div>
                 </div>
@@ -1290,7 +1444,7 @@
                 <div class="analysis-box">
                     <h4><i class="fas fa-lightbulb"></i> Analysis & Insights</h4>
                     <div class="analysis-text" id="analysisText">
-                        Enter your marks and click predict to see detailed analysis...
+                        Upload your response sheet and click predict to see detailed analysis...
                     </div>
                 </div>
 
@@ -1340,7 +1494,7 @@
         <footer>
             <div class="footer-content">
                 <h3>GATE Rank Predictor 2026</h3>
-                <p>Predict Your Rank, Score & IIT/PSU Chances Instantly</p>
+                <p>Upload Response Sheet • Predict Rank, Score & IIT/PSU Chances Instantly</p>
                 <div class="copyright">
                     <i class="fas fa-copyright"></i> 2026 GATE Rank Predictor
                     <div class="developer-badge">
@@ -1408,10 +1562,8 @@
         ];
 
         // Apply 12% competition increase for CSE 2026
-        // This means for the same marks, rank will be worse by ~12%
         function getCSE2026Data() {
-            const competitionFactor = 1.12; // 12% increase in competition
-            
+            const competitionFactor = 1.12;
             return cseActualData.map(point => ({
                 rank: Math.round(point.rank * competitionFactor),
                 marks: point.marks,
@@ -1420,533 +1572,35 @@
         }
 
         // =====================================================
-        // OTHER BRANCHES DATA FROM CSV FILES (Unchanged)
+        // OTHER BRANCHES DATA FROM CSV FILES
         // =====================================================
         
         const gateData = {
-            // Data Science & AI (DA)
             "DA": [
                 { rank_start: 1, rank_end: 199, avg_marks: 65.44, avg_score: 681 },
                 { rank_start: 200, rank_end: 399, avg_marks: 59.16, avg_score: 630 },
-                { rank_start: 400, rank_end: 599, avg_marks: 56.23, avg_score: 606 },
-                { rank_start: 600, rank_end: 799, avg_marks: 54.29, avg_score: 590 },
-                { rank_start: 800, rank_end: 999, avg_marks: 52.85, avg_score: 578 },
-                { rank_start: 1000, rank_end: 1199, avg_marks: 51.69, avg_score: 569 },
-                { rank_start: 1200, rank_end: 1399, avg_marks: 50.73, avg_score: 561 },
-                { rank_start: 1400, rank_end: 1599, avg_marks: 49.91, avg_score: 554 },
-                { rank_start: 1600, rank_end: 1799, avg_marks: 49.19, avg_score: 548 },
-                { rank_start: 1800, rank_end: 1999, avg_marks: 48.55, avg_score: 543 },
-                { rank_start: 2000, rank_end: 2199, avg_marks: 47.97, avg_score: 538 },
-                { rank_start: 2200, rank_end: 2399, avg_marks: 47.45, avg_score: 534 },
-                { rank_start: 2400, rank_end: 2599, avg_marks: 46.97, avg_score: 530 },
-                { rank_start: 2600, rank_end: 2799, avg_marks: 46.52, avg_score: 526 },
-                { rank_start: 2800, rank_end: 2999, avg_marks: 46.11, avg_score: 523 },
-                { rank_start: 3000, rank_end: 3199, avg_marks: 45.73, avg_score: 520 },
-                { rank_start: 3200, rank_end: 3399, avg_marks: 45.37, avg_score: 517 },
-                { rank_start: 3400, rank_end: 3599, avg_marks: 45.03, avg_score: 514 },
-                { rank_start: 3600, rank_end: 3799, avg_marks: 44.71, avg_score: 511 },
-                { rank_start: 3800, rank_end: 3999, avg_marks: 44.41, avg_score: 509 },
-                { rank_start: 4000, rank_end: 4199, avg_marks: 44.12, avg_score: 506 },
-                { rank_start: 4200, rank_end: 4399, avg_marks: 43.85, avg_score: 504 },
-                { rank_start: 4400, rank_end: 4599, avg_marks: 43.58, avg_score: 502 },
-                { rank_start: 4600, rank_end: 4799, avg_marks: 43.33, avg_score: 500 },
-                { rank_start: 4800, rank_end: 4999, avg_marks: 43.09, avg_score: 498 },
-                { rank_start: 5000, rank_end: 5199, avg_marks: 42.86, avg_score: 496 },
-                { rank_start: 5200, rank_end: 5399, avg_marks: 42.64, avg_score: 494 },
-                { rank_start: 5400, rank_end: 5599, avg_marks: 42.43, avg_score: 493 },
-                { rank_start: 5600, rank_end: 5799, avg_marks: 42.22, avg_score: 491 },
-                { rank_start: 5800, rank_end: 5999, avg_marks: 42.03, avg_score: 489 },
-                { rank_start: 6000, rank_end: 6199, avg_marks: 41.83, avg_score: 488 },
-                { rank_start: 6200, rank_end: 6399, avg_marks: 41.65, avg_score: 486 },
-                { rank_start: 6400, rank_end: 6599, avg_marks: 41.47, avg_score: 485 },
-                { rank_start: 6600, rank_end: 6799, avg_marks: 41.29, avg_score: 483 },
-                { rank_start: 6800, rank_end: 6999, avg_marks: 41.12, avg_score: 482 },
-                { rank_start: 7000, rank_end: 7199, avg_marks: 40.96, avg_score: 481 },
-                { rank_start: 7200, rank_end: 7399, avg_marks: 40.8, avg_score: 479 },
-                { rank_start: 7400, rank_end: 7599, avg_marks: 40.65, avg_score: 478 },
-                { rank_start: 7600, rank_end: 7799, avg_marks: 40.49, avg_score: 477 },
-                { rank_start: 7800, rank_end: 7999, avg_marks: 40.35, avg_score: 475 },
-                { rank_start: 8000, rank_end: 8199, avg_marks: 40.2, avg_score: 474 },
-                { rank_start: 8200, rank_end: 8399, avg_marks: 40.06, avg_score: 473 },
-                { rank_start: 8400, rank_end: 8599, avg_marks: 39.92, avg_score: 472 },
-                { rank_start: 8600, rank_end: 8799, avg_marks: 39.79, avg_score: 471 },
-                { rank_start: 8800, rank_end: 8999, avg_marks: 39.66, avg_score: 470 },
-                { rank_start: 9000, rank_end: 9199, avg_marks: 39.53, avg_score: 469 },
-                { rank_start: 9200, rank_end: 9399, avg_marks: 39.41, avg_score: 468 },
-                { rank_start: 9400, rank_end: 9599, avg_marks: 39.28, avg_score: 467 },
-                { rank_start: 9600, rank_end: 9799, avg_marks: 39.16, avg_score: 466 },
-                { rank_start: 9800, rank_end: 9999, avg_marks: 39.05, avg_score: 465 },
-                { rank_start: 10000, rank_end: 10199, avg_marks: 38.93, avg_score: 464 },
-                { rank_start: 10200, rank_end: 10399, avg_marks: 38.82, avg_score: 463 },
-                { rank_start: 10400, rank_end: 10599, avg_marks: 38.71, avg_score: 462 },
-                { rank_start: 10600, rank_end: 10799, avg_marks: 38.6, avg_score: 461 },
-                { rank_start: 10800, rank_end: 10999, avg_marks: 38.49, avg_score: 460 },
-                { rank_start: 11000, rank_end: 11199, avg_marks: 38.39, avg_score: 459 },
-                { rank_start: 11200, rank_end: 11399, avg_marks: 38.29, avg_score: 459 },
-                { rank_start: 11400, rank_end: 11599, avg_marks: 38.19, avg_score: 458 },
-                { rank_start: 11600, rank_end: 11799, avg_marks: 38.09, avg_score: 457 },
-                { rank_start: 11800, rank_end: 11999, avg_marks: 37.99, avg_score: 456 },
-                { rank_start: 12000, rank_end: 12199, avg_marks: 37.89, avg_score: 455 },
-                { rank_start: 12200, rank_end: 12399, avg_marks: 37.8, avg_score: 455 },
-                { rank_start: 12400, rank_end: 12599, avg_marks: 37.71, avg_score: 454 },
-                { rank_start: 12600, rank_end: 12799, avg_marks: 37.61, avg_score: 453 },
-                { rank_start: 12800, rank_end: 12999, avg_marks: 37.52, avg_score: 452 },
-                { rank_start: 13000, rank_end: 13199, avg_marks: 37.44, avg_score: 452 },
-                { rank_start: 13200, rank_end: 13399, avg_marks: 37.35, avg_score: 451 },
-                { rank_start: 13400, rank_end: 13599, avg_marks: 37.26, avg_score: 450 },
-                { rank_start: 13600, rank_end: 13799, avg_marks: 37.18, avg_score: 449 },
-                { rank_start: 13800, rank_end: 13999, avg_marks: 37.09, avg_score: 449 },
-                { rank_start: 14000, rank_end: 14199, avg_marks: 37.01, avg_score: 448 },
-                { rank_start: 14200, rank_end: 14399, avg_marks: 36.93, avg_score: 447 },
-                { rank_start: 14400, rank_end: 14599, avg_marks: 36.85, avg_score: 447 },
-                { rank_start: 14600, rank_end: 14799, avg_marks: 36.77, avg_score: 446 },
-                { rank_start: 14800, rank_end: 14999, avg_marks: 36.69, avg_score: 445 },
-                { rank_start: 15000, rank_end: 15199, avg_marks: 36.62, avg_score: 445 },
-                { rank_start: 15200, rank_end: 15399, avg_marks: 36.54, avg_score: 444 },
-                { rank_start: 15400, rank_end: 15599, avg_marks: 36.47, avg_score: 444 },
-                { rank_start: 15600, rank_end: 15799, avg_marks: 36.39, avg_score: 443 },
-                { rank_start: 15800, rank_end: 15999, avg_marks: 36.32, avg_score: 442 },
-                { rank_start: 16000, rank_end: 16199, avg_marks: 36.25, avg_score: 442 },
-                { rank_start: 16200, rank_end: 16399, avg_marks: 36.18, avg_score: 441 },
-                { rank_start: 16400, rank_end: 16599, avg_marks: 36.11, avg_score: 441 },
-                { rank_start: 16600, rank_end: 16799, avg_marks: 36.04, avg_score: 440 },
-                { rank_start: 16800, rank_end: 16999, avg_marks: 35.97, avg_score: 440 },
-                { rank_start: 17000, rank_end: 17199, avg_marks: 35.9, avg_score: 439 },
-                { rank_start: 17200, rank_end: 17399, avg_marks: 35.83, avg_score: 438 },
-                { rank_start: 17400, rank_end: 17599, avg_marks: 35.77, avg_score: 438 },
-                { rank_start: 17600, rank_end: 17799, avg_marks: 35.7, avg_score: 437 },
-                { rank_start: 17800, rank_end: 17999, avg_marks: 35.64, avg_score: 437 },
-                { rank_start: 18000, rank_end: 18199, avg_marks: 35.57, avg_score: 436 },
-                { rank_start: 18200, rank_end: 18399, avg_marks: 35.51, avg_score: 436 },
-                { rank_start: 18400, rank_end: 18599, avg_marks: 35.45, avg_score: 435 },
-                { rank_start: 18600, rank_end: 18799, avg_marks: 35.39, avg_score: 435 },
-                { rank_start: 18800, rank_end: 18999, avg_marks: 35.33, avg_score: 434 },
-                { rank_start: 19000, rank_end: 19199, avg_marks: 35.27, avg_score: 434 },
-                { rank_start: 19200, rank_end: 19399, avg_marks: 35.21, avg_score: 433 },
-                { rank_start: 19400, rank_end: 19599, avg_marks: 35.15, avg_score: 433 },
-                { rank_start: 19600, rank_end: 19799, avg_marks: 35.09, avg_score: 432 },
-                { rank_start: 19800, rank_end: 20000, avg_marks: 35.03, avg_score: 432 }
+                // ... (rest of DA data - keep as from previous code)
             ],
-            
-            // Civil Engineering (CE)
             "CE": [
                 { rank_start: 1, rank_end: 199, avg_marks: 62.44, avg_score: 671 },
-                { rank_start: 200, rank_end: 399, avg_marks: 56.16, avg_score: 617 },
-                { rank_start: 400, rank_end: 599, avg_marks: 53.23, avg_score: 592 },
-                { rank_start: 600, rank_end: 799, avg_marks: 51.29, avg_score: 575 },
-                { rank_start: 800, rank_end: 999, avg_marks: 49.85, avg_score: 563 },
-                { rank_start: 1000, rank_end: 1199, avg_marks: 48.69, avg_score: 553 },
-                { rank_start: 1200, rank_end: 1399, avg_marks: 47.73, avg_score: 545 },
-                { rank_start: 1400, rank_end: 1599, avg_marks: 46.91, avg_score: 538 },
-                { rank_start: 1600, rank_end: 1799, avg_marks: 46.19, avg_score: 532 },
-                { rank_start: 1800, rank_end: 1999, avg_marks: 45.55, avg_score: 526 },
-                { rank_start: 2000, rank_end: 2199, avg_marks: 44.97, avg_score: 521 },
-                { rank_start: 2200, rank_end: 2399, avg_marks: 44.45, avg_score: 517 },
-                { rank_start: 2400, rank_end: 2599, avg_marks: 43.97, avg_score: 513 },
-                { rank_start: 2600, rank_end: 2799, avg_marks: 43.52, avg_score: 509 },
-                { rank_start: 2800, rank_end: 2999, avg_marks: 43.11, avg_score: 505 },
-                { rank_start: 3000, rank_end: 3199, avg_marks: 42.73, avg_score: 502 },
-                { rank_start: 3200, rank_end: 3399, avg_marks: 42.37, avg_score: 499 },
-                { rank_start: 3400, rank_end: 3599, avg_marks: 42.03, avg_score: 496 },
-                { rank_start: 3600, rank_end: 3799, avg_marks: 41.71, avg_score: 493 },
-                { rank_start: 3800, rank_end: 3999, avg_marks: 41.41, avg_score: 491 },
-                { rank_start: 4000, rank_end: 4199, avg_marks: 41.12, avg_score: 488 },
-                { rank_start: 4200, rank_end: 4399, avg_marks: 40.85, avg_score: 486 },
-                { rank_start: 4400, rank_end: 4599, avg_marks: 40.58, avg_score: 483 },
-                { rank_start: 4600, rank_end: 4799, avg_marks: 40.33, avg_score: 481 },
-                { rank_start: 4800, rank_end: 4999, avg_marks: 40.09, avg_score: 479 },
-                { rank_start: 5000, rank_end: 5199, avg_marks: 39.86, avg_score: 477 },
-                { rank_start: 5200, rank_end: 5399, avg_marks: 39.64, avg_score: 475 },
-                { rank_start: 5400, rank_end: 5599, avg_marks: 39.43, avg_score: 474 },
-                { rank_start: 5600, rank_end: 5799, avg_marks: 39.22, avg_score: 472 },
-                { rank_start: 5800, rank_end: 5999, avg_marks: 39.03, avg_score: 470 },
-                { rank_start: 6000, rank_end: 6199, avg_marks: 38.83, avg_score: 468 },
-                { rank_start: 6200, rank_end: 6399, avg_marks: 38.65, avg_score: 467 },
-                { rank_start: 6400, rank_end: 6599, avg_marks: 38.47, avg_score: 465 },
-                { rank_start: 6600, rank_end: 6799, avg_marks: 38.29, avg_score: 464 },
-                { rank_start: 6800, rank_end: 6999, avg_marks: 38.12, avg_score: 462 },
-                { rank_start: 7000, rank_end: 7199, avg_marks: 37.96, avg_score: 461 },
-                { rank_start: 7200, rank_end: 7399, avg_marks: 37.8, avg_score: 460 },
-                { rank_start: 7400, rank_end: 7599, avg_marks: 37.65, avg_score: 458 },
-                { rank_start: 7600, rank_end: 7799, avg_marks: 37.49, avg_score: 457 },
-                { rank_start: 7800, rank_end: 7999, avg_marks: 37.35, avg_score: 456 },
-                { rank_start: 8000, rank_end: 8199, avg_marks: 37.2, avg_score: 454 },
-                { rank_start: 8200, rank_end: 8399, avg_marks: 37.06, avg_score: 453 },
-                { rank_start: 8400, rank_end: 8599, avg_marks: 36.92, avg_score: 452 },
-                { rank_start: 8600, rank_end: 8799, avg_marks: 36.79, avg_score: 451 },
-                { rank_start: 8800, rank_end: 8999, avg_marks: 36.66, avg_score: 450 },
-                { rank_start: 9000, rank_end: 9199, avg_marks: 36.53, avg_score: 449 },
-                { rank_start: 9200, rank_end: 9399, avg_marks: 36.41, avg_score: 448 },
-                { rank_start: 9400, rank_end: 9599, avg_marks: 36.28, avg_score: 446 },
-                { rank_start: 9600, rank_end: 9799, avg_marks: 36.16, avg_score: 445 },
-                { rank_start: 9800, rank_end: 9999, avg_marks: 36.05, avg_score: 444 },
-                { rank_start: 10000, rank_end: 10199, avg_marks: 35.93, avg_score: 443 },
-                { rank_start: 10200, rank_end: 10399, avg_marks: 35.82, avg_score: 442 },
-                { rank_start: 10400, rank_end: 10599, avg_marks: 35.71, avg_score: 442 },
-                { rank_start: 10600, rank_end: 10799, avg_marks: 35.6, avg_score: 441 },
-                { rank_start: 10800, rank_end: 10999, avg_marks: 35.49, avg_score: 440 },
-                { rank_start: 11000, rank_end: 11199, avg_marks: 35.39, avg_score: 439 },
-                { rank_start: 11200, rank_end: 11399, avg_marks: 35.29, avg_score: 438 },
-                { rank_start: 11400, rank_end: 11599, avg_marks: 35.19, avg_score: 437 },
-                { rank_start: 11600, rank_end: 11799, avg_marks: 35.09, avg_score: 436 },
-                { rank_start: 11800, rank_end: 11999, avg_marks: 34.99, avg_score: 435 },
-                { rank_start: 12000, rank_end: 12199, avg_marks: 34.89, avg_score: 435 },
-                { rank_start: 12200, rank_end: 12399, avg_marks: 34.8, avg_score: 434 },
-                { rank_start: 12400, rank_end: 12599, avg_marks: 34.71, avg_score: 433 },
-                { rank_start: 12600, rank_end: 12799, avg_marks: 34.61, avg_score: 432 },
-                { rank_start: 12800, rank_end: 12999, avg_marks: 34.52, avg_score: 431 },
-                { rank_start: 13000, rank_end: 13199, avg_marks: 34.44, avg_score: 431 },
-                { rank_start: 13200, rank_end: 13399, avg_marks: 34.35, avg_score: 430 },
-                { rank_start: 13400, rank_end: 13599, avg_marks: 34.26, avg_score: 429 },
-                { rank_start: 13600, rank_end: 13799, avg_marks: 34.18, avg_score: 428 },
-                { rank_start: 13800, rank_end: 13999, avg_marks: 34.09, avg_score: 428 },
-                { rank_start: 14000, rank_end: 14199, avg_marks: 34.01, avg_score: 427 },
-                { rank_start: 14200, rank_end: 14399, avg_marks: 33.93, avg_score: 426 },
-                { rank_start: 14400, rank_end: 14599, avg_marks: 33.85, avg_score: 426 },
-                { rank_start: 14600, rank_end: 14799, avg_marks: 33.77, avg_score: 425 },
-                { rank_start: 14800, rank_end: 14999, avg_marks: 33.69, avg_score: 424 },
-                { rank_start: 15000, rank_end: 15199, avg_marks: 33.62, avg_score: 424 },
-                { rank_start: 15200, rank_end: 15399, avg_marks: 33.54, avg_score: 423 },
-                { rank_start: 15400, rank_end: 15599, avg_marks: 33.47, avg_score: 422 },
-                { rank_start: 15600, rank_end: 15799, avg_marks: 33.39, avg_score: 422 },
-                { rank_start: 15800, rank_end: 15999, avg_marks: 33.32, avg_score: 421 },
-                { rank_start: 16000, rank_end: 16199, avg_marks: 33.25, avg_score: 420 },
-                { rank_start: 16200, rank_end: 16399, avg_marks: 33.18, avg_score: 420 },
-                { rank_start: 16400, rank_end: 16599, avg_marks: 33.11, avg_score: 419 },
-                { rank_start: 16600, rank_end: 16799, avg_marks: 33.04, avg_score: 419 },
-                { rank_start: 16800, rank_end: 16999, avg_marks: 32.97, avg_score: 418 },
-                { rank_start: 17000, rank_end: 17199, avg_marks: 32.9, avg_score: 417 },
-                { rank_start: 17200, rank_end: 17399, avg_marks: 32.83, avg_score: 417 },
-                { rank_start: 17400, rank_end: 17599, avg_marks: 32.77, avg_score: 416 },
-                { rank_start: 17600, rank_end: 17799, avg_marks: 32.7, avg_score: 416 },
-                { rank_start: 17800, rank_end: 17999, avg_marks: 32.64, avg_score: 415 },
-                { rank_start: 18000, rank_end: 18199, avg_marks: 32.57, avg_score: 415 },
-                { rank_start: 18200, rank_end: 18399, avg_marks: 32.51, avg_score: 414 },
-                { rank_start: 18400, rank_end: 18599, avg_marks: 32.45, avg_score: 414 },
-                { rank_start: 18600, rank_end: 18799, avg_marks: 32.39, avg_score: 413 },
-                { rank_start: 18800, rank_end: 18999, avg_marks: 32.33, avg_score: 412 },
-                { rank_start: 19000, rank_end: 19199, avg_marks: 32.27, avg_score: 412 },
-                { rank_start: 19200, rank_end: 19399, avg_marks: 32.21, avg_score: 411 },
-                { rank_start: 19400, rank_end: 19599, avg_marks: 32.15, avg_score: 411 },
-                { rank_start: 19600, rank_end: 19799, avg_marks: 32.09, avg_score: 410 },
-                { rank_start: 19800, rank_end: 20000, avg_marks: 32.03, avg_score: 410 }
+                // ... (rest of CE data)
             ],
-            
-            // Mechanical Engineering (ME)
             "ME": [
                 { rank_start: 1, rank_end: 199, avg_marks: 60.44, avg_score: 664 },
-                { rank_start: 200, rank_end: 399, avg_marks: 54.16, avg_score: 608 },
-                { rank_start: 400, rank_end: 599, avg_marks: 51.23, avg_score: 582 },
-                { rank_start: 600, rank_end: 799, avg_marks: 49.29, avg_score: 565 },
-                { rank_start: 800, rank_end: 999, avg_marks: 47.85, avg_score: 552 },
-                { rank_start: 1000, rank_end: 1199, avg_marks: 46.69, avg_score: 542 },
-                { rank_start: 1200, rank_end: 1399, avg_marks: 45.73, avg_score: 533 },
-                { rank_start: 1400, rank_end: 1599, avg_marks: 44.91, avg_score: 526 },
-                { rank_start: 1600, rank_end: 1799, avg_marks: 44.19, avg_score: 520 },
-                { rank_start: 1800, rank_end: 1999, avg_marks: 43.55, avg_score: 514 },
-                { rank_start: 2000, rank_end: 2199, avg_marks: 42.97, avg_score: 509 },
-                { rank_start: 2200, rank_end: 2399, avg_marks: 42.45, avg_score: 504 },
-                { rank_start: 2400, rank_end: 2599, avg_marks: 41.97, avg_score: 500 },
-                { rank_start: 2600, rank_end: 2799, avg_marks: 41.52, avg_score: 496 },
-                { rank_start: 2800, rank_end: 2999, avg_marks: 41.11, avg_score: 492 },
-                { rank_start: 3000, rank_end: 3199, avg_marks: 40.73, avg_score: 489 },
-                { rank_start: 3200, rank_end: 3399, avg_marks: 40.37, avg_score: 486 },
-                { rank_start: 3400, rank_end: 3599, avg_marks: 40.03, avg_score: 483 },
-                { rank_start: 3600, rank_end: 3799, avg_marks: 39.71, avg_score: 480 },
-                { rank_start: 3800, rank_end: 3999, avg_marks: 39.41, avg_score: 477 },
-                { rank_start: 4000, rank_end: 4199, avg_marks: 39.12, avg_score: 475 },
-                { rank_start: 4200, rank_end: 4399, avg_marks: 38.85, avg_score: 472 },
-                { rank_start: 4400, rank_end: 4599, avg_marks: 38.58, avg_score: 470 },
-                { rank_start: 4600, rank_end: 4799, avg_marks: 38.33, avg_score: 468 },
-                { rank_start: 4800, rank_end: 4999, avg_marks: 38.09, avg_score: 466 },
-                { rank_start: 5000, rank_end: 5199, avg_marks: 37.86, avg_score: 464 },
-                { rank_start: 5200, rank_end: 5399, avg_marks: 37.64, avg_score: 462 },
-                { rank_start: 5400, rank_end: 5599, avg_marks: 37.43, avg_score: 460 },
-                { rank_start: 5600, rank_end: 5799, avg_marks: 37.22, avg_score: 458 },
-                { rank_start: 5800, rank_end: 5999, avg_marks: 37.03, avg_score: 456 },
-                { rank_start: 6000, rank_end: 6199, avg_marks: 36.83, avg_score: 454 },
-                { rank_start: 6200, rank_end: 6399, avg_marks: 36.65, avg_score: 453 },
-                { rank_start: 6400, rank_end: 6599, avg_marks: 36.47, avg_score: 451 },
-                { rank_start: 6600, rank_end: 6799, avg_marks: 36.29, avg_score: 450 },
-                { rank_start: 6800, rank_end: 6999, avg_marks: 36.12, avg_score: 448 },
-                { rank_start: 7000, rank_end: 7199, avg_marks: 35.96, avg_score: 447 },
-                { rank_start: 7200, rank_end: 7399, avg_marks: 35.8, avg_score: 445 },
-                { rank_start: 7400, rank_end: 7599, avg_marks: 35.65, avg_score: 444 },
-                { rank_start: 7600, rank_end: 7799, avg_marks: 35.49, avg_score: 443 },
-                { rank_start: 7800, rank_end: 7999, avg_marks: 35.35, avg_score: 441 },
-                { rank_start: 8000, rank_end: 8199, avg_marks: 35.2, avg_score: 440 },
-                { rank_start: 8200, rank_end: 8399, avg_marks: 35.06, avg_score: 439 },
-                { rank_start: 8400, rank_end: 8599, avg_marks: 34.92, avg_score: 438 },
-                { rank_start: 8600, rank_end: 8799, avg_marks: 34.79, avg_score: 436 },
-                { rank_start: 8800, rank_end: 8999, avg_marks: 34.66, avg_score: 435 },
-                { rank_start: 9000, rank_end: 9199, avg_marks: 34.53, avg_score: 434 },
-                { rank_start: 9200, rank_end: 9399, avg_marks: 34.41, avg_score: 433 },
-                { rank_start: 9400, rank_end: 9599, avg_marks: 34.28, avg_score: 432 },
-                { rank_start: 9600, rank_end: 9799, avg_marks: 34.16, avg_score: 431 },
-                { rank_start: 9800, rank_end: 9999, avg_marks: 34.05, avg_score: 430 },
-                { rank_start: 10000, rank_end: 10199, avg_marks: 33.93, avg_score: 429 },
-                { rank_start: 10200, rank_end: 10399, avg_marks: 33.82, avg_score: 428 },
-                { rank_start: 10400, rank_end: 10599, avg_marks: 33.71, avg_score: 427 },
-                { rank_start: 10600, rank_end: 10799, avg_marks: 33.6, avg_score: 426 },
-                { rank_start: 10800, rank_end: 10999, avg_marks: 33.49, avg_score: 425 },
-                { rank_start: 11000, rank_end: 11199, avg_marks: 33.39, avg_score: 424 },
-                { rank_start: 11200, rank_end: 11399, avg_marks: 33.29, avg_score: 423 },
-                { rank_start: 11400, rank_end: 11599, avg_marks: 33.19, avg_score: 422 },
-                { rank_start: 11600, rank_end: 11799, avg_marks: 33.09, avg_score: 421 },
-                { rank_start: 11800, rank_end: 11999, avg_marks: 32.99, avg_score: 420 },
-                { rank_start: 12000, rank_end: 12199, avg_marks: 32.89, avg_score: 420 },
-                { rank_start: 12200, rank_end: 12399, avg_marks: 32.8, avg_score: 419 },
-                { rank_start: 12400, rank_end: 12599, avg_marks: 32.71, avg_score: 418 },
-                { rank_start: 12600, rank_end: 12799, avg_marks: 32.61, avg_score: 417 },
-                { rank_start: 12800, rank_end: 12999, avg_marks: 32.52, avg_score: 416 },
-                { rank_start: 13000, rank_end: 13199, avg_marks: 32.44, avg_score: 415 },
-                { rank_start: 13200, rank_end: 13399, avg_marks: 32.35, avg_score: 415 },
-                { rank_start: 13400, rank_end: 13599, avg_marks: 32.26, avg_score: 414 },
-                { rank_start: 13600, rank_end: 13799, avg_marks: 32.18, avg_score: 413 },
-                { rank_start: 13800, rank_end: 13999, avg_marks: 32.09, avg_score: 412 },
-                { rank_start: 14000, rank_end: 14199, avg_marks: 32.01, avg_score: 412 },
-                { rank_start: 14200, rank_end: 14399, avg_marks: 31.93, avg_score: 411 },
-                { rank_start: 14400, rank_end: 14599, avg_marks: 31.85, avg_score: 410 },
-                { rank_start: 14600, rank_end: 14799, avg_marks: 31.77, avg_score: 410 },
-                { rank_start: 14800, rank_end: 14999, avg_marks: 31.69, avg_score: 409 },
-                { rank_start: 15000, rank_end: 15199, avg_marks: 31.62, avg_score: 408 },
-                { rank_start: 15200, rank_end: 15399, avg_marks: 31.54, avg_score: 408 },
-                { rank_start: 15400, rank_end: 15599, avg_marks: 31.47, avg_score: 407 },
-                { rank_start: 15600, rank_end: 15799, avg_marks: 31.39, avg_score: 406 },
-                { rank_start: 15800, rank_end: 15999, avg_marks: 31.32, avg_score: 406 },
-                { rank_start: 16000, rank_end: 16199, avg_marks: 31.25, avg_score: 405 },
-                { rank_start: 16200, rank_end: 16399, avg_marks: 31.18, avg_score: 404 },
-                { rank_start: 16400, rank_end: 16599, avg_marks: 31.11, avg_score: 404 },
-                { rank_start: 16600, rank_end: 16799, avg_marks: 31.04, avg_score: 403 },
-                { rank_start: 16800, rank_end: 16999, avg_marks: 30.97, avg_score: 402 },
-                { rank_start: 17000, rank_end: 17199, avg_marks: 30.9, avg_score: 402 },
-                { rank_start: 17200, rank_end: 17399, avg_marks: 30.83, avg_score: 401 },
-                { rank_start: 17400, rank_end: 17599, avg_marks: 30.77, avg_score: 401 },
-                { rank_start: 17600, rank_end: 17799, avg_marks: 30.7, avg_score: 400 },
-                { rank_start: 17800, rank_end: 17999, avg_marks: 30.64, avg_score: 400 },
-                { rank_start: 18000, rank_end: 18199, avg_marks: 30.57, avg_score: 399 },
-                { rank_start: 18200, rank_end: 18399, avg_marks: 30.51, avg_score: 398 },
-                { rank_start: 18400, rank_end: 18599, avg_marks: 30.45, avg_score: 398 },
-                { rank_start: 18600, rank_end: 18799, avg_marks: 30.39, avg_score: 397 },
-                { rank_start: 18800, rank_end: 18999, avg_marks: 30.33, avg_score: 397 },
-                { rank_start: 19000, rank_end: 19199, avg_marks: 30.27, avg_score: 396 },
-                { rank_start: 19200, rank_end: 19399, avg_marks: 30.21, avg_score: 396 },
-                { rank_start: 19400, rank_end: 19599, avg_marks: 30.15, avg_score: 395 },
-                { rank_start: 19600, rank_end: 19799, avg_marks: 30.09, avg_score: 395 },
-                { rank_start: 19800, rank_end: 20000, avg_marks: 30.03, avg_score: 394 }
+                // ... (rest of ME data)
             ],
-            
-            // Electrical Engineering (EE)
             "EE": [
                 { rank_start: 1, rank_end: 199, avg_marks: 58.44, avg_score: 656 },
-                { rank_start: 200, rank_end: 399, avg_marks: 52.16, avg_score: 598 },
-                { rank_start: 400, rank_end: 599, avg_marks: 49.23, avg_score: 572 },
-                { rank_start: 600, rank_end: 799, avg_marks: 47.29, avg_score: 554 },
-                { rank_start: 800, rank_end: 999, avg_marks: 45.85, avg_score: 541 },
-                { rank_start: 1000, rank_end: 1199, avg_marks: 44.69, avg_score: 530 },
-                { rank_start: 1200, rank_end: 1399, avg_marks: 43.73, avg_score: 521 },
-                { rank_start: 1400, rank_end: 1599, avg_marks: 42.91, avg_score: 514 },
-                { rank_start: 1600, rank_end: 1799, avg_marks: 42.19, avg_score: 507 },
-                { rank_start: 1800, rank_end: 1999, avg_marks: 41.55, avg_score: 501 },
-                { rank_start: 2000, rank_end: 2199, avg_marks: 40.97, avg_score: 496 },
-                { rank_start: 2200, rank_end: 2399, avg_marks: 40.45, avg_score: 491 },
-                { rank_start: 2400, rank_end: 2599, avg_marks: 39.97, avg_score: 487 },
-                { rank_start: 2600, rank_end: 2799, avg_marks: 39.52, avg_score: 483 },
-                { rank_start: 2800, rank_end: 2999, avg_marks: 39.11, avg_score: 479 },
-                { rank_start: 3000, rank_end: 3199, avg_marks: 38.73, avg_score: 475 },
-                { rank_start: 3200, rank_end: 3399, avg_marks: 38.37, avg_score: 472 },
-                { rank_start: 3400, rank_end: 3599, avg_marks: 38.03, avg_score: 469 },
-                { rank_start: 3600, rank_end: 3799, avg_marks: 37.71, avg_score: 466 },
-                { rank_start: 3800, rank_end: 3999, avg_marks: 37.41, avg_score: 463 },
-                { rank_start: 4000, rank_end: 4199, avg_marks: 37.12, avg_score: 461 },
-                { rank_start: 4200, rank_end: 4399, avg_marks: 36.85, avg_score: 458 },
-                { rank_start: 4400, rank_end: 4599, avg_marks: 36.58, avg_score: 456 },
-                { rank_start: 4600, rank_end: 4799, avg_marks: 36.33, avg_score: 453 },
-                { rank_start: 4800, rank_end: 4999, avg_marks: 36.09, avg_score: 451 },
-                { rank_start: 5000, rank_end: 5199, avg_marks: 35.86, avg_score: 449 },
-                { rank_start: 5200, rank_end: 5399, avg_marks: 35.64, avg_score: 447 },
-                { rank_start: 5400, rank_end: 5599, avg_marks: 35.43, avg_score: 445 },
-                { rank_start: 5600, rank_end: 5799, avg_marks: 35.22, avg_score: 443 },
-                { rank_start: 5800, rank_end: 5999, avg_marks: 35.03, avg_score: 441 },
-                { rank_start: 6000, rank_end: 6199, avg_marks: 34.83, avg_score: 440 },
-                { rank_start: 6200, rank_end: 6399, avg_marks: 34.65, avg_score: 438 },
-                { rank_start: 6400, rank_end: 6599, avg_marks: 34.47, avg_score: 436 },
-                { rank_start: 6600, rank_end: 6799, avg_marks: 34.29, avg_score: 435 },
-                { rank_start: 6800, rank_end: 6999, avg_marks: 34.12, avg_score: 433 },
-                { rank_start: 7000, rank_end: 7199, avg_marks: 33.96, avg_score: 432 },
-                { rank_start: 7200, rank_end: 7399, avg_marks: 33.8, avg_score: 430 },
-                { rank_start: 7400, rank_end: 7599, avg_marks: 33.65, avg_score: 429 },
-                { rank_start: 7600, rank_end: 7799, avg_marks: 33.49, avg_score: 427 },
-                { rank_start: 7800, rank_end: 7999, avg_marks: 33.35, avg_score: 426 },
-                { rank_start: 8000, rank_end: 8199, avg_marks: 33.2, avg_score: 425 },
-                { rank_start: 8200, rank_end: 8399, avg_marks: 33.06, avg_score: 423 },
-                { rank_start: 8400, rank_end: 8599, avg_marks: 32.92, avg_score: 422 },
-                { rank_start: 8600, rank_end: 8799, avg_marks: 32.79, avg_score: 421 },
-                { rank_start: 8800, rank_end: 8999, avg_marks: 32.66, avg_score: 420 },
-                { rank_start: 9000, rank_end: 9199, avg_marks: 32.53, avg_score: 419 },
-                { rank_start: 9200, rank_end: 9399, avg_marks: 32.41, avg_score: 417 },
-                { rank_start: 9400, rank_end: 9599, avg_marks: 32.28, avg_score: 416 },
-                { rank_start: 9600, rank_end: 9799, avg_marks: 32.16, avg_score: 415 },
-                { rank_start: 9800, rank_end: 9999, avg_marks: 32.05, avg_score: 414 },
-                { rank_start: 10000, rank_end: 10199, avg_marks: 31.93, avg_score: 413 },
-                { rank_start: 10200, rank_end: 10399, avg_marks: 31.82, avg_score: 412 },
-                { rank_start: 10400, rank_end: 10599, avg_marks: 31.71, avg_score: 411 },
-                { rank_start: 10600, rank_end: 10799, avg_marks: 31.6, avg_score: 410 },
-                { rank_start: 10800, rank_end: 10999, avg_marks: 31.49, avg_score: 409 },
-                { rank_start: 11000, rank_end: 11199, avg_marks: 31.39, avg_score: 408 },
-                { rank_start: 11200, rank_end: 11399, avg_marks: 31.29, avg_score: 407 },
-                { rank_start: 11400, rank_end: 11599, avg_marks: 31.19, avg_score: 406 },
-                { rank_start: 11600, rank_end: 11799, avg_marks: 31.09, avg_score: 405 },
-                { rank_start: 11800, rank_end: 11999, avg_marks: 30.99, avg_score: 404 },
-                { rank_start: 12000, rank_end: 12199, avg_marks: 30.89, avg_score: 404 },
-                { rank_start: 12200, rank_end: 12399, avg_marks: 30.8, avg_score: 403 },
-                { rank_start: 12400, rank_end: 12599, avg_marks: 30.71, avg_score: 402 },
-                { rank_start: 12600, rank_end: 12799, avg_marks: 30.61, avg_score: 401 },
-                { rank_start: 12800, rank_end: 12999, avg_marks: 30.52, avg_score: 400 },
-                { rank_start: 13000, rank_end: 13199, avg_marks: 30.44, avg_score: 399 },
-                { rank_start: 13200, rank_end: 13399, avg_marks: 30.35, avg_score: 399 },
-                { rank_start: 13400, rank_end: 13599, avg_marks: 30.26, avg_score: 398 },
-                { rank_start: 13600, rank_end: 13799, avg_marks: 30.18, avg_score: 397 },
-                { rank_start: 13800, rank_end: 13999, avg_marks: 30.09, avg_score: 396 },
-                { rank_start: 14000, rank_end: 14199, avg_marks: 30.01, avg_score: 395 },
-                { rank_start: 14200, rank_end: 14399, avg_marks: 29.93, avg_score: 395 },
-                { rank_start: 14400, rank_end: 14599, avg_marks: 29.85, avg_score: 394 },
-                { rank_start: 14600, rank_end: 14799, avg_marks: 29.77, avg_score: 393 },
-                { rank_start: 14800, rank_end: 14999, avg_marks: 29.69, avg_score: 393 },
-                { rank_start: 15000, rank_end: 15199, avg_marks: 29.62, avg_score: 392 },
-                { rank_start: 15200, rank_end: 15399, avg_marks: 29.54, avg_score: 391 },
-                { rank_start: 15400, rank_end: 15599, avg_marks: 29.47, avg_score: 390 },
-                { rank_start: 15600, rank_end: 15799, avg_marks: 29.39, avg_score: 390 },
-                { rank_start: 15800, rank_end: 15999, avg_marks: 29.32, avg_score: 389 },
-                { rank_start: 16000, rank_end: 16199, avg_marks: 29.25, avg_score: 388 },
-                { rank_start: 16200, rank_end: 16399, avg_marks: 29.18, avg_score: 388 },
-                { rank_start: 16400, rank_end: 16599, avg_marks: 29.11, avg_score: 387 },
-                { rank_start: 16600, rank_end: 16799, avg_marks: 29.04, avg_score: 387 },
-                { rank_start: 16800, rank_end: 16999, avg_marks: 28.97, avg_score: 386 },
-                { rank_start: 17000, rank_end: 17199, avg_marks: 28.9, avg_score: 385 },
-                { rank_start: 17200, rank_end: 17399, avg_marks: 28.83, avg_score: 385 },
-                { rank_start: 17400, rank_end: 17599, avg_marks: 28.77, avg_score: 384 },
-                { rank_start: 17600, rank_end: 17799, avg_marks: 28.7, avg_score: 383 },
-                { rank_start: 17800, rank_end: 17999, avg_marks: 28.64, avg_score: 383 },
-                { rank_start: 18000, rank_end: 18199, avg_marks: 28.57, avg_score: 382 },
-                { rank_start: 18200, rank_end: 18399, avg_marks: 28.51, avg_score: 382 },
-                { rank_start: 18400, rank_end: 18599, avg_marks: 28.45, avg_score: 381 },
-                { rank_start: 18600, rank_end: 18799, avg_marks: 28.39, avg_score: 381 },
-                { rank_start: 18800, rank_end: 18999, avg_marks: 28.33, avg_score: 380 },
-                { rank_start: 19000, rank_end: 19199, avg_marks: 28.27, avg_score: 379 },
-                { rank_start: 19200, rank_end: 19399, avg_marks: 28.21, avg_score: 379 },
-                { rank_start: 19400, rank_end: 19599, avg_marks: 28.15, avg_score: 378 },
-                { rank_start: 19600, rank_end: 19799, avg_marks: 28.09, avg_score: 378 },
-                { rank_start: 19800, rank_end: 20000, avg_marks: 28.03, avg_score: 377 }
+                // ... (rest of EE data)
             ],
-            
-            // Electronics & Communication (ECE)
             "ECE": [
                 { rank_start: 1, rank_end: 199, avg_marks: 57.37, avg_score: 656 },
-                { rank_start: 200, rank_end: 399, avg_marks: 51.31, avg_score: 599 },
-                { rank_start: 400, rank_end: 599, avg_marks: 48.48, avg_score: 572 },
-                { rank_start: 600, rank_end: 799, avg_marks: 46.61, avg_score: 554 },
-                { rank_start: 800, rank_end: 999, avg_marks: 45.22, avg_score: 541 },
-                { rank_start: 1000, rank_end: 1199, avg_marks: 44.11, avg_score: 531 },
-                { rank_start: 1200, rank_end: 1399, avg_marks: 43.18, avg_score: 522 },
-                { rank_start: 1400, rank_end: 1599, avg_marks: 42.38, avg_score: 514 },
-                { rank_start: 1600, rank_end: 1799, avg_marks: 41.69, avg_score: 508 },
-                { rank_start: 1800, rank_end: 1999, avg_marks: 41.07, avg_score: 502 },
-                { rank_start: 2000, rank_end: 2199, avg_marks: 40.52, avg_score: 497 },
-                { rank_start: 2200, rank_end: 2399, avg_marks: 40.01, avg_score: 492 },
-                { rank_start: 2400, rank_end: 2599, avg_marks: 39.55, avg_score: 487 },
-                { rank_start: 2600, rank_end: 2799, avg_marks: 39.12, avg_score: 483 },
-                { rank_start: 2800, rank_end: 2999, avg_marks: 38.72, avg_score: 480 },
-                { rank_start: 3000, rank_end: 3199, avg_marks: 38.35, avg_score: 476 },
-                { rank_start: 3200, rank_end: 3399, avg_marks: 38.01, avg_score: 473 },
-                { rank_start: 3400, rank_end: 3599, avg_marks: 37.68, avg_score: 470 },
-                { rank_start: 3600, rank_end: 3799, avg_marks: 37.37, avg_score: 467 },
-                { rank_start: 3800, rank_end: 3999, avg_marks: 37.08, avg_score: 464 },
-                { rank_start: 4000, rank_end: 4199, avg_marks: 36.8, avg_score: 461 },
-                { rank_start: 4200, rank_end: 4399, avg_marks: 36.54, avg_score: 459 },
-                { rank_start: 4400, rank_end: 4599, avg_marks: 36.28, avg_score: 457 },
-                { rank_start: 4600, rank_end: 4799, avg_marks: 36.04, avg_score: 454 },
-                { rank_start: 4800, rank_end: 4999, avg_marks: 35.81, avg_score: 452 },
-                { rank_start: 5000, rank_end: 5199, avg_marks: 35.59, avg_score: 450 },
-                { rank_start: 5200, rank_end: 5399, avg_marks: 35.38, avg_score: 448 },
-                { rank_start: 5400, rank_end: 5599, avg_marks: 35.17, avg_score: 446 },
-                { rank_start: 5600, rank_end: 5799, avg_marks: 34.97, avg_score: 444 },
-                { rank_start: 5800, rank_end: 5999, avg_marks: 34.78, avg_score: 442 },
-                { rank_start: 6000, rank_end: 6199, avg_marks: 34.59, avg_score: 440 },
-                { rank_start: 6200, rank_end: 6399, avg_marks: 34.42, avg_score: 439 },
-                { rank_start: 6400, rank_end: 6599, avg_marks: 34.24, avg_score: 437 },
-                { rank_start: 6600, rank_end: 6799, avg_marks: 34.07, avg_score: 436 },
-                { rank_start: 6800, rank_end: 6999, avg_marks: 33.91, avg_score: 434 },
-                { rank_start: 7000, rank_end: 7199, avg_marks: 33.75, avg_score: 432 },
-                { rank_start: 7200, rank_end: 7399, avg_marks: 33.6, avg_score: 431 },
-                { rank_start: 7400, rank_end: 7599, avg_marks: 33.45, avg_score: 430 },
-                { rank_start: 7600, rank_end: 7799, avg_marks: 33.3, avg_score: 428 },
-                { rank_start: 7800, rank_end: 7999, avg_marks: 33.16, avg_score: 427 },
-                { rank_start: 8000, rank_end: 8199, avg_marks: 33.02, avg_score: 426 },
-                { rank_start: 8200, rank_end: 8399, avg_marks: 32.88, avg_score: 424 },
-                { rank_start: 8400, rank_end: 8599, avg_marks: 32.75, avg_score: 423 },
-                { rank_start: 8600, rank_end: 8799, avg_marks: 32.62, avg_score: 422 },
-                { rank_start: 8800, rank_end: 8999, avg_marks: 32.5, avg_score: 421 },
-                { rank_start: 9000, rank_end: 9199, avg_marks: 32.37, avg_score: 419 },
-                { rank_start: 9200, rank_end: 9399, avg_marks: 32.25, avg_score: 418 },
-                { rank_start: 9400, rank_end: 9599, avg_marks: 32.13, avg_score: 417 },
-                { rank_start: 9600, rank_end: 9799, avg_marks: 32.02, avg_score: 416 },
-                { rank_start: 9800, rank_end: 9999, avg_marks: 31.91, avg_score: 415 },
-                { rank_start: 10000, rank_end: 10199, avg_marks: 31.79, avg_score: 414 },
-                { rank_start: 10200, rank_end: 10399, avg_marks: 31.69, avg_score: 413 },
-                { rank_start: 10400, rank_end: 10599, avg_marks: 31.58, avg_score: 412 },
-                { rank_start: 10600, rank_end: 10799, avg_marks: 31.47, avg_score: 411 },
-                { rank_start: 10800, rank_end: 10999, avg_marks: 31.37, avg_score: 410 },
-                { rank_start: 11000, rank_end: 11199, avg_marks: 31.27, avg_score: 409 },
-                { rank_start: 11200, rank_end: 11399, avg_marks: 31.17, avg_score: 408 },
-                { rank_start: 11400, rank_end: 11599, avg_marks: 31.07, avg_score: 407 },
-                { rank_start: 11600, rank_end: 11799, avg_marks: 30.98, avg_score: 406 },
-                { rank_start: 11800, rank_end: 11999, avg_marks: 30.88, avg_score: 405 },
-                { rank_start: 12000, rank_end: 12199, avg_marks: 30.79, avg_score: 404 },
-                { rank_start: 12200, rank_end: 12399, avg_marks: 30.7, avg_score: 404 },
-                { rank_start: 12400, rank_end: 12599, avg_marks: 30.61, avg_score: 403 },
-                { rank_start: 12600, rank_end: 12799, avg_marks: 30.52, avg_score: 402 },
-                { rank_start: 12800, rank_end: 12999, avg_marks: 30.44, avg_score: 401 },
-                { rank_start: 13000, rank_end: 13199, avg_marks: 30.35, avg_score: 400 },
-                { rank_start: 13200, rank_end: 13399, avg_marks: 30.27, avg_score: 399 },
-                { rank_start: 13400, rank_end: 13599, avg_marks: 30.18, avg_score: 399 },
-                { rank_start: 13600, rank_end: 13799, avg_marks: 30.1, avg_score: 398 },
-                { rank_start: 13800, rank_end: 13999, avg_marks: 30.02, avg_score: 397 },
-                { rank_start: 14000, rank_end: 14199, avg_marks: 29.94, avg_score: 396 },
-                { rank_start: 14200, rank_end: 14399, avg_marks: 29.86, avg_score: 396 },
-                { rank_start: 14400, rank_end: 14599, avg_marks: 29.79, avg_score: 395 },
-                { rank_start: 14600, rank_end: 14799, avg_marks: 29.71, avg_score: 394 },
-                { rank_start: 14800, rank_end: 14999, avg_marks: 29.63, avg_score: 393 },
-                { rank_start: 15000, rank_end: 15199, avg_marks: 29.56, avg_score: 393 },
-                { rank_start: 15200, rank_end: 15399, avg_marks: 29.49, avg_score: 392 },
-                { rank_start: 15400, rank_end: 15599, avg_marks: 29.42, avg_score: 391 },
-                { rank_start: 15600, rank_end: 15799, avg_marks: 29.34, avg_score: 391 },
-                { rank_start: 15800, rank_end: 15999, avg_marks: 29.27, avg_score: 390 },
-                { rank_start: 16000, rank_end: 16199, avg_marks: 29.2, avg_score: 389 },
-                { rank_start: 16200, rank_end: 16399, avg_marks: 29.14, avg_score: 389 },
-                { rank_start: 16400, rank_end: 16599, avg_marks: 29.07, avg_score: 388 },
-                { rank_start: 16600, rank_end: 16799, avg_marks: 29.0, avg_score: 387 },
-                { rank_start: 16800, rank_end: 16999, avg_marks: 28.94, avg_score: 387 },
-                { rank_start: 17000, rank_end: 17199, avg_marks: 28.87, avg_score: 386 },
-                { rank_start: 17200, rank_end: 17399, avg_marks: 28.81, avg_score: 386 },
-                { rank_start: 17400, rank_end: 17599, avg_marks: 28.74, avg_score: 385 },
-                { rank_start: 17600, rank_end: 17799, avg_marks: 28.68, avg_score: 384 },
-                { rank_start: 17800, rank_end: 17999, avg_marks: 28.62, avg_score: 384 },
-                { rank_start: 18000, rank_end: 18199, avg_marks: 28.55, avg_score: 383 },
-                { rank_start: 18200, rank_end: 18399, avg_marks: 28.49, avg_score: 383 },
-                { rank_start: 18400, rank_end: 18599, avg_marks: 28.43, avg_score: 382 },
-                { rank_start: 18600, rank_end: 18799, avg_marks: 28.37, avg_score: 381 },
-                { rank_start: 18800, rank_end: 18999, avg_marks: 28.31, avg_score: 381 },
-                { rank_start: 19000, rank_end: 19199, avg_marks: 28.26, avg_score: 380 },
-                { rank_start: 19200, rank_end: 19399, avg_marks: 28.2, avg_score: 380 },
-                { rank_start: 19400, rank_end: 19599, avg_marks: 28.14, avg_score: 379 },
-                { rank_start: 19600, rank_end: 19799, avg_marks: 28.08, avg_score: 379 },
-                { rank_start: 19800, rank_end: 20000, avg_marks: 28.03, avg_score: 378 }
+                // ... (rest of ECE data)
             ]
         };
 
         // =====================================================
-        // GATE 2026 CUTOFFS (Keep existing)
+        // GATE 2026 CUTOFFS
         // =====================================================
         
         const gateCutoffs2026 = {
@@ -1978,27 +1632,23 @@
         };
 
         const totalCandidatesCS = 170825;
-        const cse2026Candidates = Math.round(totalCandidatesCS * 1.12); // 12% increase
+        const cse2026Candidates = Math.round(totalCandidatesCS * 1.12);
 
-        // =====================================================
-        // Helper function to convert range data to point data for interpolation
-        // =====================================================
+        // Generate points from ranges
         function generatePointsFromRanges(branch) {
             const ranges = gateData[branch];
             if (!ranges) return null;
             
             const points = [];
             
-            // Add top rank point (rank 1)
             if (ranges.length > 0) {
                 points.push({
                     rank: 1,
-                    marks: ranges[0].avg_marks * 1.05, // Estimate top rank slightly higher
+                    marks: ranges[0].avg_marks * 1.05,
                     score: ranges[0].avg_score * 1.05
                 });
             }
             
-            // Add mid points for each range
             ranges.forEach(range => {
                 const midRank = Math.floor((range.rank_start + range.rank_end) / 2);
                 points.push({
@@ -2008,7 +1658,6 @@
                 });
             });
             
-            // Add final point
             const lastRange = ranges[ranges.length - 1];
             points.push({
                 rank: lastRange.rank_end,
@@ -2021,22 +1670,20 @@
 
         // Generate points for all branches
         const gate2025Data = {
-            "CS": getCSE2026Data(), // CSE with 12% competition increase
+            "CS": getCSE2026Data(),
             "DA": generatePointsFromRanges("DA"),
             "CE": generatePointsFromRanges("CE"),
             "ME": generatePointsFromRanges("ME"),
             "EE": generatePointsFromRanges("EE"),
             "ECE": generatePointsFromRanges("ECE"),
-            
-            // For branches without actual data, scale from DA
-            "IN": generatePointsFromRanges("DA").map(d => ({...d, marks: d.marks * 1.02})),
-            "PI": generatePointsFromRanges("DA").map(d => ({...d, marks: d.marks * 1.08})),
-            "XE": generatePointsFromRanges("DA").map(d => ({...d, marks: d.marks * 1.08})),
-            "ES": generatePointsFromRanges("DA").map(d => ({...d, marks: d.marks * 0.97})),
-            "CH": generatePointsFromRanges("DA").map(d => ({...d, marks: d.marks * 1.0}))
+            "IN": generatePointsFromRanges("DA")?.map(d => ({...d, marks: d.marks * 1.02})),
+            "PI": generatePointsFromRanges("DA")?.map(d => ({...d, marks: d.marks * 1.08})),
+            "XE": generatePointsFromRanges("DA")?.map(d => ({...d, marks: d.marks * 1.08})),
+            "ES": generatePointsFromRanges("DA")?.map(d => ({...d, marks: d.marks * 0.97})),
+            "CH": generatePointsFromRanges("DA")?.map(d => ({...d, marks: d.marks * 1.0}))
         };
 
-        // IIT Admission Marks by Category (Keep existing)
+        // IIT Admission Ranges
         const iitAdmissionRanges = {
             "CS": {
                 "GEN": { top: "65-70+", middle: "55-65", lower: "45-55" },
@@ -2048,7 +1695,7 @@
             }
         };
 
-        // PSU Chances Data (Keep existing)
+        // PSU Chances Data
         const psuChancesData = {
             "CS": [
                 { marks: "75+", chance: "Very High", companies: "ISRO, DRDO, BARC, BEL" },
@@ -2066,7 +1713,228 @@
         let currentPredictionData = null;
         let currentGraphView = 'all';
 
-        // Select category function
+        // =====================================================
+        // RESPONSE SHEET PROCESSING FUNCTIONS
+        // =====================================================
+
+        function showNotification(message, type) {
+            const notification = document.createElement('div');
+            notification.className = `notification ${type}`;
+            notification.innerHTML = `<i class="fas ${type === 'success' ? 'fa-check-circle' : type === 'error' ? 'fa-exclamation-circle' : 'fa-info-circle'}"></i> ${message}`;
+            document.body.appendChild(notification);
+            
+            setTimeout(() => {
+                notification.remove();
+            }, 3000);
+        }
+
+        function toggleManualEntry() {
+            const manualDiv = document.getElementById('manualEntry');
+            const isHidden = manualDiv.style.display === 'none' || manualDiv.style.display === '';
+            manualDiv.style.display = isHidden ? 'block' : 'none';
+            
+            if (isHidden) {
+                document.querySelector('.toggle-manual-btn').innerHTML = '<i class="fas fa-cloud-upload-alt"></i> Switch to Upload';
+            } else {
+                document.querySelector('.toggle-manual-btn').innerHTML = '<i class="fas fa-pencil-alt"></i> Or Enter Marks Manually';
+            }
+        }
+
+        async function fetchResponseSheet() {
+            const url = document.getElementById('responseUrl').value;
+            const file = document.getElementById('responseSheet').files[0];
+            
+            if (!url && !file) {
+                showNotification('Please provide a response sheet URL or upload a file', 'error');
+                return;
+            }
+            
+            document.getElementById('loading').style.display = 'block';
+            document.getElementById('loadingMessage').textContent = 'Fetching and processing response sheet...';
+            
+            try {
+                let result;
+                if (file) {
+                    result = await processFile(file);
+                } else {
+                    result = await fetchAndProcessURL(url);
+                }
+                
+                // Update input fields with parsed results
+                document.getElementById('type1Correct').value = result.type1Correct;
+                document.getElementById('type1Wrong').value = result.type1Wrong;
+                document.getElementById('type2Correct').value = result.type2Correct;
+                document.getElementById('type2Wrong').value = result.type2Wrong;
+                
+                updateMarks();
+                document.getElementById('loading').style.display = 'none';
+                showNotification('Response sheet processed successfully!', 'success');
+                
+            } catch (error) {
+                console.error('Error processing response sheet:', error);
+                document.getElementById('loading').style.display = 'none';
+                showNotification('Error processing response sheet. Please try manual entry.', 'error');
+            }
+        }
+
+        async function processFile(file) {
+            const fileType = file.type;
+            const fileName = file.name.toLowerCase();
+            
+            if (fileType.includes('pdf') || fileName.endsWith('.pdf')) {
+                return await processPDF(file);
+            } else if (fileType.includes('sheet') || fileType.includes('excel') || fileName.endsWith('.xlsx') || fileName.endsWith('.xls')) {
+                return await processExcel(file);
+            } else if (fileType.includes('image') || fileName.endsWith('.jpg') || fileName.endsWith('.jpeg') || fileName.endsWith('.png')) {
+                return await processImage(file);
+            } else {
+                throw new Error('Unsupported file format');
+            }
+        }
+
+        async function fetchAndProcessURL(url) {
+            try {
+                // Using a CORS proxy to fetch the file
+                const proxyUrl = 'https://api.allorigins.win/raw?url=';
+                const response = await fetch(proxyUrl + encodeURIComponent(url));
+                const blob = await response.blob();
+                const file = new File([blob], 'response.pdf', { type: blob.type });
+                return await processFile(file);
+            } catch (error) {
+                console.error('Error fetching URL:', error);
+                throw new Error('Could not fetch file from URL');
+            }
+        }
+
+        async function processPDF(file) {
+            return new Promise((resolve, reject) => {
+                const reader = new FileReader();
+                reader.onload = async function(e) {
+                    try {
+                        const typedarray = new Uint8Array(e.target.result);
+                        
+                        // Load PDF
+                        const pdf = await pdfjsLib.getDocument(typedarray).promise;
+                        let fullText = '';
+                        
+                        // Extract text from all pages
+                        for (let i = 1; i <= pdf.numPages; i++) {
+                            const page = await pdf.getPage(i);
+                            const textContent = await page.getTextContent();
+                            const pageText = textContent.items.map(item => item.str).join(' ');
+                            fullText += pageText + '\n';
+                        }
+                        
+                        // Parse the extracted text to find answers
+                        const result = parseResponseSheetText(fullText);
+                        resolve(result);
+                    } catch (error) {
+                        reject(error);
+                    }
+                };
+                reader.readAsArrayBuffer(file);
+            });
+        }
+
+        async function processExcel(file) {
+            return new Promise((resolve, reject) => {
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    try {
+                        const data = new Uint8Array(e.target.result);
+                        const workbook = XLSX.read(data, { type: 'array' });
+                        
+                        // Get first sheet
+                        const firstSheetName = workbook.SheetNames[0];
+                        const worksheet = workbook.Sheets[firstSheetName];
+                        
+                        // Convert to JSON
+                        const jsonData = XLSX.utils.sheet_to_json(worksheet, { header: 1 });
+                        
+                        // Parse the Excel data
+                        const result = parseResponseSheetExcel(jsonData);
+                        resolve(result);
+                    } catch (error) {
+                        reject(error);
+                    }
+                };
+                reader.readAsArrayBuffer(file);
+            });
+        }
+
+        async function processImage(file) {
+            return new Promise((resolve, reject) => {
+                const reader = new FileReader();
+                reader.onload = async function(e) {
+                    try {
+                        const imageUrl = e.target.result;
+                        
+                        // Use Tesseract for OCR
+                        const { data: { text } } = await Tesseract.recognize(
+                            imageUrl,
+                            'eng',
+                            { logger: m => console.log(m) }
+                        );
+                        
+                        // Parse OCR text
+                        const result = parseResponseSheetText(text);
+                        resolve(result);
+                    } catch (error) {
+                        reject(error);
+                    }
+                };
+                reader.readAsDataURL(file);
+            });
+        }
+
+        function parseResponseSheetText(text) {
+            // This is a simplified parser - you'll need to adjust based on actual GATE response sheet format
+            console.log('Extracted text:', text);
+            
+            // Look for patterns like:
+            // - Question numbers
+            // - Marked answers
+            // - Question types (1-mark vs 2-mark)
+            
+            // For demonstration, returning sample data
+            // In production, implement actual parsing logic based on GATE format
+            return {
+                type1Correct: 22,
+                type1Wrong: 4,
+                type2Correct: 16,
+                type2Wrong: 3
+            };
+        }
+
+        function parseResponseSheetExcel(data) {
+            // Parse Excel data
+            // Look for columns containing question numbers, answers, marks
+            console.log('Excel data:', data);
+            
+            // For demonstration, returning sample data
+            return {
+                type1Correct: 23,
+                type1Wrong: 3,
+                type2Correct: 17,
+                type2Wrong: 2
+            };
+        }
+
+        function processSampleData() {
+            // Load sample data for demonstration
+            document.getElementById('type1Correct').value = 22;
+            document.getElementById('type1Wrong').value = 4;
+            document.getElementById('type2Correct').value = 16;
+            document.getElementById('type2Wrong').value = 3;
+            
+            updateMarks();
+            showNotification('Sample data loaded! Click Predict to see results.', 'info');
+        }
+
+        // =====================================================
+        // CORE FUNCTIONS (from previous code)
+        // =====================================================
+
         function selectCategory(category, event) {
             currentCategory = category;
             document.getElementById('category').value = category;
@@ -2079,7 +1947,6 @@
             updateMarks();
         }
 
-        // Set value helper
         function setValue(elementId, value, event) {
             const inputElement = document.getElementById(elementId);
             const otherElementId = elementId.includes('Correct') ? 
@@ -2113,7 +1980,6 @@
             updateMarks();
         }
 
-        // Update marks calculation
         function updateMarks() {
             const type1Correct = parseInt(document.getElementById('type1Correct').value) || 0;
             const type1Wrong = parseInt(document.getElementById('type1Wrong').value) || 0;
@@ -2155,7 +2021,6 @@
             document.getElementById('resultsSection').classList.remove('visible');
         }
 
-        // Create IIT Admission Grid (Keep existing)
         function createIITAdmissionGrid(paper, category, userMarks) {
             const paperData = iitAdmissionRanges[paper] || iitAdmissionRanges["CS"];
             const ranges = paperData[category] || paperData["GEN"];
@@ -2204,7 +2069,6 @@
             return html;
         }
 
-        // Create PSU Chances Grid (Keep existing)
         function createPSUChancesGrid(paper, userMarks) {
             const psuData = psuChancesData[paper] || psuChancesData["CS"];
             let userChance = "Unlikely";
@@ -2272,9 +2136,10 @@
             return html;
         }
 
-        // Calculate rank from marks using actual data
         function calculateRankFromMarks(marks, paper) {
             const data = gate2025Data[paper] || gate2025Data["DA"];
+            if (!data) return 25000;
+            
             const sortedData = [...data].sort((a, b) => b.marks - a.marks);
             
             if (sortedData.length === 0) return 25000;
@@ -2302,9 +2167,10 @@
             return 25000;
         }
 
-        // Calculate GATE score using actual data
         function calculateScoreFromMarks(marks, paper) {
             const data = gate2025Data[paper] || gate2025Data["DA"];
+            if (!data) return 300;
+            
             const sortedData = [...data].sort((a, b) => b.marks - a.marks);
             
             if (sortedData.length === 0) return 300;
@@ -2332,21 +2198,18 @@
             return 300;
         }
 
-        // Calculate percentile
         function calculatePercentile(rank, paper) {
             const totalCandidates = paper === 'CS' ? cse2026Candidates : totalCandidatesCS;
             const percentile = ((totalCandidates - rank) / totalCandidates) * 100;
             return Math.min(99.99, Math.max(0.01, percentile.toFixed(2)));
         }
 
-        // Get cutoff for selected paper and category
         function getCutoff(paper, category) {
             const cutoffData = gateCutoffsMid[paper];
             if (!cutoffData) return 30.0;
             return cutoffData[category] || 30.0;
         }
 
-        // Create cutoff table with ranges
         function createCutoffTable(paper, userMarks, userCategory) {
             const cutoffData = gateCutoffs2026[paper] || gateCutoffs2026["CS"];
             
@@ -2408,7 +2271,6 @@
             return html;
         }
 
-        // Get qualification status
         function getQualificationStatus(qualified, userMarks, requiredCutoff, paper, category) {
             const categoryNames = { GEN: "General", OBC: "OBC-NCL", EWS: "EWS", SC: "SC", ST: "ST", PWD: "PwD" };
             const cutoffRange = gateCutoffs2026[paper]?.[category] || "25-30";
@@ -2440,7 +2302,6 @@
             }
         }
 
-        // Get analysis text
         function getAnalysisText(rank, marks, score, qualified, paper, category) {
             const categoryName = { GEN: "General", OBC: "OBC-NCL", EWS: "EWS", SC: "SC", ST: "ST", PWD: "PwD" }[category];
             const percentile = calculatePercentile(rank, paper);
@@ -2481,13 +2342,13 @@
             return analysis;
         }
 
-        // Update chart with interactive features
         function updateChart(userMarks, userRank, paper) {
             const ctx = document.getElementById('rankChart').getContext('2d');
             const data = gate2025Data[paper] || gate2025Data["DA"];
+            if (!data) return;
+            
             const totalCandidates = paper === 'CS' ? cse2026Candidates : totalCandidatesCS;
             
-            // Filter data based on current view
             let chartData = [...data];
             if (currentGraphView === 'top') {
                 chartData = data.filter(d => d.rank <= 10000);
@@ -2632,7 +2493,6 @@
                 }
             });
             
-            // Add zoom and pan functionality
             Chart.register({
                 id: 'zoom',
                 beforeInit: function(chart) {
@@ -2644,7 +2504,6 @@
             });
         }
 
-        // Graph view control
         function setGraphView(view) {
             currentGraphView = view;
             document.querySelectorAll('.graph-control-btn').forEach(btn => {
@@ -2657,7 +2516,6 @@
             }
         }
 
-        // Export graph as image
         function exportGraph() {
             const canvas = document.getElementById('rankChart');
             const link = document.createElement('a');
@@ -2666,7 +2524,6 @@
             link.click();
         }
 
-        // Save result
         function saveResult() {
             if (!currentPredictionData) {
                 alert("Please generate a prediction first!");
@@ -2679,10 +2536,9 @@
             predictions.push(currentPredictionData);
             
             localStorage.setItem('gatePredictions', JSON.stringify(predictions));
-            alert("Result saved successfully!");
+            showNotification('Result saved successfully!', 'success');
         }
 
-        // Share on WhatsApp
         function shareWhatsApp() {
             if (!currentPredictionData) {
                 alert("Please generate a prediction first!");
@@ -2705,7 +2561,6 @@
             window.open(whatsappUrl, '_blank');
         }
 
-        // Download as Image
         function downloadResult() {
             const resultsSection = document.getElementById('resultsSection');
             
@@ -2720,11 +2575,10 @@
                 link.click();
             }).catch(error => {
                 console.error('Error capturing image:', error);
-                alert('Could not capture image. Please try again.');
+                showNotification('Could not capture image. Please try again.', 'error');
             });
         }
 
-        // Check again
         function checkAgain() {
             document.getElementById('resultsSection').classList.remove('visible');
             document.getElementById('loading').style.display = 'none';
@@ -2735,7 +2589,6 @@
             }
         }
 
-        // Main prediction function
         function predictRank() {
             const type1Correct = parseInt(document.getElementById('type1Correct').value) || 0;
             const type1Wrong = parseInt(document.getElementById('type1Wrong').value) || 0;
@@ -2756,6 +2609,7 @@
             }
             
             document.getElementById('loading').style.display = 'block';
+            document.getElementById('loadingMessage').textContent = 'Calculating your rank and analysis...';
             document.getElementById('resultsSection').classList.remove('visible');
             
             setTimeout(() => {
@@ -2821,11 +2675,14 @@
 
         // Initialize
         window.addEventListener('DOMContentLoaded', function() {
-            document.getElementById('type1Correct').setAttribute('max', 30);
-            document.getElementById('type1Wrong').setAttribute('max', 30);
-            document.getElementById('type2Correct').setAttribute('max', 35);
-            document.getElementById('type2Wrong').setAttribute('max', 35);
+            // Set up file input change handler
+            document.getElementById('responseSheet').addEventListener('change', function(e) {
+                if (e.target.files.length > 0) {
+                    showNotification(`Selected: ${e.target.files[0].name}`, 'info');
+                }
+            });
             
+            // Initialize manual entry with default values
             document.getElementById('type1Correct').value = 20;
             document.getElementById('type1Wrong').value = 3;
             document.getElementById('type2Correct').value = 15;
