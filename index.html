@@ -14,7 +14,7 @@
 
   gtag('config', 'G-5B7D2R8VD0');
 </script>
-    <title>GATE Rank Predictor 2026 | Actual CSE Data + 2026 Competition</title>
+    <title>GATE Rank Predictor 2026 | Predict Your Rank, Score & IIT/PSU Chances Instantly</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <script src="https://html2canvas.hertzen.com/dist/html2canvas.min.js"></script>
@@ -103,11 +103,12 @@
         }
 
         .subtitle {
-            font-size: 1.1rem;
+            font-size: 1.2rem;
             opacity: 0.95;
             color: #ecf0f1;
             text-shadow: 1px 1px 2px rgba(0,0,0,0.2);
             -webkit-font-smoothing: antialiased;
+            margin-top: 5px;
         }
 
         /* Main Content */
@@ -1007,17 +1008,23 @@
 
         .note-box {
             background: #fff8e1;
-            padding: 15px;
-            border-radius: 8px;
+            padding: 20px;
+            border-radius: 12px;
             margin-top: 20px;
-            font-size: 0.9rem;
-            border-left: 4px solid var(--warning);
-            box-shadow: 0 5px 10px rgba(0,0,0,0.05);
+            font-size: 0.95rem;
+            border-left: 5px solid var(--warning);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+            line-height: 1.6;
         }
 
         .note-box p {
             color: #555;
             -webkit-font-smoothing: antialiased;
+        }
+
+        .note-box i {
+            color: var(--warning);
+            margin-right: 8px;
         }
 
         /* Mobile Responsive */
@@ -1082,7 +1089,7 @@
                 <i class="fas fa-graduation-cap"></i>
                 <div>
                     <h1>GATE RANK <span>PREDICTOR</span> 2026</h1>
-                    <p class="subtitle">Actual CSE Data + 2026 Competition (10-15% Increase)</p>
+                    <p class="subtitle">Predict Your Rank, Score & IIT/PSU Chances Instantly</p>
                 </div>
             </div>
         </header>
@@ -1092,19 +1099,19 @@
             <!-- Input Section -->
             <div class="input-section">
                 <div class="section-toggle">
-                    <h2><i class="fas fa-edit"></i> Enter Your GATE Details</h2>
+                    <h2><i class="fas fa-edit"></i> SELECT YOUR PAPER</h2>
                 </div>
                 
                 <div class="input-fields" id="inputFields">
                     <div class="input-group">
                         <label><i class="fas fa-file-alt"></i> Select Your Paper</label>
                         <select id="paper">
-                            <option value="CS" selected>Computer Science (CS) - Actual Data + 2026 Competition</option>
-                            <option value="CE">Civil Engineering (CE) - Actual Data</option>
-                            <option value="ME">Mechanical Engineering (ME) - Actual Data</option>
-                            <option value="EE">Electrical Engineering (EE) - Actual Data</option>
-                            <option value="ECE">Electronics & Communication (ECE) - Actual Data</option>
-                            <option value="DA">Data Science & AI (DA) - Actual Data</option>
+                            <option value="CS" selected>Computer Science (CS)</option>
+                            <option value="CE">Civil Engineering (CE)</option>
+                            <option value="ME">Mechanical Engineering (ME)</option>
+                            <option value="EE">Electrical Engineering (EE)</option>
+                            <option value="ECE">Electronics & Communication (ECE)</option>
+                            <option value="DA">Data Science & AI (DA)</option>
                             <option value="IN">Instrumentation Engineering (IN)</option>
                             <option value="PI">Production & Industrial Engg (PI)</option>
                             <option value="XE">Engineering Sciences (XE)</option>
@@ -1182,7 +1189,7 @@
                     </div>
 
                     <div class="note-box">
-                        <p><i class="fas fa-info-circle"></i> <strong>Note:</strong> CSE branch uses actual GATE 2025 data with 12% competition increase for 2026. Other branches use actual data. Cutoffs: GEN 29-31, OBC 26-28, SC/ST 19-21. Total candidates: 170,825 +12% = ~191,324 for CSE.</p>
+                        <p><i class="fas fa-info-circle"></i> This is your estimated marks, expected score, and predicted rank based on available data and analysis. The actual GATE result may vary according to the official evaluation and calculation by the exam authorities.</p>
                     </div>
                 </div>
             </div>
@@ -1197,14 +1204,14 @@
             <!-- Loading Animation -->
             <div class="loading" id="loading">
                 <i class="fas fa-spinner"></i>
-                <p>Analyzing using actual CSE data with 2026 competition...</p>
+                <p>Analyzing your marks...</p>
             </div>
 
             <!-- Results Section -->
             <div class="results-section" id="resultsSection">
                 <div class="results-header">
                     <h2><i class="fas fa-chart-line"></i> Your GATE 2026 Prediction Results</h2>
-                    <p>Based on actual GATE 2025 data +12% competition for CSE</p>
+                    <p>Based on available data and analysis</p>
                 </div>
 
                 <!-- Share Buttons -->
@@ -1306,7 +1313,7 @@
                 <!-- Interactive Graph Section -->
                 <div class="graph-section">
                     <div class="graph-header">
-                        <h3><i class="fas fa-chart-line"></i> Actual CSE Data +12% Competition: Rank vs Marks</h3>
+                        <h3><i class="fas fa-chart-line"></i> Rank vs Marks Curve</h3>
                         <p>Hover over points to see exact values • Click and drag to zoom • Double-click to reset</p>
                     </div>
                     <div class="graph-container">
@@ -1317,9 +1324,6 @@
                         <button class="graph-control-btn" onclick="setGraphView('top')">Top 10,000</button>
                         <button class="graph-control-btn" onclick="setGraphView('yourRegion')">Your Region</button>
                         <button class="graph-control-btn" onclick="exportGraph()">Export Graph</button>
-                    </div>
-                    <div style="margin-top: 15px; text-align: center; color: #666; font-size: 0.9rem;">
-                        <i class="fas fa-database"></i> CSE: Actual 2025 data +12% competition | Other branches: Actual 2025 data
                     </div>
                 </div>
 
@@ -1336,7 +1340,7 @@
         <footer>
             <div class="footer-content">
                 <h3>GATE Rank Predictor 2026</h3>
-                <p>CSE: Actual 2025 data +12% competition | Other branches: Actual 2025 data</p>
+                <p>Predict Your Rank, Score & IIT/PSU Chances Instantly</p>
                 <div class="copyright">
                     <i class="fas fa-copyright"></i> 2026 GATE Rank Predictor
                     <div class="developer-badge">
@@ -2474,12 +2478,6 @@
             analysis += `📈 Percentile: ${percentile}%<br>`;
             analysis += `⭐ GATE Score: ${score}<br>`;
             
-            if (paper === 'CS') {
-                analysis += `<span style="color: var(--warning); font-size: 0.9rem;"><i class="fas fa-exclamation-triangle"></i> CSE 2026: 12% increased competition applied</span>`;
-            } else {
-                analysis += `<span style="color: var(--success); font-size: 0.9rem;"><i class="fas fa-database"></i> Based on actual GATE 2025 data</span>`;
-            }
-            
             return analysis;
         }
 
@@ -2507,7 +2505,7 @@
                 type: 'scatter',
                 data: {
                     datasets: [{
-                        label: paper === 'CS' ? `CSE 2026 Data (+12% competition)` : `GATE 2025 Actual Data (${paper})`,
+                        label: `Rank vs Marks Curve (${paper})`,
                         data: chartData.map(d => ({x: d.rank, y: d.marks})),
                         backgroundColor: 'rgba(52, 152, 219, 0.6)',
                         borderColor: 'rgba(52, 152, 219, 1)',
@@ -2692,9 +2690,8 @@
             }
             
             const { paper, category, marks, rank, score, percentile, qualified } = currentPredictionData;
-            const dataSource = paper === 'CS' ? 'CSE 2026 data (+12% competition)' : 'Actual GATE 2025 data';
             
-            const message = `📊 *My GATE 2026 Prediction Results (${dataSource})*%0A%0A` +
+            const message = `📊 *My GATE 2026 Prediction Results*%0A%0A` +
                 `📝 Paper: ${paper} (${category})%0A` +
                 `📊 Marks: ${marks.toFixed(2)}/100%0A` +
                 `🏆 Expected Rank: ${rank.toLocaleString()}%0A` +
