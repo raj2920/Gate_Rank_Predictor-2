@@ -14,7 +14,7 @@
 
   gtag('config', 'G-5B7D2R8VD0');
 </script>
-    <title>GATE Rank Predictor 2026 | Actual GATE Data Based</title>
+    <title>GATE Rank Predictor 2026 | Actual CSE Data + 2026 Competition</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <script src="https://html2canvas.hertzen.com/dist/html2canvas.min.js"></script>
@@ -1082,7 +1082,7 @@
                 <i class="fas fa-graduation-cap"></i>
                 <div>
                     <h1>GATE RANK <span>PREDICTOR</span> 2026</h1>
-                    <p class="subtitle">Powered by Actual GATE 2025 Data - Accurate Predictions</p>
+                    <p class="subtitle">Actual CSE Data + 2026 Competition (10-15% Increase)</p>
                 </div>
             </div>
         </header>
@@ -1099,7 +1099,7 @@
                     <div class="input-group">
                         <label><i class="fas fa-file-alt"></i> Select Your Paper</label>
                         <select id="paper">
-                            <option value="CS">Computer Science (CS) - Actual Data</option>
+                            <option value="CS" selected>Computer Science (CS) - Actual Data + 2026 Competition</option>
                             <option value="CE">Civil Engineering (CE) - Actual Data</option>
                             <option value="ME">Mechanical Engineering (ME) - Actual Data</option>
                             <option value="EE">Electrical Engineering (EE) - Actual Data</option>
@@ -1182,7 +1182,7 @@
                     </div>
 
                     <div class="note-box">
-                        <p><i class="fas fa-info-circle"></i> <strong>Note:</strong> Predictions based on actual GATE 2025 data for CS, CE, ME, EE, ECE, DA branches. Other branches use scaled estimates. Cutoffs: GEN 29-31, OBC 26-28, SC/ST 19-21. GATE 2025 total candidates: 170,825.</p>
+                        <p><i class="fas fa-info-circle"></i> <strong>Note:</strong> CSE branch uses actual GATE 2025 data with 12% competition increase for 2026. Other branches use actual data. Cutoffs: GEN 29-31, OBC 26-28, SC/ST 19-21. Total candidates: 170,825 +12% = ~191,324 for CSE.</p>
                     </div>
                 </div>
             </div>
@@ -1197,14 +1197,14 @@
             <!-- Loading Animation -->
             <div class="loading" id="loading">
                 <i class="fas fa-spinner"></i>
-                <p>Analyzing using actual GATE 2025 data...</p>
+                <p>Analyzing using actual CSE data with 2026 competition...</p>
             </div>
 
             <!-- Results Section -->
             <div class="results-section" id="resultsSection">
                 <div class="results-header">
                     <h2><i class="fas fa-chart-line"></i> Your GATE 2026 Prediction Results</h2>
-                    <p>Based on actual GATE 2025 data with 2026 expected cutoffs</p>
+                    <p>Based on actual GATE 2025 data +12% competition for CSE</p>
                 </div>
 
                 <!-- Share Buttons -->
@@ -1306,7 +1306,7 @@
                 <!-- Interactive Graph Section -->
                 <div class="graph-section">
                     <div class="graph-header">
-                        <h3><i class="fas fa-chart-line"></i> Actual GATE 2025 Data: Rank vs Marks</h3>
+                        <h3><i class="fas fa-chart-line"></i> Actual CSE Data +12% Competition: Rank vs Marks</h3>
                         <p>Hover over points to see exact values • Click and drag to zoom • Double-click to reset</p>
                     </div>
                     <div class="graph-container">
@@ -1319,7 +1319,7 @@
                         <button class="graph-control-btn" onclick="exportGraph()">Export Graph</button>
                     </div>
                     <div style="margin-top: 15px; text-align: center; color: #666; font-size: 0.9rem;">
-                        <i class="fas fa-database"></i> Using actual GATE 2025 data for accurate predictions
+                        <i class="fas fa-database"></i> CSE: Actual 2025 data +12% competition | Other branches: Actual 2025 data
                     </div>
                 </div>
 
@@ -1336,7 +1336,7 @@
         <footer>
             <div class="footer-content">
                 <h3>GATE Rank Predictor 2026</h3>
-                <p>Powered by actual GATE 2025 data for accurate predictions</p>
+                <p>CSE: Actual 2025 data +12% competition | Other branches: Actual 2025 data</p>
                 <div class="copyright">
                     <i class="fas fa-copyright"></i> 2026 GATE Rank Predictor
                     <div class="developer-badge">
@@ -1350,7 +1350,73 @@
 
     <script>
         // =====================================================
-        // ACTUAL GATE DATA FROM CSV FILES
+        // ACTUAL CSE DATA FROM IMAGES (1.jpeg, 2.jpeg, 3.jpeg)
+        // =====================================================
+        
+        // Actual CSE 2025 data points from images
+        const cseActualData = [
+            // From 1.jpeg
+            { rank: 1, marks: 100.00, score: 1000 },
+            { rank: 4, marks: 91.64, score: 985 },
+            { rank: 8, marks: 90.75, score: 976 },
+            { rank: 12, marks: 89.04, score: 959 },
+            { rank: 14, marks: 88.71, score: 956 },
+            { rank: 32, marks: 86.11, score: 929 },
+            { rank: 38, marks: 85.43, score: 922 },
+            { rank: 58, marks: 83.84, score: 906 },
+            { rank: 65, marks: 83.51, score: 903 },
+            { rank: 130, marks: 79.29, score: 860 },
+            { rank: 215, marks: 76.69, score: 833 },
+            { rank: 306, marks: 73.57, score: 820 },
+            
+            // From 2.jpeg
+            { rank: 308, marks: 74.38, score: 810 },
+            { rank: 336, marks: 73.57, score: 802 },
+            { rank: 351, marks: 73.16, score: 797 },
+            { rank: 365, marks: 73.11, score: 797 },
+            { rank: 416, marks: 71.93, score: 785 },
+            { rank: 532, marks: 70.20, score: 767 },
+            { rank: 609, marks: 69.21, score: 757 },
+            { rank: 622, marks: 69.07, score: 756 },
+            { rank: 724, marks: 67.91, score: 744 },
+            { rank: 1121, marks: 64.66, score: 711 },
+            { rank: 1171, marks: 64.34, score: 708 },
+            { rank: 1414, marks: 62.52, score: 689 },
+            
+            // From 3.jpeg
+            { rank: 1445, marks: 62.39, score: 688 },
+            { rank: 1605, marks: 58.47, score: 649 },
+            { rank: 2434, marks: 56.87, score: 632 },
+            { rank: 2498, marks: 56.54, score: 628 },
+            { rank: 3466, marks: 52.70, score: 589 },
+            { rank: 4135, marks: 50.65, score: 568 },
+            { rank: 5620, marks: 46.79, score: 529 },
+            { rank: 6600, marks: 44.52, score: 506 },
+            { rank: 9288, marks: 40.02, score: 460 },
+            { rank: 11184, marks: 37.69, score: 436 },
+            { rank: 11318, marks: 37.56, score: 435 },
+            { rank: 11517, marks: 37.37, score: 433 },
+            { rank: 12652, marks: 36.07, score: 420 },
+            { rank: 14720, marks: 34.12, score: 400 },
+            { rank: 18757, marks: 31.01, score: 368 },
+            { rank: 19661, marks: 30.54, score: 364 },
+            { rank: 23003, marks: 28.56, score: 343 }
+        ];
+
+        // Apply 12% competition increase for CSE 2026
+        // This means for the same marks, rank will be worse by ~12%
+        function getCSE2026Data() {
+            const competitionFactor = 1.12; // 12% increase in competition
+            
+            return cseActualData.map(point => ({
+                rank: Math.round(point.rank * competitionFactor),
+                marks: point.marks,
+                score: point.score
+            }));
+        }
+
+        // =====================================================
+        // OTHER BRANCHES DATA FROM CSV FILES (Unchanged)
         // =====================================================
         
         const gateData = {
@@ -1908,6 +1974,7 @@
         };
 
         const totalCandidatesCS = 170825;
+        const cse2026Candidates = Math.round(totalCandidatesCS * 1.12); // 12% increase
 
         // =====================================================
         // Helper function to convert range data to point data for interpolation
@@ -1948,9 +2015,9 @@
             return points.sort((a, b) => a.rank - b.rank);
         }
 
-        // Generate points for all branches with actual data
+        // Generate points for all branches
         const gate2025Data = {
-            "CS": generatePointsFromRanges("DA"), // Using DA data for CS (since CS data not provided, use DA as it's closest)
+            "CS": getCSE2026Data(), // CSE with 12% competition increase
             "DA": generatePointsFromRanges("DA"),
             "CE": generatePointsFromRanges("CE"),
             "ME": generatePointsFromRanges("ME"),
@@ -2263,7 +2330,7 @@
 
         // Calculate percentile
         function calculatePercentile(rank, paper) {
-            const totalCandidates = totalCandidatesCS;
+            const totalCandidates = paper === 'CS' ? cse2026Candidates : totalCandidatesCS;
             const percentile = ((totalCandidates - rank) / totalCandidates) * 100;
             return Math.min(99.99, Math.max(0.01, percentile.toFixed(2)));
         }
@@ -2373,6 +2440,7 @@
         function getAnalysisText(rank, marks, score, qualified, paper, category) {
             const categoryName = { GEN: "General", OBC: "OBC-NCL", EWS: "EWS", SC: "SC", ST: "ST", PWD: "PwD" }[category];
             const percentile = calculatePercentile(rank, paper);
+            const totalCandidates = paper === 'CS' ? cse2026Candidates : totalCandidatesCS;
             
             let analysis = '';
             
@@ -2384,15 +2452,15 @@
             
             if (qualified) {
                 if (rank <= 1000) {
-                    analysis += `<span class="excellent">Excellent! Rank ${rank.toLocaleString()} (top 0.6%) - Excellent chances for top IITs.</span>`;
+                    analysis += `<span class="excellent">Excellent! Rank ${rank.toLocaleString()} (top 0.5%) - Excellent chances for top IITs.</span>`;
                 } else if (rank <= 5000) {
-                    analysis += `<span class="good">Great! Rank ${rank.toLocaleString()} (top 3%) - Very good chances for IITs/NITs.</span>`;
+                    analysis += `<span class="good">Great! Rank ${rank.toLocaleString()} (top 2.6%) - Very good chances for IITs/NITs.</span>`;
                 } else if (rank <= 10000) {
-                    analysis += `<span class="good">Good! Rank ${rank.toLocaleString()} (top 6%) - Good chances for NITs/IIITs.</span>`;
-                } else if (rank <= 18571) {
-                    analysis += `<span class="average">Decent! Rank ${rank.toLocaleString()} (top 11%) - Consider state colleges/universities.</span>`;
-                } else if (rank <= 25000) {
-                    analysis += `<span class="average">Qualified! Rank ${rank.toLocaleString()} (top 15%) - Look for good state colleges.</span>`;
+                    analysis += `<span class="good">Good! Rank ${rank.toLocaleString()} (top 5.2%) - Good chances for NITs/IIITs.</span>`;
+                } else if (rank <= 20000) {
+                    analysis += `<span class="average">Decent! Rank ${rank.toLocaleString()} (top 10.5%) - Consider state colleges/universities.</span>`;
+                } else if (rank <= 30000) {
+                    analysis += `<span class="average">Qualified! Rank ${rank.toLocaleString()} (top 15.7%) - Look for good state colleges.</span>`;
                 } else {
                     analysis += `<span class="average">Qualified! Consider applying to various universities.</span>`;
                 }
@@ -2402,10 +2470,15 @@
             
             analysis += `<br><br><strong>Your Statistics:</strong><br>`;
             analysis += `📊 Marks: ${marks.toFixed(2)}/100<br>`;
-            analysis += `🏆 Rank: ${rank.toLocaleString()} out of ${totalCandidatesCS.toLocaleString()}<br>`;
+            analysis += `🏆 Rank: ${rank.toLocaleString()} out of ${totalCandidates.toLocaleString()}<br>`;
             analysis += `📈 Percentile: ${percentile}%<br>`;
             analysis += `⭐ GATE Score: ${score}<br>`;
-            analysis += `<span style="color: var(--success); font-size: 0.9rem;"><i class="fas fa-database"></i> Based on actual GATE 2025 data</span>`;
+            
+            if (paper === 'CS') {
+                analysis += `<span style="color: var(--warning); font-size: 0.9rem;"><i class="fas fa-exclamation-triangle"></i> CSE 2026: 12% increased competition applied</span>`;
+            } else {
+                analysis += `<span style="color: var(--success); font-size: 0.9rem;"><i class="fas fa-database"></i> Based on actual GATE 2025 data</span>`;
+            }
             
             return analysis;
         }
@@ -2414,6 +2487,7 @@
         function updateChart(userMarks, userRank, paper) {
             const ctx = document.getElementById('rankChart').getContext('2d');
             const data = gate2025Data[paper] || gate2025Data["DA"];
+            const totalCandidates = paper === 'CS' ? cse2026Candidates : totalCandidatesCS;
             
             // Filter data based on current view
             let chartData = [...data];
@@ -2421,7 +2495,7 @@
                 chartData = data.filter(d => d.rank <= 10000);
             } else if (currentGraphView === 'yourRegion') {
                 const minRank = Math.max(1, userRank - 5000);
-                const maxRank = Math.min(totalCandidatesCS, userRank + 5000);
+                const maxRank = Math.min(totalCandidates, userRank + 5000);
                 chartData = data.filter(d => d.rank >= minRank && d.rank <= maxRank);
             }
             
@@ -2433,7 +2507,7 @@
                 type: 'scatter',
                 data: {
                     datasets: [{
-                        label: `GATE 2025 Actual Data (${paper})`,
+                        label: paper === 'CS' ? `CSE 2026 Data (+12% competition)` : `GATE 2025 Actual Data (${paper})`,
                         data: chartData.map(d => ({x: d.rank, y: d.marks})),
                         backgroundColor: 'rgba(52, 152, 219, 0.6)',
                         borderColor: 'rgba(52, 152, 219, 1)',
@@ -2618,8 +2692,9 @@
             }
             
             const { paper, category, marks, rank, score, percentile, qualified } = currentPredictionData;
+            const dataSource = paper === 'CS' ? 'CSE 2026 data (+12% competition)' : 'Actual GATE 2025 data';
             
-            const message = `📊 *My GATE 2026 Prediction Results (Based on Actual Data)*%0A%0A` +
+            const message = `📊 *My GATE 2026 Prediction Results (${dataSource})*%0A%0A` +
                 `📝 Paper: ${paper} (${category})%0A` +
                 `📊 Marks: ${marks.toFixed(2)}/100%0A` +
                 `🏆 Expected Rank: ${rank.toLocaleString()}%0A` +
@@ -2627,7 +2702,7 @@
                 `📈 Percentile: ${percentile}%%0A` +
                 `✅ Qualification: ${qualified ? "PASSED ✓" : "NOT QUALIFIED ✗"}%0A%0A` +
                 `🔗 Check your prediction at: ${window.location.href}%0A%0A` +
-                `#GATE2026 #GATEPrediction #ActualData`;
+                `#GATE2026 #GATEPrediction #${paper}`;
             
             const whatsappUrl = `https://wa.me/?text=${message}`;
             window.open(whatsappUrl, '_blank');
