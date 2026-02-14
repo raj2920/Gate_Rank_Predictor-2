@@ -1024,15 +1024,8 @@
                         <input type="hidden" id="category" value="GEN">
                     </div>
 
-                    <!-- Demo Buttons -->
-                    <div style="margin-top: 20px; display: flex; gap: 10px; justify-content: center; flex-wrap: wrap;">
-                        <button onclick="setBittuScore()" style="background: linear-gradient(135deg, #9b59b6, #8e44ad); color: white; border: none; padding: 12px 25px; border-radius: 50px; font-size: 1rem; font-weight: 600; cursor: pointer; display: inline-flex; align-items: center; gap: 10px;">
-                            <i class="fas fa-user-graduate"></i> BITTU KUMAR (31.19 marks, Rank 18571)
-                        </button>
-                        <button onclick="setSampleScore()" style="background: linear-gradient(135deg, #e67e22, #d35400); color: white; border: none; padding: 12px 25px; border-radius: 50px; font-size: 1rem; font-weight: 600; cursor: pointer; display: inline-flex; align-items: center; gap: 10px;">
-                            <i class="fas fa-chart-line"></i> Sample (47.67 marks, Rank 5281)
-                        </button>
-                    </div>
+                    <!-- Demo Buttons - REMOVED as per Screenshot (94).png -->
+                    <!-- No demo buttons shown -->
 
                     <div class="note-box" style="background: #fff8e1; padding: 15px; border-radius: 8px; margin-top: 20px; font-size: 0.9rem;">
                         <p><i class="fas fa-info-circle"></i> <strong>Note:</strong> Cutoffs updated based on 2022-2025 trends. For CS: GEN 29-31, OBC 26-28, SC/ST 19-21. GATE 2025 total candidates: 170,825.</p>
@@ -1238,40 +1231,69 @@
         // Total candidates for CS (from your data)
         const totalCandidatesCS = 170825;
 
-        // Generate accurate rank-marks mapping based on your data points
+        // =====================================================
+        // UPDATED: Accurate rank-marks mapping based on ACTUAL GATE DATA from images
+        // =====================================================
         function generateRankMarksData() {
-            // Key data points:
-            // 1. 31.19 marks = 18571 rank (BITTU KUMAR)
-            // 2. 47.67 marks = 5281 rank (from screenshot)
-            // 3. Top rank: 100 marks = rank 1
-            // 4. Cutoff: ~30 marks = ~20000 rank
-            
+            // EXACT DATA POINTS FROM YOUR IMAGES (1.jpeg, 2.jpeg, 3.jpeg)
             return [
-                { rank: 1, marks: 100.0, score: 1000 },
-                { rank: 50, marks: 85.0, score: 980 },
-                { rank: 100, marks: 80.0, score: 960 },
-                { rank: 500, marks: 70.0, score: 920 },
-                { rank: 1000, marks: 65.0, score: 890 },
-                { rank: 2000, marks: 60.0, score: 850 },
-                { rank: 3000, marks: 55.0, score: 800 },
-                { rank: 4000, marks: 52.0, score: 750 },
-                { rank: 5281, marks: 47.67, score: 700 }, // Sample data point
-                { rank: 6000, marks: 46.0, score: 680 },
-                { rank: 8000, marks: 42.0, score: 620 },
-                { rank: 10000, marks: 39.0, score: 570 },
-                { rank: 12000, marks: 36.0, score: 520 },
-                { rank: 15000, marks: 33.5, score: 460 },
-                { rank: 18571, marks: 31.19, score: 370 }, // Your exact data
-                { rank: 20000, marks: 30.0, score: 350 },
-                { rank: 25000, marks: 27.0, score: 300 },
-                { rank: 30000, marks: 24.5, score: 260 },
-                { rank: 40000, marks: 21.0, score: 210 },
-                { rank: 50000, marks: 18.5, score: 170 },
-                { rank: 75000, marks: 14.0, score: 110 },
-                { rank: 100000, marks: 10.5, score: 70 },
-                { rank: 125000, marks: 7.5, score: 45 },
-                { rank: 150000, marks: 5.0, score: 30 },
-                { rank: 170825, marks: 2.0, score: 10 }
+                // From 1.jpeg
+                { rank: 1, marks: 100.00, score: 1000 },
+                { rank: 4, marks: 91.64, score: 985 },
+                { rank: 8, marks: 90.75, score: 976 },
+                { rank: 12, marks: 89.04, score: 959 },
+                { rank: 14, marks: 88.71, score: 956 },
+                { rank: 32, marks: 86.11, score: 929 },
+                { rank: 38, marks: 85.43, score: 922 },
+                { rank: 58, marks: 83.84, score: 906 },
+                { rank: 65, marks: 83.51, score: 903 },
+                { rank: 130, marks: 79.29, score: 860 },
+                { rank: 215, marks: 76.69, score: 833 },
+                { rank: 306, marks: 73.57, score: 820 },
+                
+                // From 2.jpeg
+                { rank: 308, marks: 74.38, score: 810 },
+                { rank: 336, marks: 73.57, score: 802 },
+                { rank: 351, marks: 73.16, score: 797 },
+                { rank: 365, marks: 73.11, score: 797 },
+                { rank: 416, marks: 71.93, score: 785 },
+                { rank: 532, marks: 70.20, score: 767 },
+                { rank: 609, marks: 69.21, score: 757 },
+                { rank: 622, marks: 69.07, score: 756 },
+                { rank: 724, marks: 67.91, score: 744 },
+                { rank: 1121, marks: 64.66, score: 711 },
+                { rank: 1171, marks: 64.34, score: 708 },
+                { rank: 1414, marks: 62.52, score: 689 },
+                
+                // From 3.jpeg
+                { rank: 1445, marks: 62.39, score: 688 },
+                { rank: 1605, marks: 58.47, score: 649 },
+                { rank: 2434, marks: 56.87, score: 632 },
+                { rank: 2498, marks: 56.54, score: 628 },
+                { rank: 3466, marks: 52.70, score: 589 },
+                { rank: 4135, marks: 50.65, score: 568 },
+                { rank: 5620, marks: 46.79, score: 529 },
+                { rank: 6600, marks: 44.52, score: 506 },
+                { rank: 9288, marks: 40.02, score: 460 },
+                { rank: 11184, marks: 37.69, score: 436 },
+                { rank: 11318, marks: 37.56, score: 435 },
+                { rank: 11517, marks: 37.37, score: 433 },
+                { rank: 12652, marks: 36.07, score: 420 },
+                { rank: 14720, marks: 34.12, score: 400 },
+                { rank: 18757, marks: 31.01, score: 368 },
+                { rank: 19661, marks: 30.54, score: 364 },
+                { rank: 23003, marks: 28.56, score: 343 },
+                
+                // Extended data for lower ranks
+                { rank: 25000, marks: 27.00, score: 330 },
+                { rank: 30000, marks: 24.50, score: 300 },
+                { rank: 40000, marks: 21.00, score: 260 },
+                { rank: 50000, marks: 18.50, score: 220 },
+                { rank: 75000, marks: 14.00, score: 160 },
+                { rank: 100000, marks: 10.50, score: 110 },
+                { rank: 125000, marks: 7.50, score: 70 },
+                { rank: 150000, marks: 5.00, score: 40 },
+                { rank: 170825, marks: 3.00, score: 20 }
             ];
         }
 
@@ -1319,49 +1341,8 @@
         let currentPredictionData = null;
         let currentGraphView = 'all';
 
-        // Set BITTU KUMAR's actual score
-        function setBittuScore() {
-            // 31.19 marks - approximate breakdown
-            document.getElementById('type1Correct').value = 20;
-            document.getElementById('type1Wrong').value = 3;  // 20 - 0.99 = 19.01
-            document.getElementById('type2Correct').value = 6; // 12 marks
-            document.getElementById('type2Wrong').value = 1;  // 12 - 0.67 = 11.33
-            // Total: 19.01 + 11.33 = 30.34 (close to 31.19)
-            
-            currentCategory = 'GEN';
-            document.getElementById('category').value = 'GEN';
-            document.querySelectorAll('.category-btn').forEach(btn => {
-                btn.classList.remove('active');
-                if (btn.textContent.includes('General')) {
-                    btn.classList.add('active');
-                }
-            });
-            
-            updateMarks();
-            setTimeout(() => predictRank(), 100);
-        }
-
-        // Set sample score (47.67 marks, rank 5281)
-        function setSampleScore() {
-            // 47.67 marks - approximate breakdown
-            document.getElementById('type1Correct').value = 25;
-            document.getElementById('type1Wrong').value = 2;  // 25 - 0.66 = 24.34
-            document.getElementById('type2Correct').value = 12; // 24 marks
-            document.getElementById('type2Wrong').value = 1;   // 24 - 0.67 = 23.33
-            // Total: 24.34 + 23.33 = 47.67
-            
-            currentCategory = 'GEN';
-            document.getElementById('category').value = 'GEN';
-            document.querySelectorAll('.category-btn').forEach(btn => {
-                btn.classList.remove('active');
-                if (btn.textContent.includes('General')) {
-                    btn.classList.add('active');
-                }
-            });
-            
-            updateMarks();
-            setTimeout(() => predictRank(), 100);
-        }
+        // REMOVED: setBittuScore() function
+        // REMOVED: setSampleScore() function
 
         // Select category function
         function selectCategory(category, event) {
