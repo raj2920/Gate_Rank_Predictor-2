@@ -2,7 +2,18 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
+    <meta name="google-site-verification" content="iLnn73OYPE8oGpGt16HX4ooi_DyK4Q52wTCGQ96SDfc" />
+    <meta name="description" content="Accurate GATE 2026 Rank Predictor based on previous year official data. Check expected rank, score vs marks, and cutoff analysis for all branches instantly.">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-5B7D2R8VD0"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-5B7D2R8VD0');
+</script>
     <title>GATE Rank Predictor 2026 | Accurate Rank Prediction</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
@@ -1192,11 +1203,11 @@
                 { rank: 200, score: 840, marks: 70.00 },
                 { rank: 300, score: 800, marks: 68.00 },
                 { rank: 500, score: 750, marks: 65.00 },
-                { rank: 1000, score: 700, marks: 62.00 },
-                { rank: 1500, score: 650, marks: 58.00 },
-                { rank: 1800, score: 600, marks: 53.00 },
-                { rank: 2000, score: 550, marks: 48.00 },
-                { rank: 4500, score: 500, marks: 43.00 }
+                { rank: 800, score: 700, marks: 62.00 },
+                { rank: 1000, score: 650, marks: 58.00 },
+                { rank: 1300, score: 600, marks: 53.00 },
+                { rank: 1700, score: 550, marks: 48.00 },
+                { rank: 3500, score: 500, marks: 43.00 }
             ],
             "ME": [
                 { rank: 1, score: 1000, marks: 95.00 },
@@ -1204,12 +1215,12 @@
                 { rank: 15, score: 930, marks: 90.00 },
                 { rank: 50, score: 880, marks: 87.00 },
                 { rank: 130, score: 830, marks: 84.00 },
-                { rank: 285, score: 780, marks: 78.00 },
-                { rank: 1165, score: 730, marks: 72.00 },
-                { rank: 2000, score: 680, marks: 66.00 },
-                { rank: 3000, score: 630, marks: 60.00 },
-                { rank: 3500, score: 580, marks: 54.00 },
-                { rank: 5000, score: 530, marks: 48.00 }
+                { rank: 250, score: 780, marks: 78.00 },
+                { rank: 350, score: 730, marks: 72.00 },
+                { rank: 800, score: 680, marks: 66.00 },
+                { rank: 1000, score: 630, marks: 60.00 },
+                { rank: 1200, score: 580, marks: 54.00 },
+                { rank: 1500, score: 530, marks: 48.00 }
             ],
             "EE": [
                 { rank: 1, score: 1000, marks: 81.67 },
@@ -1217,11 +1228,13 @@
                 { rank: 50, score: 940, marks: 77.00 },
                 { rank: 100, score: 890, marks: 74.00 },
                 { rank: 150, score: 850, marks: 72.00 },
-                { rank: 300, score: 800, marks: 69.00 },
+                { rank: 250, score: 800, marks: 69.00 },
                 { rank: 500, score: 700, marks: 62.00 },
-                { rank: 1000, score: 650, marks: 58.00 },
-                { rank: 1500, score: 600, marks: 53.00 },
-                { rank: 2000, score: 550, marks: 48.00 }
+                { rank: 700, score: 650, marks: 58.00 },
+                { rank: 900, score: 600, marks: 53.00 },
+                { rank: 1200, score: 550, marks: 48.00 },
+                { rank: 2500, score: 500, marks: 40.00 },
+                { rank: 4500, score: 440, marks: 35.00 }
             ],
             "CE": [
                 { rank: 1, score: 1000, marks: 80.00 },
@@ -1444,9 +1457,9 @@
             const ranges = paperData[category] || paperData["GEN"];
             
             const iitTypes = [
-                { name: "Top IITs", desc: "IIT Bombay/Delhi/Madras", marks: ranges.top },
-                { name: "Mid IITs", desc: "IIT Kanpur/Kharagpur/Roorkee", marks: ranges.middle },
-                { name: "New IITs", desc: "IIT Hyderabad/Guwahati", marks: ranges.lower }
+                { name: "Top IITs", desc: "IIT IISC/Bombay/Delhi/Madras", marks: ranges.top },
+                { name: "Mid IITs", desc: "IIT Kanpur/Kharagpur/Roorkee/Guwahati/Hyderabad", marks: ranges.middle },
+                { name: "New IITs", desc: "IIT Indore/Patna/Mandi/Jodhpur/Gandhinagar", marks: ranges.lower }
             ];
             
             let html = '<div class="iit-grid">';
