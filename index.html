@@ -1106,17 +1106,17 @@
                     <div class="input-group">
                         <label><i class="fas fa-file-alt"></i> Select Your Paper</label>
                         <select id="paper">
-                            <option value="CS" selected>Computer Science (CS)</option>
-                            <option value="CE">Civil Engineering (CE)</option>
-                            <option value="ME">Mechanical Engineering (ME)</option>
-                            <option value="EE">Electrical Engineering (EE)</option>
-                            <option value="ECE">Electronics & Communication (ECE)</option>
-                            <option value="DA">Data Science & AI (DA)</option>
-                            <option value="IN">Instrumentation Engineering (IN)</option>
-                            <option value="PI">Production & Industrial Engg (PI)</option>
-                            <option value="XE">Engineering Sciences (XE)</option>
-                            <option value="ES">Environmental Science (ES)</option>
-                            <option value="CH">Chemical Engineering (CH)</option>
+                            <option value="CS" selected>Computer Science (CS) - 191,395 Students (2026)</option>
+                            <option value="CE">Civil Engineering (CE) - 89,544 Students</option>
+                            <option value="ME">Mechanical Engineering (ME) - 69,490 Students</option>
+                            <option value="EE">Electrical Engineering (EE) - 91,246 Students</option>
+                            <option value="ECE">Electronics & Communication (ECE) - 67,200 Students</option>
+                            <option value="DA">Data Science & AI (DA) - 31,360 Students</option>
+                            <option value="IN">Instrumentation Engineering (IN) - 39,200 Students</option>
+                            <option value="PI">Production & Industrial Engg (PI) - 28,000 Students</option>
+                            <option value="XE">Engineering Sciences (XE) - 22,400 Students</option>
+                            <option value="ES">Environmental Science (ES) - 20,160 Students</option>
+                            <option value="CH">Chemical Engineering (CH) - 33,600 Students</option>
                         </select>
                     </div>
 
@@ -1354,50 +1354,97 @@
 
     <script>
         // =====================================================
+        // ACTUAL CSE 2025 DATA FROM YOUR IMAGES
+        // =====================================================
+        
+        const cse2025Data = [
+            // From 1.jpeg
+            { rank: 1, marks: 100.00, score: 1000 },
+            { rank: 4, marks: 91.64, score: 985 },
+            { rank: 8, marks: 90.75, score: 976 },
+            { rank: 12, marks: 89.04, score: 959 },
+            { rank: 14, marks: 88.71, score: 956 },
+            { rank: 32, marks: 86.11, score: 929 },
+            { rank: 38, marks: 85.43, score: 922 },
+            { rank: 58, marks: 83.84, score: 906 },
+            { rank: 65, marks: 83.51, score: 903 },
+            { rank: 130, marks: 79.29, score: 860 },
+            { rank: 215, marks: 76.69, score: 833 },
+            { rank: 306, marks: 73.57, score: 820 },
+            
+            // From 2.jpeg
+            { rank: 308, marks: 74.38, score: 810 },
+            { rank: 336, marks: 73.57, score: 802 },
+            { rank: 351, marks: 73.16, score: 797 },
+            { rank: 365, marks: 73.11, score: 797 },
+            { rank: 416, marks: 71.93, score: 785 },
+            { rank: 532, marks: 70.20, score: 767 },
+            { rank: 609, marks: 69.21, score: 757 },
+            { rank: 622, marks: 69.07, score: 756 },
+            { rank: 724, marks: 67.91, score: 744 },
+            { rank: 1121, marks: 64.66, score: 711 },
+            { rank: 1171, marks: 64.34, score: 708 },
+            { rank: 1414, marks: 62.52, score: 689 },
+            
+            // From 3.jpeg
+            { rank: 1445, marks: 62.39, score: 688 },
+            { rank: 1605, marks: 58.47, score: 649 },
+            { rank: 2434, marks: 56.87, score: 632 },
+            { rank: 2498, marks: 56.54, score: 628 },
+            { rank: 3466, marks: 52.70, score: 589 },
+            { rank: 4135, marks: 50.65, score: 568 },
+            { rank: 5620, marks: 46.79, score: 529 },
+            { rank: 6600, marks: 44.52, score: 506 },
+            { rank: 9288, marks: 40.02, score: 460 },
+            { rank: 11184, marks: 37.69, score: 436 },
+            { rank: 11318, marks: 37.56, score: 435 },
+            { rank: 11517, marks: 37.37, score: 433 },
+            { rank: 12652, marks: 36.07, score: 420 },
+            { rank: 14720, marks: 34.12, score: 400 },
+            { rank: 18757, marks: 31.01, score: 368 },
+            { rank: 19661, marks: 30.54, score: 364 },
+            { rank: 23003, marks: 28.56, score: 343 }
+        ];
+
+        // =====================================================
         // TOTAL STUDENTS DATA FOR EACH BRANCH
         // =====================================================
         
         const totalStudents = {
-            "CS": 191395,  // 170888 * 1.12
-            "CE": 89544,   // 79950 * 1.12
-            "EE": 91246,   // 81470 * 1.12
-            "ECE": 67200,  // 60000 * 1.12
-            "ME": 69490,   // 62045 * 1.12
-            "DA": 31360,   // 28000 * 1.12
-            "IN": 39200,   // 35000 * 1.12
-            "PI": 28000,   // 25000 * 1.12
-            "XE": 22400,   // 20000 * 1.12
-            "ES": 20160,   // 18000 * 1.12
-            "CH": 33600    // 30000 * 1.12
+            "CS": 191395,  // 170888 * 1.12 (12% increase for CSE only)
+            "CE": 79950,   // No increase
+            "EE": 81470,   // No increase
+            "ECE": 60000,  // No increase
+            "ME": 62045,   // No increase
+            "DA": 28000,   // No increase
+            "IN": 35000,   // No increase
+            "PI": 25000,   // No increase
+            "XE": 20000,   // No increase
+            "ES": 18000,   // No increase
+            "CH": 30000    // No increase
         };
 
         // =====================================================
-        // BRANCH-SPECIFIC RANK DATA (Rank vs Marks)
+        // CSE 2026 DATA (12% competition increase)
+        // =====================================================
+        
+        // For CSE 2026, same marks will give worse rank by 12%
+        function getCSE2026Data() {
+            return cse2025Data.map(point => ({
+                rank: Math.round(point.rank * 1.12), // 12% increase in rank
+                marks: point.marks,
+                score: point.score
+            }));
+        }
+
+        // =====================================================
+        // OTHER BRANCHES DATA (No increase, using actual data)
         // =====================================================
         
         const branchRankData = {
-            "CS": [
-                { rank: 1, marks: 100.00 },
-                { rank: 10, marks: 92.50 },
-                { rank: 50, marks: 87.30 },
-                { rank: 100, marks: 83.20 },
-                { rank: 200, marks: 78.90 },
-                { rank: 300, marks: 75.60 },
-                { rank: 500, marks: 70.50 },
-                { rank: 1000, marks: 61.70 },
-                { rank: 2000, marks: 53.20 },
-                { rank: 3000, marks: 48.10 },
-                { rank: 5000, marks: 42.30 },
-                { rank: 10000, marks: 33.50 },
-                { rank: 15000, marks: 28.80 },
-                { rank: 20000, marks: 25.30 },
-                { rank: 30000, marks: 20.60 },
-                { rank: 50000, marks: 14.20 },
-                { rank: 75000, marks: 9.50 },
-                { rank: 100000, marks: 5.80 },
-                { rank: 150000, marks: 2.10 },
-                { rank: 191395, marks: 0.10 }
-            ],
+            "CS": getCSE2026Data(),  // CSE with 12% competition increase
+            
+            // CE Data (based on typical GATE patterns)
             "CE": [
                 { rank: 1, marks: 85.50 },
                 { rank: 10, marks: 79.30 },
@@ -1415,8 +1462,10 @@
                 { rank: 30000, marks: 6.90 },
                 { rank: 50000, marks: 2.70 },
                 { rank: 70000, marks: 1.00 },
-                { rank: 89544, marks: 0.10 }
+                { rank: 79950, marks: 0.10 }
             ],
+            
+            // ME Data
             "ME": [
                 { rank: 1, marks: 84.90 },
                 { rank: 10, marks: 78.80 },
@@ -1433,8 +1482,10 @@
                 { rank: 20000, marks: 8.80 },
                 { rank: 30000, marks: 5.40 },
                 { rank: 50000, marks: 1.20 },
-                { rank: 69490, marks: 0.10 }
+                { rank: 62045, marks: 0.10 }
             ],
+            
+            // EE Data
             "EE": [
                 { rank: 1, marks: 87.20 },
                 { rank: 10, marks: 81.10 },
@@ -1452,8 +1503,10 @@
                 { rank: 30000, marks: 7.60 },
                 { rank: 50000, marks: 3.40 },
                 { rank: 70000, marks: 1.30 },
-                { rank: 91246, marks: 0.10 }
+                { rank: 81470, marks: 0.10 }
             ],
+            
+            // ECE Data
             "ECE": [
                 { rank: 1, marks: 86.80 },
                 { rank: 10, marks: 80.70 },
@@ -1470,8 +1523,10 @@
                 { rank: 20000, marks: 10.70 },
                 { rank: 30000, marks: 7.30 },
                 { rank: 50000, marks: 3.10 },
-                { rank: 67200, marks: 0.10 }
+                { rank: 60000, marks: 0.10 }
             ],
+            
+            // DA Data
             "DA": [
                 { rank: 1, marks: 88.50 },
                 { rank: 10, marks: 82.40 },
@@ -1487,7 +1542,7 @@
                 { rank: 15000, marks: 14.80 },
                 { rank: 20000, marks: 11.70 },
                 { rank: 25000, marks: 8.80 },
-                { rank: 31360, marks: 0.10 }
+                { rank: 28000, marks: 0.10 }
             ]
         };
 
@@ -1649,21 +1704,26 @@
             document.getElementById('resultsSection').classList.remove('visible');
         }
 
-        // Calculate rank from marks
+        // Calculate rank from marks using interpolation
         function calculateRankFromMarks(marks, paper) {
             const data = branchRankData[paper] || branchRankData["CS"];
+            const totalCandidates = totalStudents[paper] || totalStudents["CS"];
+            
+            // Sort data by marks descending
+            const sortedData = [...data].sort((a, b) => b.marks - a.marks);
             
             // Handle edge cases
-            if (marks <= 0) return totalStudents[paper];
-            if (marks >= data[0].marks) return 1;
+            if (marks <= 0) return totalCandidates;
+            if (marks >= sortedData[0].marks) return 1;
             
-            // Find the correct range
-            for (let i = 0; i < data.length - 1; i++) {
-                if (marks <= data[i].marks && marks > data[i + 1].marks) {
-                    const higher = data[i];
-                    const lower = data[i + 1];
+            // Find where marks falls in the data
+            for (let i = 0; i < sortedData.length - 1; i++) {
+                if (marks <= sortedData[i].marks && marks > sortedData[i + 1].marks) {
+                    const higher = sortedData[i];
+                    const lower = sortedData[i + 1];
                     
-                    // Linear interpolation
+                    // Linear interpolation formula:
+                    // rank = higher.rank + ( (higher.marks - marks) / (higher.marks - lower.marks) ) * (lower.rank - higher.rank)
                     const marksDiff = higher.marks - lower.marks;
                     const rankDiff = lower.rank - higher.rank;
                     const fraction = (higher.marks - marks) / marksDiff;
@@ -1672,27 +1732,25 @@
                 }
             }
             
-            return totalStudents[paper];
+            // If marks is below all data points, return last rank
+            return totalCandidates;
         }
 
         // Calculate GATE score
         function calculateScoreFromMarks(marks, paper) {
             if (marks <= 0) return 0;
-            if (marks >= 90) return 1000;
-            if (marks >= 80) return 900 + (marks - 80) * 10;
-            if (marks >= 70) return 800 + (marks - 70) * 10;
-            if (marks >= 60) return 700 + (marks - 60) * 10;
-            if (marks >= 50) return 600 + (marks - 50) * 10;
-            if (marks >= 40) return 500 + (marks - 40) * 10;
-            if (marks >= 30) return 400 + (marks - 30) * 10;
-            if (marks >= 20) return 300 + (marks - 20) * 10;
-            if (marks >= 10) return 200 + (marks - 10) * 10;
-            return marks * 10;
+            if (marks >= 100) return 1000;
+            
+            // Linear score calculation
+            return Math.round((marks / 100) * 1000);
         }
 
         // Calculate percentile
         function calculatePercentile(rank, paper) {
             const totalCandidates = totalStudents[paper] || totalStudents["CS"];
+            if (rank <= 0) return 99.99;
+            if (rank >= totalCandidates) return 0.01;
+            
             const percentile = ((totalCandidates - rank) / totalCandidates) * 100;
             return Math.min(99.99, Math.max(0.01, percentile.toFixed(2)));
         }
